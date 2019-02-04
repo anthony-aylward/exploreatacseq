@@ -1,12 +1,13 @@
 Package: exploreatacseq
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Exploratory Analysis of ATAC-seq data
+Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Anthony",
+           family = "Aylward",
            role = c("aut", "cre"),
-           email = "first.last@example.com")
-Description: What the package does (one paragraph).
-License: What license it uses
+           email = "aaylward@eng.ucsd.edu")
+Description: Helper functions for exploratory analysis of multiple ATAC-seq
+datasets, which might represent multiple cell types or treatment conditions.
+License: MIT
 Encoding: UTF-8
 LazyData: true
