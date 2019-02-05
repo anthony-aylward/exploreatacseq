@@ -8,6 +8,7 @@
 #' @import GenomicRanges
 #' @import jsonlite
 #' @import IRanges
+#' @import S4Vectors
 
 
 
