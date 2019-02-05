@@ -122,3 +122,14 @@ filter_peaks <- function(peaks) {
     & (seqnames(peaks) %in% paste("chr", as.character(1:22), sep = ""))
   ]
 }
+
+#' @title Median Peak Length
+#'
+#' @description get the median peak length
+#'
+#' @param peaks Granges object representing peaks
+#' @return integer, the median peak length
+#' @export
+median_peak_length <- function(peaks) {
+  median(width(peaks))
+}

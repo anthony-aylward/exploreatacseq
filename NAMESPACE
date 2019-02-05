@@ -3,6 +3,7 @@
 export(consensus_peaks)
 export(consensus_peaks_from_json)
 export(filter_peaks)
+export(median_peak_length)
 export(peaks_by_sample)
 export(read_peaks)
 export(unify_granges)
