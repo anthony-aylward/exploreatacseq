@@ -2,10 +2,12 @@
 
 export(consensus_peaks)
 export(consensus_peaks_from_json)
+export(filter_peaks)
 export(peaks_by_sample)
 export(read_peaks)
 export(unify_granges)
 export(unify_peaks)
+import(BiocGenerics)
 import(GenomicRanges)
 import(IRanges)
 import(S4Vectors)

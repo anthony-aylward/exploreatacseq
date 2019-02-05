@@ -5,9 +5,10 @@
 
 # Imports ======================================================================
 
+#' @import BiocGenerics
 #' @import GenomicRanges
-#' @import jsonlite
 #' @import IRanges
+#' @import jsonlite
 #' @import S4Vectors
 
 
@@ -71,6 +72,21 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
   lapply(peaks_paths_by_sample, unify_peaks)
 }
 
+#' @title Filter peaks
+#'
+#' @description filter out peaks that are greater than 3kb in length or are
+#'   non-autosomal
+#'
+#' @param peaks GRanges object representing peaks
+#' @return GRanges, the filtered peaks
+#' @export
+filter_peaks <- function(peaks) {
+  peaks[
+    (width(peaks) <= 3000) 
+    & (seqnames(peaks) %in% paste("chr", as.character(1:22), sep = ""))
+  ]
+}
+
 #' @title Consensus peaks
 #'
 #' @descriptions generate a set of consensus peaks from per-sample peaks
@@ -82,16 +98,18 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
 #' @return GRanges, the consensus peak set
 #' @export
 consensus_peaks <- function(peaks) {
-  unify_granges(
-    lapply(
-      combn(peaks, 2, simplify = FALSE),
-      function(pair) {
-        union(
-          subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
-          subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
-          ignore.strand = TRUE
-        )
-      }
+  filter_peaks(
+    unify_granges(
+      lapply(
+        combn(peaks, 2, simplify = FALSE),
+        function(pair) {
+          union(
+            subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
+            subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
+            ignore.strand = TRUE
+          )
+        }
+      )
     )
   )
 }
