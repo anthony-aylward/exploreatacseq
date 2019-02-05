@@ -10,3 +10,4 @@ Description: Exploratory analysis of multiple ATAC-seq datasets, which might rep
 License: MIT
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1
