@@ -72,21 +72,6 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
   lapply(peaks_paths_by_sample, unify_peaks)
 }
 
-#' @title Filter peaks
-#'
-#' @description filter out peaks that are greater than 3kb in length or are
-#'   non-autosomal
-#'
-#' @param peaks GRanges object representing peaks
-#' @return GRanges, the filtered peaks
-#' @export
-filter_peaks <- function(peaks) {
-  peaks[
-    (width(peaks) <= 3000) 
-    & (seqnames(peaks) %in% paste("chr", as.character(1:22), sep = ""))
-  ]
-}
-
 #' @title Consensus peaks
 #'
 #' @descriptions generate a set of consensus peaks from per-sample peaks
@@ -98,18 +83,16 @@ filter_peaks <- function(peaks) {
 #' @return GRanges, the consensus peak set
 #' @export
 consensus_peaks <- function(peaks) {
-  filter_peaks(
-    unify_granges(
-      lapply(
-        combn(peaks, 2, simplify = FALSE),
-        function(pair) {
-          union(
-            subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
-            subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
-            ignore.strand = TRUE
-          )
-        }
-      )
+  unify_granges(
+    lapply(
+      combn(peaks, 2, simplify = FALSE),
+      function(pair) {
+        union(
+          subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
+          subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
+          ignore.strand = TRUE
+        )
+      }
     )
   )
 }
@@ -124,4 +107,19 @@ consensus_peaks <- function(peaks) {
 #' @export
 consensus_peaks_from_json <- function(json_file_path) {
   consensus_peaks(peaks_by_sample(fromJSON(json_file_path)))
+}
+
+#' @title Filter peaks
+#'
+#' @description filter out peaks that are greater than 3kb in length or are
+#'   non-autosomal
+#'
+#' @param peaks GRanges object representing peaks
+#' @return GRanges, the filtered peaks
+#' @export
+filter_peaks <- function(peaks) {
+  peaks[
+    (width(peaks) <= 3000)
+    & (seqnames(peaks) %in% paste("chr", as.character(1:22), sep = ""))
+  ]
 }
