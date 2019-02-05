@@ -5,8 +5,9 @@
 
 # Imports ======================================================================
 
-#' @import jsonlite
 #' @import GenomicRanges
+#' @import jsonlite
+#' @import IRanges
 
 
 
@@ -24,7 +25,7 @@ read_peaks <- function(peaks_file_path) {
   peaks_df <- read.table(peaks_file_path, stringsAsFactors = FALSE)
   GRanges(
     seqnames = Rle(peaks_df[[1]]),
-    ranges = IRanges(start = peaks_df[[2]], end = peaks_df[[3]]),
+    ranges = IRanges(start = peaks_df[[2]], end = peaks_df[[3]])
   )
 }
 
