@@ -8,7 +8,9 @@
 #' @import edgeR
 #' @import GenomicAlignments
 #' @import Rsamtools
-#' @import SummarizedExperiment
+
+#' @import BiocGenerics
+#' @import GenomicRanges
 
 
 

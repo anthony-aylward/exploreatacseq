@@ -4,7 +4,7 @@
 \alias{edger_counts}
 \title{edgeR counts}
 \usage{
-edger_counts(peaks, reads_file_paths)
+edger_counts(peaks, reads_file_paths, group, cores = NULL)
 }
 \arguments{
 \item{peaks}{Granges object representing consensus peaks}
