@@ -40,18 +40,15 @@ extract_group_vector <- function(reads_file_paths) {
 #'   files
 #' @return DGEList object for use with edgeR
 #' @export
-edger_counts <- function(peaks, reads_file_paths) {
+edger_counts <- function(peaks, reads_file_paths, group) {
   summarized_experiments <- summarizeOverlaps(
     peaks,
-    BamFileList(unlist(reads_file_paths)),
+    BamFileList(reads_file_paths),
     mode = "IntersectionNotEmpty",
     ignore.strand = TRUE,
     BPPARAM = MulticoreParam(
-      workers = min(length(reads_file_paths), multicoreWorkers())
+      workers = min(reads_file_paths, multicoreWorkers())
     )
   )
-  DGEList(
-    assays(summarized_experiments)[["counts"]],
-    group = extract_group_vector(reads_file_paths)
-  )
+  DGEList(assays(summarized_experiments)[["counts"]], group = group)
 }
