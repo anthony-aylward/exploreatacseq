@@ -73,7 +73,7 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
 
 #' @title Consensus peaks
 #'
-#' @descriptions generate a set of consensus peaks from per-sample peaks
+#' @description generate a set of consensus peaks from per-sample peaks
 #'
 #' @details The consensus set is the union of all peaks identified in any
 #'   sample that overlap a peak in another sample.

@@ -3,6 +3,7 @@
 export(consensus_peaks)
 export(consensus_peaks_from_json)
 export(edger_counts)
+export(extract_group_vector)
 export(filter_peaks)
 export(median_peak_length)
 export(peaks_by_sample)

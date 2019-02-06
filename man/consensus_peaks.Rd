@@ -13,7 +13,7 @@ consensus_peaks(peaks)
 GRanges, the consensus peak set
 }
 \description{
-Consensus peaks
+generate a set of consensus peaks from per-sample peaks
 }
 \details{
 The consensus set is the union of all peaks identified in any

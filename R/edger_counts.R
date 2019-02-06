@@ -14,6 +14,23 @@
 
 # Functions ====================================================================
 
+#' @title extract group vector
+#'
+#' @description extract a group vector (for DGEList) from the read file paths
+#'   data
+#'
+#' @param reads_file_paths list containing the reads file paths for each group
+#' @return a group vector for DGEList
+#' @export
+extract_group_vector <- function(reads_file_paths) {
+  unlist(
+    lapply(
+      names(reads_file_paths),
+      function(x) rep(x, length(reads_file_paths[[x]]))
+    )
+  )
+}
+
 #' @title edgeR counts
 #'
 #' @description read counts for input into edgeR
@@ -26,7 +43,7 @@
 edger_counts <- function(peaks, reads_file_paths) {
   summarized_experiments <- summarizeOverlaps(
     peaks,
-    BamFileList(as.character(reads_file_paths)),
+    BamFileList(unlist(reads_file_paths)),
     mode = "IntersectionNotEmpty",
     ignore.strand = TRUE,
     BPPARAM = MulticoreParam(
@@ -35,6 +52,6 @@ edger_counts <- function(peaks, reads_file_paths) {
   )
   DGEList(
     assays(summarized_experiments)[["counts"]],
-    group = names(reads_file_paths)
+    group = extract_group_vector(reads_file_paths)
   )
 }
