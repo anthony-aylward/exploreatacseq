@@ -9,9 +9,6 @@
 #' @import GenomicAlignments
 #' @import Rsamtools
 
-#' @import BiocGenerics
-#' @import GenomicRanges
-
 
 
 
@@ -53,12 +50,13 @@ edger_counts <- function(peaks, reads_file_paths, group, cores = NULL) {
       workers = min(length(reads_file_paths), multicoreWorkers(), cores)
     )
   }
-  summarized_experiments <- summarizeOverlaps(
+  summarized_experiment <- summarizeOverlaps(
     peaks,
     BamFileList(reads_file_paths),
     mode = "IntersectionNotEmpty",
     ignore.strand = TRUE,
     BPPARAM = BPPARAM
   )
-  DGEList(assays(summarized_experiments)[["counts"]], group = group)
+  # DGEList(assays(summarized_experiment)[["counts"]], group = group)
+  summarized_experiment
 }
