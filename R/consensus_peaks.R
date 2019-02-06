@@ -68,7 +68,7 @@ unify_peaks <- function(peaks_file_paths) {
 #' @return list of GRanges objects representing the peaks for each sample
 #' @export
 peaks_by_sample <- function(peaks_paths_by_sample) {
-  lapply(lapply(unlist, peaks_paths_by_sample), unify_peaks)
+  lapply(peaks_paths_by_sample, unify_peaks)
 }
 
 #' @title Consensus peaks
