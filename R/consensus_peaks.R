@@ -7,7 +7,6 @@
 #' @import BiocGenerics
 #' @import GenomicRanges
 #' @import IRanges
-#' @import jsonlite
 #' @import S4Vectors
 
 
@@ -94,18 +93,6 @@ consensus_peaks <- function(peaks) {
       }
     )
   )
-}
-
-#' @title Consensus peaks from a JSON file
-#'
-#' @description As `consensus_peaks` but takes as input the path to a JSON file
-#'   containing paths to peaks files instead of a list containing peaks
-#'
-#' @param json_file_path character, the path to a JSON file
-#' @return GRanges, the consensus peak set
-#' @export
-consensus_peaks_from_json <- function(json_file_path) {
-  consensus_peaks(peaks_by_sample(fromJSON(json_file_path)))
 }
 
 #' @title Filter peaks
