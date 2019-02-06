@@ -8,6 +8,7 @@
 #' @import edgeR
 #' @import GenomicAlignments
 #' @import Rsamtools
+#' @import SummarizedExperiment
 
 
 
@@ -58,7 +59,7 @@ edger_counts <- function(peaks, reads_file_paths, group, cores = NULL) {
     BPPARAM = BPPARAM
   )
   DGEList(
-    SummarizedExperiment::assays(summarized_experiment)[["counts"]],
+    assays(summarized_experiment)[["counts"]],
     group = group
   )
 }
