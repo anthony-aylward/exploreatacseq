@@ -57,6 +57,8 @@ edger_counts <- function(peaks, reads_file_paths, group, cores = NULL) {
     ignore.strand = TRUE,
     BPPARAM = BPPARAM
   )
-  # DGEList(assays(summarized_experiment)[["counts"]], group = group)
-  summarized_experiment
+  DGEList(
+    SummarizedExperiment::assays(summarized_experiment)[["counts"]],
+    group = group
+  )
 }
