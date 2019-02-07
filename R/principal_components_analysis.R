@@ -48,6 +48,7 @@ plot_pca <- function(pca) {
   coord_by_treat <- coordinates_by_treatment(pca)
   n_treatments <- length(coord_by_treat)
   palette <- brewer.pal(min(3, n_treatments), "Set1")
+  plot(pca, col = "white")
   for (i in n_treatments) {
     points(coord_by_treat[[i]], col = palette[[i]], pch = 19)
   }
