@@ -63,7 +63,7 @@ transform_counts <- function(
   count_dgelist,
   batch = NULL,
   covariates = NULL,
-  design = matrix(1,ncol(count_dgelist),1)
+  design = matrix(1, ncol(count_dgelist), 1)
 ) {
   count_elist <- voom(count_dgelist)
   removeBatchEffect(
