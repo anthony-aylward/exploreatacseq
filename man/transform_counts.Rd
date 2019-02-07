@@ -4,10 +4,18 @@
 \alias{transform_counts}
 \title{apply transformations to read counts}
 \usage{
-transform_counts(count_dgelist)
+transform_counts(count_dgelist, batch = NULL, covariates = NULL,
+  design = matrix(1, ncol(count_dgelist), 1))
 }
 \arguments{
 \item{count_dgelist}{DGEList representing read counts}
+
+\item{batch}{factor or vector indicating batches}
+
+\item{covariates}{matrix or vector of numeric covariates to be adjusted for}
+
+\item{design}{optional design matrix relating to treatment conditions to
+be preserved}
 }
 \value{
 numeric matrix representing transformed counts

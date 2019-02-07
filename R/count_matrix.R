@@ -53,15 +53,24 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = NULL) {
 #' @description apply voom and remove batch effects
 #'
 #' @param count_dgelist DGEList representing read counts
+#' @param batch factor or vector indicating batches
+#' @param covariates matrix or vector of numeric covariates to be adjusted for
+#' @param design optional design matrix relating to treatment conditions to
+#'   be preserved
 #' @return numeric matrix representing transformed counts
 #' @export
-transform_counts <- function(count_dgelist) {
+transform_counts <- function(
+  count_dgelist,
+  batch = NULL,
+  covariates = NULL,
+  design = matrix(1,ncol(count_dgelist),1)
+) {
   count_elist <- voom(count_dgelist)
   removeBatchEffect(
     count_elist[["E"]],
-    batch = x[["batch"]],
-    covariates = x[["tss_enrichment"]],
-    design = count_elist[["design"]]
+    batch = batch,
+    covariates = covariates,
+    design = design
   )
 }
 
