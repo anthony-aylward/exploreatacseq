@@ -56,7 +56,7 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = NULL) {
 #' @return numeric matrix representing transformed counts
 #' @export
 transform_counts <- function(count_dgelist) {
-  count_elist <- voom(counts_dgelist)
+  count_elist <- voom(count_dgelist)
   removeBatchEffect(
     count_elist[["E"]],
     batch = x[["batch"]],
