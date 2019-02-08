@@ -4,10 +4,12 @@
 \alias{plot_pca}
 \title{plot principal components}
 \usage{
-plot_pca(pca)
+plot_pca(pca, draw_lines = list())
 }
 \arguments{
 \item{pca}{two-column matrix of principal component coordinates}
+
+\item{draw_lines}{list of treatment groups to draw lines through}
 }
 \description{
 generate a PCA plot

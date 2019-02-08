@@ -42,11 +42,30 @@ coordinates_by_treatment <- function(pca) {
 #' @description generate a PCA plot
 #'
 #' @param pca two-column matrix of principal component coordinates
+#' @param draw_lines list of treatment groups to draw lines through
 #' @export
-plot_pca <- function(pca) {
+plot_pca <- function(pca, draw_lines = list()) {
   coord_by_treat <- coordinates_by_treatment(pca)
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
+
+  for (group in draw_ines) {
+    for (index in 1:length(group) - 1) {
+      start_treatment = group[index]
+      end_treatment = group[index + 1]
+      start_samples = strsplit(
+        rownames(coord_by_treat[[start_treatment]]),
+        split = ".",
+        fixed = TRUE
+      )
+      end_samples = strsplit(
+        rownames(coord_by_treat[[start_treatment]]),
+        split = ".",
+        fixed = TRUE
+      )
+    }
+  }
+
   for (i in 1:length(coord_by_treat)) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19)
