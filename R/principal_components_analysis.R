@@ -44,12 +44,12 @@ coordinates_by_treatment <- function(pca) {
 #' @param pca two-column matrix of principal component coordinates
 #' @export
 plot_pca <- function(pca) {
-  plot(pca[[1]], pca[[2]])
   coord_by_treat <- coordinates_by_treatment(pca)
   n_treatments <- length(coord_by_treat)
   palette_size <- max(3, n_treatments)
   palette <- brewer.pal(palette_size, "Set1")[c(2, 1, 3:palette_size)]
-  for (i in n_treatments) {
+  plot(pca, col = "white")
+  for (i in 1:n_treatments) {
     points(coord_by_treat[[i]], col = palette[[i]], pch = 19)
   }
 }
