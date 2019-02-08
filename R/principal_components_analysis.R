@@ -75,11 +75,13 @@ plot_pca <- function(pca, draw_lines = list()) {
           c(
             coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 1],
             coord_by_treat[[end_treatment]][paste(sample, end_treatment, sep = "."), 1]
-          )
+          ),
           c(
             coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 2],
             coord_by_treat[[end_treatment]][paste(sample, end_treatment, sep = "."), 2]
-          )
+          ),
+          lwd = 2,
+          col = "lightgray"
         )
       }
     }
