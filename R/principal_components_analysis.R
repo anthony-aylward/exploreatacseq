@@ -75,6 +75,7 @@ plot_pca <- function(pca, draw_lines = list()) {
   }
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
+  par(mfcol=c(1, 2))
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
