@@ -24,22 +24,15 @@
 #'   files
 #' @return DGEList object representing read counts
 #' @export
-count_dgelist <- function(peaks, reads_file_paths, group, cores = NULL) {
-  if (is.null(cores)) {
-    BPPARAM <- MulticoreParam(
-      workers = min(length(reads_file_paths), multicoreWorkers())
-    )
-  } else {
-    BPPARAM <- MulticoreParam(
-      workers = min(length(reads_file_paths), multicoreWorkers(), cores)
-    )
-  }
+count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
   summarized_experiment <- summarizeOverlaps(
     peaks,
     BamFileList(reads_file_paths),
     mode = "IntersectionNotEmpty",
     ignore.strand = TRUE,
-    BPPARAM = BPPARAM
+    BPPARAM = MulticoreParam(
+      workers = min(length(reads_file_paths), multicoreWorkers(), cores)
+    )
   )
   calcNormFactors(
     DGEList(

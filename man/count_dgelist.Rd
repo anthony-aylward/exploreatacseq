@@ -4,7 +4,7 @@
 \alias{count_dgelist}
 \title{DGEList of read counts}
 \usage{
-count_dgelist(peaks, reads_file_paths, group, cores = NULL)
+count_dgelist(peaks, reads_file_paths, group, cores = 1)
 }
 \arguments{
 \item{peaks}{Granges object representing consensus peaks}
