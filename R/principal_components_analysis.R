@@ -51,8 +51,8 @@ plot_pca <- function(pca, draw_lines = list()) {
 
   for (group in draw_lines) {
     for (index in 1:length(group) - 1) {
-      start_treatment = group[[index]]
-      end_treatment = group[[index + 1]]
+      start_treatment = group[index]
+      end_treatment = group[index + 1]
       start_samples = sapply(
         strsplit(
           rownames(coord_by_treat[[start_treatment]]),
@@ -73,6 +73,7 @@ plot_pca <- function(pca, draw_lines = list()) {
       for (sample in samples) {
         print(sample, start_treatment)
         print(paste(sample, start_treatment, sep = "."),)
+        print(coord_by_treat[[start_treatment]])
         lines(
           c(
             coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 1],
