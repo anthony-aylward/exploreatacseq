@@ -76,7 +76,6 @@ plot_pca <- function(pca, draw_lines = list()) {
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
-
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
       start_treatment = group[i]
@@ -102,6 +101,7 @@ plot_pca <- function(pca, draw_lines = list()) {
         draw_line(sample, start_treatment, end_treatment)
       }
       if (length(group) > i + 1) {
+        bridge_treatment = group[i + 2]
         bridge_samples = sapply(
           strsplit(
             rownames(coord_by_treat[[bridge_treatment]]),
@@ -112,12 +112,11 @@ plot_pca <- function(pca, draw_lines = list()) {
         )
         samples = setdiff(intersect(start_samples, bridge_samples), samples)
         for (sample in samples) {
-          draw_line(sample, start_treatment, end_treatment)
+          draw_line(sample, start_treatment, bridge_treatment)
         }
       }
     }
   }
-
   for (i in 1:length(coord_by_treat)) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
