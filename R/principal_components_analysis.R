@@ -92,7 +92,7 @@ plot_pca <- function(pca, draw_lines = list()) {
               paste(sample, end_treatment, sep = "."), 2
             ]
           ),
-          lwd = 2,
+          lwd = 4,
           col = "lightgray"
         )
       }
@@ -101,6 +101,6 @@ plot_pca <- function(pca, draw_lines = list()) {
 
   for (i in 1:length(coord_by_treat)) {
     coord <- coord_by_treat[[i]]
-    points(coord[,1], coord[,2], col = palette[[i]], pch = 19)
+    points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
   }
 }
