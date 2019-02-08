@@ -30,11 +30,13 @@ two_principal_components <- function(count_matrix) {
 #' @return list of two-column matrices, one per treatment
 #' @export
 coordinates_by_treatment <- function(pca) {
-  treatment <- sapply(
-    strsplit(rownames(pca), split = ".", fixed = TRUE),
-    function(x) x[[2]]
+  treatment <- unique(
+    sapply(
+      strsplit(rownames(pca), split = ".", fixed = TRUE),
+      function(x) x[[2]]
+    )
   )
-  lapply(unique(treatment), function(x) pca[treatment == x,, drop = FALSE])
+  lapply(treatment, function(x) pca[treatment == x,, drop = FALSE])
 }
 
 #' @title plot principal components
