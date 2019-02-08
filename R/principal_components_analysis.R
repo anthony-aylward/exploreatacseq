@@ -54,13 +54,9 @@ plot_pca <- function(pca, draw_lines = list()) {
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
 
   for (group in draw_lines) {
-    print(group)
-    print(group[[1]])
     for (i in 1:(length(group) - 1)) {
-      start_treatment = group[[i]]
-      end_treatment = group[[i + 1]]
-      print(start_treatment)
-      print(coord_by_treat[[start_treatment]])
+      start_treatment = group[i]
+      end_treatment = group[i + 1]
       start_samples = sapply(
         strsplit(
           rownames(coord_by_treat[[start_treatment]]),
