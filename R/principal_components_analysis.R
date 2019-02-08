@@ -45,11 +45,9 @@ coordinates_by_treatment <- function(pca) {
 #' @export
 plot_pca <- function(pca) {
   coord_by_treat <- coordinates_by_treatment(pca)
-  n_treatments <- length(coord_by_treat)
-  palette_size <- max(3, n_treatments)
-  palette <- brewer.pal(palette_size, "Set1")[c(2, 1, 3:palette_size)]
+  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
-  for (i in 1:n_treatments) {
+  for (i in 1:length(coord_by_treat)) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19)
   }
