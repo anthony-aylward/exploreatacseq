@@ -51,6 +51,6 @@ plot_pca <- function(pca) {
   plot(pca[,1], pca[,2], ann = FALSE)
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
-    points(coord[,1], coord[,2] col = palette[[i]], pch = 19)
+    points(coord[,1], coord[,2], col = palette[[i]], pch = 19)
   }
 }
