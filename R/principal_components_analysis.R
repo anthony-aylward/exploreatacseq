@@ -50,6 +50,30 @@ coordinates_by_treatment <- function(pca) {
 #' @export
 plot_pca <- function(pca, draw_lines = list()) {
   coord_by_treat <- coordinates_by_treatment(pca)
+
+  draw_line <- function(sample, start_treatment, end_treatment) {
+    lines(
+      c(
+        coord_by_treat[[start_treatment]][
+          paste(sample, start_treatment, sep = "."), 1
+        ],
+        coord_by_treat[[end_treatment]][
+          paste(sample, end_treatment, sep = "."), 1
+        ]
+      ),
+      c(
+        coord_by_treat[[start_treatment]][
+          paste(sample, start_treatment, sep = "."), 2
+        ],
+        coord_by_treat[[end_treatment]][
+          paste(sample, end_treatment, sep = "."), 2
+        ]
+      ),
+      lwd = 4,
+      col = "lightgray"
+    )
+  }
+
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
   plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
 
@@ -75,26 +99,21 @@ plot_pca <- function(pca, draw_lines = list()) {
       )
       samples = intersect(start_samples, end_samples)
       for (sample in samples) {
-        lines(
-          c(
-            coord_by_treat[[start_treatment]][
-              paste(sample, start_treatment, sep = "."), 1
-            ],
-            coord_by_treat[[end_treatment]][
-              paste(sample, end_treatment, sep = "."), 1
-            ]
+        draw_line(sample, start_treatment, end_treatment)
+      }
+      if (length(group) > i + 1) {
+        bridge_samples = sapply(
+          strsplit(
+            rownames(coord_by_treat[[bridge_treatment]]),
+            split = ".",
+            fixed = TRUE
           ),
-          c(
-            coord_by_treat[[start_treatment]][
-              paste(sample, start_treatment, sep = "."), 2
-            ],
-            coord_by_treat[[end_treatment]][
-              paste(sample, end_treatment, sep = "."), 2
-            ]
-          ),
-          lwd = 4,
-          col = "lightgray"
+          function(x) x[[1]]
         )
+        samples = setdiff(intersect(start_samples, bridge_samples), samples)
+        for (sample in samples) {
+          draw_line(sample, start_treatment, end_treatment)
+        }
       }
     }
   }
