@@ -75,9 +75,6 @@ plot_pca <- function(pca, draw_lines = list()) {
       )
       samples = intersect(start_samples, end_samples)
       for (sample in samples) {
-        print(sample, start_treatment)
-        print(paste(sample, start_treatment, sep = "."),)
-        print(coord_by_treat[[start_treatment]])
         lines(
           c(
             coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 1],
