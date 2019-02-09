@@ -118,11 +118,11 @@ plot_pca <- function(pca, draw_lines = list()) {
       }
     }
   }
-  n_treatments <- 1:length(coord_by_treat)
+  n_treatments <- length(coord_by_treat)
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
   }
-  # plot(0:2, 0:2, xaxty = "n", yaxty = "n", ann = FALSE)
-  # legend(1, 1, legend = group, col = palette[1:n_treatments], pch = 19, cex = 2)
+  plot(0:2, 0:2, xaxty = "n", yaxty = "n", ann = FALSE)
+  legend(1, 1, legend = group, col = palette[1:n_treatments], pch = 19, cex = 2)
 }
