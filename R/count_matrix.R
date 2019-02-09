@@ -7,6 +7,7 @@
 #' @import BiocParallel
 #' @import edgeR
 #' @import GenomicAlignments
+#' @import limma
 #' @import Rsamtools
 #' @import SummarizedExperiment
 
