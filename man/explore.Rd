@@ -4,12 +4,17 @@
 \alias{explore}
 \title{Explore ATAC-seq data}
 \usage{
-explore(json_file_path, output_prefix, treatment_groups = list())
+explore(json_file_path, output_prefix, treatment_groups = list(),
+  cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
 
 \item{output_prefix}{character, a prefix for output files}
+
+\item{treatment_groups}{list providing groups of treatments to be compared}
+
+\item{cores}{integer, max number of cores to use}
 }
 \description{
 perform an exploratory analysis
