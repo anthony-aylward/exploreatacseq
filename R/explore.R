@@ -27,6 +27,7 @@ explore <- function(
     "median peak length: ",
     median_peak_length(peaks),
     "\n",
+    sep = "",
     file = paste(output_prefix, ".txt", sep = "")
   )
   counts <- transform_counts(
