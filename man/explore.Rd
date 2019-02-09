@@ -4,7 +4,7 @@
 \alias{explore}
 \title{Explore ATAC-seq data}
 \usage{
-explore(json_file_path, output_prefix)
+explore(json_file_path, output_prefix, treatment_groups = list())
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
