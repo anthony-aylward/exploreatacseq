@@ -3,6 +3,7 @@
 export(consensus_peaks)
 export(coordinates_by_treatment)
 export(count_dgelist)
+export(explore)
 export(filter_peaks)
 export(median_peak_length)
 export(parse_input_data)
