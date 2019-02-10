@@ -19,24 +19,24 @@
 #' @return matrix with two columns giving the principal component coordinates
 #' @export
 two_principal_components <- function(count_matrix) {
-  prcomp(count_matrix, rank = 2)[["rotation"]]
+  prcomp(count_matrix, rank = 2)
 }
 
 #' @title coordinates by treatment
 #'
 #' @description organize PCA coordinates by treatment
 #'
-#' @param pca two-column matrix of principal component coordinates
+#' @param coord two-column matrix of principal component coordinates
 #' @return list of two-column matrices, one per treatment
 #' @export
-coordinates_by_treatment <- function(pca) {
+coordinates_by_treatment <- function(coord) {
   treatment <- sapply(
-    strsplit(rownames(pca), split = ".", fixed = TRUE),
+    strsplit(rownames(coord), split = ".", fixed = TRUE),
     function(x) x[[2]]
   )
   treat_uniq <- unique(treatment)
   setNames(
-    lapply(treat_uniq, function(x) pca[treatment == x,, drop = FALSE]),
+    lapply(treat_uniq, function(x) coord[treatment == x,, drop = FALSE]),
     treat_uniq
   )
 }
@@ -49,7 +49,7 @@ coordinates_by_treatment <- function(pca) {
 #' @param draw_lines list of treatment groups to draw lines through
 #' @export
 plot_pca <- function(pca, draw_lines = list()) {
-  coord_by_treat <- coordinates_by_treatment(pca)
+  coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
 
   draw_line <- function(sample, start_treatment, end_treatment) {
     lines(
@@ -76,7 +76,13 @@ plot_pca <- function(pca, draw_lines = list()) {
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
   par(mfcol = c(2, 1))
-  plot(pca[,1], pca[,2], col = "white", xlab = "PC1", ylab = "PC2")
+  plot(
+    pca[["rotation"]][,1],
+    pca[["rotation"]][,2],
+    col = "white",
+    xlab = "PC1",
+    ylab = "PC2"
+  )
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
       start_treatment = group[i]
