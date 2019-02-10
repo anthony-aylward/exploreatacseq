@@ -45,11 +45,12 @@ coordinates_by_treatment <- function(coord) {
 #'
 #' @description generate a PCA plot
 #'
-#' @param pca two-column matrix of principal component coordinates
+#' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
 #' @export
 plot_pca <- function(pca, draw_lines = list()) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
+  percent_of_var <- round(summary(pca)[["importance"]][2,1:2] * 100)
 
   draw_line <- function(sample, start_treatment, end_treatment) {
     lines(
@@ -80,8 +81,8 @@ plot_pca <- function(pca, draw_lines = list()) {
     pca[["rotation"]][,1],
     pca[["rotation"]][,2],
     col = "white",
-    xlab = "PC1",
-    ylab = "PC2"
+    xlab = paste("PC1 [", percent_of_var[["PC1"]], "%]", sep = ""),
+    ylab = paste("PC2 [", percent_of_var[["PC2"]], "%]", sep = "")
   )
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
