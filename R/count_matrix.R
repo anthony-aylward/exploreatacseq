@@ -66,3 +66,17 @@ transform_counts <- function(
   )
 }
 
+#' @title most variable peaks
+#'
+#' @description extract the most variable peaks from the count matrix
+#'
+#' @param count_matrix numeric matrix representing transformed counts
+#' @param n max number of peaks to keep
+#' @return numeric matrix representing counts for most variable peaks
+#' @export
+most_variable_peaks <- function(count_matrix, n = 1e5) {
+  count_matrix[
+    rev(order(apply(count_matrix, 1, var)))[1:min(n, nrow(count_matrix))],
+  ]
+}
+

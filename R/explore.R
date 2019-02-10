@@ -30,15 +30,17 @@ explore <- function(
     sep = "",
     file = paste(output_prefix, ".txt", sep = "")
   )
-  counts <- transform_counts(
-    count_dgelist(
-      peaks,
-      x[["reads_file_paths"]],
-      x[["group"]],
-      cores = cores
-    ),
-    batch = x[["batch"]],
-    covariates = x[["tss_enrichment"]]
+  counts <- most_variable_peaks(
+    transform_counts(
+      count_dgelist(
+        peaks,
+        x[["reads_file_paths"]],
+        x[["group"]],
+        cores = cores
+      ),
+      batch = x[["batch"]],
+      covariates = x[["tss_enrichment"]]
+    )
   )
   save(counts, file = paste(output_prefix, ".RData", sep = ""))
   treatment <- sapply(
