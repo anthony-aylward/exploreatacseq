@@ -7,7 +7,7 @@
 plot_pca(pca, draw_lines = list())
 }
 \arguments{
-\item{pca}{two-column matrix of principal component coordinates}
+\item{pca}{list with class "prcomp"}
 
 \item{draw_lines}{list of treatment groups to draw lines through}
 }
