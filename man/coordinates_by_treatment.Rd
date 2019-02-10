@@ -4,10 +4,10 @@
 \alias{coordinates_by_treatment}
 \title{coordinates by treatment}
 \usage{
-coordinates_by_treatment(pca)
+coordinates_by_treatment(coord)
 }
 \arguments{
-\item{pca}{two-column matrix of principal component coordinates}
+\item{coord}{two-column matrix of principal component coordinates}
 }
 \value{
 list of two-column matrices, one per treatment
