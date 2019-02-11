@@ -43,6 +43,13 @@ explore <- function(
     )
   )
   save(counts, file = paste(output_prefix, ".RData", sep = ""))
+  pca <- two_principal_components(counts)
+  pdf(paste(output_prefix, ".pdf", sep = ""), height = 14)
+  plot_pca(pca)
+  dev.off()
+  png(paste(output_prefix, ".png", sep = ""), height = 960)
+  plot_pca(pca)
+  dev.off()
   treatment <- sapply(
     strsplit(colnames(counts), split = ".", fixed = TRUE),
     function(x) x[[2]]
