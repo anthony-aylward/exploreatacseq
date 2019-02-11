@@ -12,7 +12,8 @@ install_github("anthony-aylward/exploreatacseq")
 
 Here is an example JSON file that is formatted for use with `exploreatacseq`
 (see [tssenrich](https://github.com/anthony-aylward/tssenrich) for computation
-of TSS enrichment values):
+of TSS enrichment values). It includes three samples (SAMN10079665,
+SAMN09767462, AFA3256) and two treatment conditions (untreated, dexamethasone):
 
 ```json
 {
