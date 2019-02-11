@@ -61,9 +61,9 @@ application of `exploreatacseq` in R:
 library(exploreatacseq)
 
 explore(
-    "atacseq.json",
-    "output_prefix",
-    treatment_groups = list(c("untreated", "dex")),
-    cores = 2
-  )
+  "atacseq.json",
+  "output_prefix",
+  treatment_groups = list(c("untreated", "dex")),
+  cores = 2
+)
 ```
