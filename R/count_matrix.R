@@ -79,4 +79,3 @@ most_variable_peaks <- function(count_matrix, n = 1e5) {
     rev(order(apply(count_matrix, 1, var)))[1:min(n, nrow(count_matrix))],
   ]
 }
-
