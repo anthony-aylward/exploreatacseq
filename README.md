@@ -1,14 +1,14 @@
 # exploreatacseq
 Exploratory analysis of multiple ATAC-seq datasets
 
-# Installation
+## Installation
 
 ```r
 library(devtools)
 install_github("anthony-aylward/exploreatacseq")
 ```
 
-# Example usage
+## Example usage
 
 Here is an example JSON file that is formatted for use with `exploreatacseq`
 (see [tssenrich](https://github.com/anthony-aylward/tssenrich) for computation
