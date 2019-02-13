@@ -42,7 +42,13 @@ explore <- function(
       covariates = x[["tss_enrichment"]]
     )
   )
-  save(counts, file = paste(output_prefix, ".RData", sep = ""))
+  write.table(
+    counts,
+    file = paste(output_prefix, ".tsv"),
+    quote = FALSE,
+    sep = "\t",
+    row.names = FALSE
+  )
   pca <- two_principal_components(counts)
   pdf(paste(output_prefix, ".pdf", sep = ""), height = 14)
   plot_pca(pca)
