@@ -44,7 +44,7 @@ explore <- function(
   )
   write.table(
     counts,
-    file = paste(output_prefix, ".tsv"),
+    file = paste(output_prefix, ".tsv", sep = ""),
     quote = FALSE,
     sep = "\t",
     row.names = FALSE
