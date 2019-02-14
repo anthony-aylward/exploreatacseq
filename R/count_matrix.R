@@ -79,3 +79,31 @@ most_variable_peaks <- function(count_matrix, n = 1e5) {
     rev(order(apply(count_matrix, 1, var)))[1:min(n, nrow(count_matrix))],
   ]
 }
+
+#' @title extract sample vector
+#'
+#' @description extract sample vector from count matrix
+#'
+#' @param count_matrix matrix of read counts
+#' @return character vector indicating sample
+#' @export
+extract_sample_vector <- function(count_matrix) {
+  sapply(
+    strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
+    function(x) x[[1]]
+  )
+}
+
+#' @title extract treatment vector
+#'
+#' @description extract treatment vector from count matrix
+#'
+#' @param count_matrix matrix of read counts
+#' @return character vector indicating treatment
+#' @export
+extract_treatment_vector <- function(count_matrix) {
+  sapply(
+    strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
+    function(x) x[[2]]
+  )
+}

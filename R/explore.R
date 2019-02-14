@@ -9,34 +9,6 @@
 
 # Functions ====================================================================
 
-#' @title extract sample vector
-#'
-#' @description extract sample vector from count matrix
-#'
-#' @param counts matrix of read counts
-#' @return character vector indicating sample
-#' @export
-extract_sample_vector <- function(counts) {
-  sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[1]]
-  )
-}
-
-#' @title extract treatment vector
-#'
-#' @description extract treatment vector from count matrix
-#'
-#' @param counts matrix of read counts
-#' @return character vector indicating treatment
-#' @export
-extract_treatment_vector <- function(counts) {
-  sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[2]]
-  )
-}
-
 #' @title generate PCA plots
 #'
 #' @description plot PCA of the read counts
