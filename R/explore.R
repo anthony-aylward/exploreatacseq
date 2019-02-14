@@ -49,6 +49,7 @@ explore <- function(
     sep = "\t",
     row.names = FALSE
   )
+
   pca <- two_principal_components(counts)
   pdf(paste(output_prefix, ".pdf", sep = ""), height = 14)
   plot_pca(pca)
