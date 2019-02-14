@@ -55,6 +55,15 @@ explore <- function(
     row.names = FALSE
   )
 
+  sample <- sapply(
+    strsplit(colnames(counts), split = ".", fixed = TRUE),
+    function(x) x[[1]]
+  )
+  treatment <- sapply(
+    strsplit(colnames(counts), split = ".", fixed = TRUE),
+    function(x) x[[2]]
+  )
+
   pca <- two_principal_components(counts)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
   plot_pca(pca)
@@ -62,10 +71,6 @@ explore <- function(
   png(paste(output_prefix, "-pca.png", sep = ""), height = 960)
   plot_pca(pca)
   dev.off()
-  treatment <- sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[2]]
-  )
   for (group in treatment_groups) {
     pca <- two_principal_components(counts[,treatment %in% group])
     pdf(
@@ -94,10 +99,6 @@ explore <- function(
     dev.off()
   }
 
-  sample <- sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[1]]
-  )
   u <- umap(t(counts), n_threads = cores)
   rownames(counts_umap) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
