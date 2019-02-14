@@ -100,7 +100,7 @@ explore <- function(
   }
 
   u <- umap(t(counts), n_threads = cores)
-  rownames(counts_umap) <- paste(sample, treatment, sep = ".")
+  rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
   plot_umap(u)
   dev.off()
