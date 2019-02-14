@@ -2,69 +2,100 @@
 # umap.R
 #===============================================================================
 
-# Imports ======================================================================
-
-#' @import uwot
-#' @import vizier
-
-
+#' @import RColorBrewer
 
 
 # Functions ====================================================================
 
-#' @title preprocess count data for UMAP
+#' @title plot umap coordinates
 #'
-#' @description take the transpose of the count data and add a treatment column
+#' @description generate a UMAP plot
 #'
-#' @param x count matrix
-#' @param treatment character vector indicating treatment for each experiment
-#' @return matrix for input to `umap()`
+#' @param umap_matrix matrix of umap coordinates with appropriate rownames
+#' @param draw_lines list of treatment groups to draw lines through
 #' @export
-preprocess_for_umap <- function(x, treatment) {
-  cbind(as.data.frame(t(x)), treatment)
-}
+plot_umap <- function(umap_matrix, draw_lines = list()) {
+  coord_by_treat <- coordinates_by_treatment(umap_matrix)
 
-#' @title reduce dimensionality with umap
-#'
-#' @description apply the `umap()` function from `uwot`
-#'
-#' @param x input matrix or data.frame
-#' @param n_threads number of threads to use
-#' @return the result of the `umap()` call
-#' @export
-umap_reduce <- function(x, n_threads = 1) {
-  umap(x, n_threads = n_threads, n_sgd_threads = n_threads, approx_pow = TRUE)
-}
+  draw_line <- function(sample, start_treatment, end_treatment) {
+    lines(
+      c(
+        coord_by_treat[[start_treatment]][
+          paste(sample, start_treatment, sep = "."), 1
+        ],
+        coord_by_treat[[end_treatment]][
+          paste(sample, end_treatment, sep = "."), 1
+        ]
+      ),
+      c(
+        coord_by_treat[[start_treatment]][
+          paste(sample, start_treatment, sep = "."), 2
+        ],
+        coord_by_treat[[end_treatment]][
+          paste(sample, end_treatment, sep = "."), 2
+        ]
+      ),
+      lwd = 4,
+      col = "lightgray"
+    )
+  }
 
-#' @title embed image
-#'
-#' @description plot an embedding from umap
-#'
-#' @param X input matrix
-#' @param Y input umap
-#' @export
-embed_img <- function(X, Y, k = 15, ...) {
-  args <- list(...)
-  args[["coords"]] <- Y
-  args[["x"]] <- X
-
-  do.call(embed_plot, args)
-}
-
-#' @title plot a umap
-#'
-#' @description plot an embedding from umap
-#'
-#' @param x input matrix
-#' @param x_umap input umap
-#' @export
-plot_umap <- function(x, x_umap) {
-  embed_img(
-    x,
-    x_umap,
-    pc_axes = TRUE,
-    equal_axes = TRUE,
-    alpha_scale = 0.5,
-    cex = 1
+  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
+  par(mfcol = c(2, 1))
+  plot(umap_matrix[,1], umap_matrix[,2], col = "white", ann = FALSE)
+  for (group in draw_lines) {
+    for (i in 1:(length(group) - 1)) {
+      start_treatment = group[i]
+      end_treatment = group[i + 1]
+      start_samples = sapply(
+        strsplit(
+          rownames(coord_by_treat[[start_treatment]]),
+          split = ".",
+          fixed = TRUE
+        ),
+        function(x) x[[1]]
+      )
+      end_samples = sapply(
+        strsplit(
+          rownames(coord_by_treat[[end_treatment]]),
+          split = ".",
+          fixed = TRUE
+        ),
+        function(x) x[[1]]
+      )
+      samples = intersect(start_samples, end_samples)
+      for (sample in samples) {
+        draw_line(sample, start_treatment, end_treatment)
+      }
+      if (length(group) > i + 1) {
+        bridge_treatment = group[i + 2]
+        bridge_samples = sapply(
+          strsplit(
+            rownames(coord_by_treat[[bridge_treatment]]),
+            split = ".",
+            fixed = TRUE
+          ),
+          function(x) x[[1]]
+        )
+        samples = setdiff(intersect(start_samples, bridge_samples), samples)
+        for (sample in samples) {
+          draw_line(sample, start_treatment, bridge_treatment)
+        }
+      }
+    }
+  }
+  n_treatments <- length(coord_by_treat)
+  for (i in 1:n_treatments) {
+    coord <- coord_by_treat[[i]]
+    points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
+  }
+  plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
+  legend(
+    0,
+    1,
+    legend = names(coord_by_treat),
+    col = palette[1:n_treatments],
+    pch = 19,
+    cex = 2
   )
 }

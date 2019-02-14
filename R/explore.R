@@ -2,6 +2,11 @@
 # explore.R
 #===============================================================================
 
+#' @import uwot
+
+
+
+
 # Functions ====================================================================
 
 #' @title Explore ATAC-seq data
@@ -68,7 +73,7 @@ explore <- function(
         output_prefix,
         "-",
         paste(group, sep = "-", collapse = "-"),
-        ".pdf",
+        "-pca.pdf",
         sep = ""
       ),
       height = 14
@@ -80,12 +85,46 @@ explore <- function(
         output_prefix,
         "-",
         paste(group, sep = "-", collapse = "-"),
-        ".png",
+        "-pca.png",
         sep = ""
       ),
       height = 960
     )
     plot_pca(pca, draw_lines = list(group))
+    dev.off()
+  }
+
+  sample <- sapply(
+    strsplit(colnames(counts), split = ".", fixed = TRUE),
+    function(x) x[[1]]
+  )
+  counts_umap <- umap(t(counts), n_threads = cores)
+  rownames(counts_umap) <- paste(sample, treatment, sep = ".")
+  for (group in treatment_groups) {
+    u <- umap(t(counts[,treatment %in% group]), n_threads = cores)
+    pdf(
+      paste(
+        output_prefix,
+        "-",
+        paste(group, sep = "-", collapse = "-"),
+        "-umap.pdf",
+        sep = ""
+      ),
+      height = 14
+    )
+    plot_umap(u, draw_lines = list(group))
+    dev.off()
+    png(
+      paste(
+        output_prefix,
+        "-",
+        paste(group, sep = "-", collapse = "-"),
+        "-umap.png",
+        sep = ""
+      ),
+      height = 960
+    )
+    plot_umap(u, draw_lines = list(group))
     dev.off()
   }
 }
