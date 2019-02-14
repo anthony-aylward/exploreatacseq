@@ -9,6 +9,34 @@
 
 # Functions ====================================================================
 
+#' @title extract sample vector
+#'
+#' @description extract sample vector from count matrix
+#'
+#' @param counts matrix of read counts
+#' @return character vector indicating sample
+#' @export
+extract_sample_vector <- function(counts) {
+  sapply(
+    strsplit(colnames(counts), split = ".", fixed = TRUE),
+    function(x) x[[1]]
+  )
+}
+
+#' @title extract treatment vector
+#'
+#' @description extract treatment vector from count matrix
+#'
+#' @param counts matrix of read counts
+#' @return character vector indicating treatment
+#' @export
+extract_treatment_vector <- function(counts) {
+  sapply(
+    strsplit(colnames(counts), split = ".", fixed = TRUE),
+    function(x) x[[2]]
+  )
+}
+
 #' @title generate PCA plots
 #'
 #' @description plot PCA of the read counts
@@ -75,7 +103,8 @@ generate_umap_plots <- function(
   output_prefix,
   sample,
   treatment,
-  treatment_groups = list()
+  treatment_groups = list(),
+  cores = 1
 ) {
   u <- umap(t(counts), n_threads = cores)
   rownames(u) <- paste(sample, treatment, sep = ".")
@@ -159,14 +188,7 @@ explore <- function(
     sep = "\t",
     row.names = FALSE
   )
-  sample <- sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[1]]
-  )
-  treatment <- sapply(
-    strsplit(colnames(counts), split = ".", fixed = TRUE),
-    function(x) x[[2]]
-  )
+  treatment <- extract_treatment_vector(counts)
   generate_pca_plots(
     counts,
     output_prefix,
@@ -176,8 +198,9 @@ explore <- function(
   generate_umap_plots(
     counts,
     output_prefix,
-    sample,
+    extract_sample_vector(counts),
     treatment,
-    treatment_groups = treatment_groups
+    treatment_groups = treatment_groups,
+    cores = cores
   )
 }
