@@ -5,7 +5,7 @@
 \title{generate UMAP plots}
 \usage{
 generate_umap_plots(counts, output_prefix, sample, treatment,
-  treatment_groups = list())
+  treatment_groups = list(), cores = 1)
 }
 \arguments{
 \item{counts}{matrix of read counts}
