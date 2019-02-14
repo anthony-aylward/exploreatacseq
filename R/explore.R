@@ -56,10 +56,10 @@ explore <- function(
   )
 
   pca <- two_principal_components(counts)
-  pdf(paste(output_prefix, ".pdf", sep = ""), height = 14)
+  pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
   plot_pca(pca)
   dev.off()
-  png(paste(output_prefix, ".png", sep = ""), height = 960)
+  png(paste(output_prefix, "-pca.png", sep = ""), height = 960)
   plot_pca(pca)
   dev.off()
   treatment <- sapply(
@@ -98,8 +98,14 @@ explore <- function(
     strsplit(colnames(counts), split = ".", fixed = TRUE),
     function(x) x[[1]]
   )
-  counts_umap <- umap(t(counts), n_threads = cores)
+  u <- umap(t(counts), n_threads = cores)
   rownames(counts_umap) <- paste(sample, treatment, sep = ".")
+  pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
+  plot_umap(u)
+  dev.off()
+  png(paste(output_prefix, "-umap.png", sep = ""), height = 960)
+  plot_umap(u)
+  dev.off()
   for (group in treatment_groups) {
     u <- umap(t(counts[,treatment %in% group]), n_threads = cores)
     pdf(
