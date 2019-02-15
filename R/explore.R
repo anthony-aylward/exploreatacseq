@@ -93,7 +93,7 @@ generate_umap_plots <- function(
   for (group in treatment_groups) {
     u <- umap(
       t(counts[,treatment %in% group]),
-      n_threads = cores
+      n_threads = cores,
       n_neighbors = min(15, sum(treatment %in% group) - 1)
     )
     pdf(
