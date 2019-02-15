@@ -17,6 +17,8 @@ generate_umap_plots(counts, output_prefix, sample, treatment,
 \item{treatment}{character vector indicating treatment}
 
 \item{treatment_groups}{list of treatment groups}
+
+\item{cores}{number of cores to use}
 }
 \description{
 plot UMAP of the read counts

@@ -69,6 +69,7 @@ generate_pca_plots <- function(
 #' @param sample character vector indicating sample
 #' @param treatment character vector indicating treatment
 #' @param treatment_groups list of treatment groups
+#' @param cores number of cores to use
 #' @export
 generate_umap_plots <- function(
   counts,
