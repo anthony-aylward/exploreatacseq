@@ -129,6 +129,7 @@ plot_pca <- function(pca, draw_lines = list()) {
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
+    text(coord[,1], coord[,2], labels = rownames(coord))
   }
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
