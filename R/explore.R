@@ -97,6 +97,7 @@ generate_umap_plots <- function(
       n_threads = cores,
       n_neighbors = min(15, sum(treatment %in% group) - 1)
     )
+    rownames(u) <- paste(sample, treatment, sep = ".")[treatment %in% group]
     pdf(
       paste(
         output_prefix,
