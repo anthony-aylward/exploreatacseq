@@ -78,7 +78,11 @@ generate_umap_plots <- function(
   treatment_groups = list(),
   cores = 1
 ) {
-  u <- umap(t(counts), n_threads = cores)
+  u <- umap(
+    t(counts),
+    n_threads = cores,
+    n_neighbors = min(15, ncol(counts) - 1)
+  )
   rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
   plot_umap(u)
@@ -87,7 +91,11 @@ generate_umap_plots <- function(
   plot_umap(u)
   dev.off()
   for (group in treatment_groups) {
-    u <- umap(t(counts[,treatment %in% group]), n_threads = cores)
+    u <- umap(
+      t(counts[,treatment %in% group]),
+      n_threads = cores
+      n_neighbors = min(15, sum(treatment %in% group) - 1)
+    )
     pdf(
       paste(
         output_prefix,
