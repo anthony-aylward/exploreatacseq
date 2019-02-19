@@ -71,7 +71,7 @@ generate_pca_plots <- function(
 #' @param treatment_groups list of treatment groups
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
 #' @param metric distance metric for umap, see ?uwot::umap
-#' @param n_pc number of principal components to pass to umap
+#' @param n_pc pass the first n principal components to UMAP
 #' @param cores number of cores to use
 #' @export
 generate_umap_plots <- function(
@@ -82,16 +82,25 @@ generate_umap_plots <- function(
   treatment_groups = list(),
   n_neighbors = 15,
   metric = "euclidean",
-  n_pc = 50,
+  n_pc = NULL,
   cores = 1
 ) {
-  pca <- prcomp(counts, rank = n_pc)
-  u <- umap(
-    pca[["rotation"]],
-    n_neighbors = min(n_neighbors, ncol(counts) - 1),
-    metric = metric,
-    n_threads = cores
-  )
+  if (is.null(n_pc)) {
+    u <- umap(
+      t(counts),
+      n_neighbors = min(n_neighbors, ncol(counts) - 1),
+      metric = metric,
+      n_threads = cores
+    )
+  } else {
+    pca <- prcomp(counts, rank = n_pc)
+    u <- umap(
+      pca[["rotation"]],
+      n_neighbors = min(n_neighbors, ncol(counts) - 1),
+      metric = metric,
+      n_threads = cores
+    )
+  }
   rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
   plot_umap(u)
@@ -151,7 +160,7 @@ explore <- function(
   treatment_groups = list(),
   n_neighbors = 15,
   metric = "euclidean",
-  n_pc = 50,
+  n_pc = NULL,
   cores = 1
 ) {
   x <- parse_json(json_file_path)

@@ -5,7 +5,7 @@
 \title{Explore ATAC-seq data}
 \usage{
 explore(json_file_path, output_prefix, treatment_groups = list(),
-  n_neighbors = 15, metric = "euclidean", n_pc = 50, cores = 1)
+  n_neighbors = 15, metric = "euclidean", n_pc = NULL, cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
