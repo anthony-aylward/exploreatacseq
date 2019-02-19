@@ -11,17 +11,6 @@
 
 # Functions ====================================================================
 
-#' @title two principal components
-#'
-#' @description compute two principal components for the count matrix
-#'
-#' @param count_matrix matrix of read counts
-#' @return matrix with two columns giving the principal component coordinates
-#' @export
-two_principal_components <- function(count_matrix) {
-  prcomp(count_matrix, rank = 2)
-}
-
 #' @title coordinates by treatment
 #'
 #' @description organize PCA coordinates by treatment

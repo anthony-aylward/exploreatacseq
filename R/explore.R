@@ -24,7 +24,7 @@ generate_pca_plots <- function(
   treatment,
   treatment_groups = list()
 ) {
-  pca <- two_principal_components(counts)
+  pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
   plot_pca(pca)
   dev.off()
@@ -32,7 +32,7 @@ generate_pca_plots <- function(
   plot_pca(pca)
   dev.off()
   for (group in treatment_groups) {
-    pca <- two_principal_components(counts[,treatment %in% group])
+    pca <- prcomp(counts[,treatment %in% group], rank = 2)
     pdf(
       paste(
         output_prefix,
@@ -69,6 +69,9 @@ generate_pca_plots <- function(
 #' @param sample character vector indicating sample
 #' @param treatment character vector indicating treatment
 #' @param treatment_groups list of treatment groups
+#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
+#' @param metric distance metric for umap, see ?uwot::umap
+#' @param n_pc number of principal components to pass to umap
 #' @param cores number of cores to use
 #' @export
 generate_umap_plots <- function(
@@ -77,12 +80,17 @@ generate_umap_plots <- function(
   sample,
   treatment,
   treatment_groups = list(),
+  n_neighbors = 15,
+  metric = "euclidean",
+  n_pc = 50,
   cores = 1
 ) {
+  pca <- prcomp(counts, rank = n_pc)
   u <- umap(
-    t(counts),
-    n_threads = cores,
-    n_neighbors = min(15, ncol(counts) - 1)
+    pca[["rotation"]],
+    n_neighbors = min(n_neighbors, ncol(counts) - 1),
+    metric = metric,
+    n_threads = cores
   )
   rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
@@ -132,12 +140,18 @@ generate_umap_plots <- function(
 #' @param json_file_path path to a JSON file providing data details
 #' @param output_prefix character, a prefix for output files
 #' @param treatment_groups list providing groups of treatments to be compared
+#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
+#' @param metric distance metric for umap, see ?uwot::umap
+#' @param n_pc number of principal components to pass to umap
 #' @param cores integer, max number of cores to use
 #' @export
 explore <- function(
   json_file_path,
   output_prefix,
   treatment_groups = list(),
+  n_neighbors = 15,
+  metric = "euclidean",
+  n_pc = 50,
   cores = 1
 ) {
   x <- parse_json(json_file_path)
@@ -183,6 +197,9 @@ explore <- function(
     extract_sample_vector(counts),
     treatment,
     treatment_groups = treatment_groups,
+    n_neighbors = n_neighbors,
+    metric = metric,
+    n_pc = n_pc,
     cores = cores
   )
 }
