@@ -41,17 +41,19 @@ preprocess <- function(json_file_path) {
 #'
 #' @param counts matrix of read counts
 #' @param output_prefix prefix for output files
-#' @param treatment character vector indicating treatment
+#' @param treatment character vector indicating treatment, if NULL, it will be
+#'   inferred from the read count matrix
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @export
 generate_pca_plots <- function(
   counts,
   output_prefix,
-  treatment,
+  treatment = NULL,
   treatment_groups = list(),
   labels = FALSE
 ) {
+  if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
   plot_pca(pca, labels = labels)
@@ -94,8 +96,10 @@ generate_pca_plots <- function(
 #'
 #' @param counts matrix of read counts
 #' @param output_prefix prefix for output files
-#' @param sample character vector indicating sample
-#' @param treatment character vector indicating treatment
+#' @param sample character vector indicating sample, if NULL, it will be
+#'   inferred from the read count matrix
+#' @param treatment character vector indicating treatment, if NULL, it will be
+#'   inferred from the read count matrix
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
@@ -106,8 +110,8 @@ generate_pca_plots <- function(
 generate_umap_plots <- function(
   counts,
   output_prefix,
-  sample,
-  treatment,
+  sample = NULL,
+  treatment = NULL,
   treatment_groups = list(),
   labels = FALSE,
   n_neighbors = 15,
@@ -115,6 +119,8 @@ generate_umap_plots <- function(
   n_pc = NULL,
   cores = 1
 ) {
+  if (is.null(sample)) sample <- extract_sample_vector(counts)
+  if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   if (is.null(n_pc)) {
     u <- umap(
       t(counts),
@@ -183,6 +189,8 @@ generate_umap_plots <- function(
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
 #' @param metric distance metric for umap, see ?uwot::umap
 #' @param n_pc number of principal components to pass to umap
+#' @param write_counts logical, if TRUE the read count matrix will be written
+#'   to disk as a TSV file
 #' @param cores integer, max number of cores to use
 #' @export
 explore <- function(
@@ -193,6 +201,7 @@ explore <- function(
   n_neighbors = 15,
   metric = "euclidean",
   n_pc = NULL,
+  write_counts = FALSE,
   cores = 1
 ) {
   preprocessed_data <- preprocess(json_file_path)
@@ -203,25 +212,23 @@ explore <- function(
     sep = "",
     file = paste(output_prefix, ".txt", sep = "")
   )
-  write.table(
-    preprocessed_data[["counts"]],
-    file = paste(output_prefix, ".tsv", sep = ""),
-    quote = FALSE,
-    sep = "\t",
-    row.names = FALSE
-  )
-  treatment <- extract_treatment_vector(preprocessed_data[["counts"]])
+  if (write_counts) {
+    write.table(
+      preprocessed_data[["counts"]],
+      file = paste(output_prefix, ".tsv", sep = ""),
+      quote = FALSE,
+      sep = "\t",
+      row.names = FALSE
+    )
+  }
   generate_pca_plots(
     preprocessed_data[["counts"]],
     output_prefix,
-    treatment,
     treatment_groups = treatment_groups
   )
   generate_umap_plots(
     preprocessed_data[["counts"]],
     output_prefix,
-    extract_sample_vector(preprocessed_data[["counts"]]),
-    treatment,
     treatment_groups = treatment_groups,
     n_neighbors = n_neighbors,
     metric = metric,

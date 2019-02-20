@@ -6,7 +6,7 @@
 \usage{
 explore(json_file_path, output_prefix, treatment_groups = list(),
   labels = FALSE, n_neighbors = 15, metric = "euclidean",
-  n_pc = NULL, cores = 1)
+  n_pc = NULL, write_counts = FALSE, cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
@@ -22,6 +22,9 @@ explore(json_file_path, output_prefix, treatment_groups = list(),
 \item{metric}{distance metric for umap, see ?uwot::umap}
 
 \item{n_pc}{number of principal components to pass to umap}
+
+\item{write_counts}{logical, if TRUE the read count matrix will be written
+to disk as a TSV file}
 
 \item{cores}{integer, max number of cores to use}
 }

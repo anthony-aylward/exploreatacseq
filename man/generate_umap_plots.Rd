@@ -4,18 +4,20 @@
 \alias{generate_umap_plots}
 \title{generate UMAP plots}
 \usage{
-generate_umap_plots(counts, output_prefix, sample, treatment,
-  treatment_groups = list(), labels = FALSE, n_neighbors = 15,
-  metric = "euclidean", n_pc = NULL, cores = 1)
+generate_umap_plots(counts, output_prefix, sample = NULL,
+  treatment = NULL, treatment_groups = list(), labels = FALSE,
+  n_neighbors = 15, metric = "euclidean", n_pc = NULL, cores = 1)
 }
 \arguments{
 \item{counts}{matrix of read counts}
 
 \item{output_prefix}{prefix for output files}
 
-\item{sample}{character vector indicating sample}
+\item{sample}{character vector indicating sample, if NULL, it will be
+inferred from the read count matrix}
 
-\item{treatment}{character vector indicating treatment}
+\item{treatment}{character vector indicating treatment, if NULL, it will be
+inferred from the read count matrix}
 
 \item{treatment_groups}{list of treatment groups}
 

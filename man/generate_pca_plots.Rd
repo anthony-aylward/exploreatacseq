@@ -4,7 +4,7 @@
 \alias{generate_pca_plots}
 \title{generate PCA plots}
 \usage{
-generate_pca_plots(counts, output_prefix, treatment,
+generate_pca_plots(counts, output_prefix, treatment = NULL,
   treatment_groups = list(), labels = FALSE)
 }
 \arguments{
@@ -12,7 +12,8 @@ generate_pca_plots(counts, output_prefix, treatment,
 
 \item{output_prefix}{prefix for output files}
 
-\item{treatment}{character vector indicating treatment}
+\item{treatment}{character vector indicating treatment, if NULL, it will be
+inferred from the read count matrix}
 
 \item{treatment_groups}{list of treatment groups}
 
