@@ -9,6 +9,32 @@
 
 # Functions ====================================================================
 
+#' @title preprocess ATAC-seq data
+#'
+#' @description preprocess multiple ATAC-seq datasets into a read count matrix
+#' @param json_file_path path to a JSON file providing data details
+#' @return list giving the median peak length and the matrix of read counts
+#' @export
+preprocess <- function(json_file_path) {
+  x <- parse_json(json_file_path)
+  peaks <- filter_peaks(
+    consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
+  )
+  counts <- most_variable_peaks(
+    transform_counts(
+      count_dgelist(
+        peaks,
+        x[["reads_file_paths"]],
+        x[["group"]],
+        cores = cores
+      ),
+      batch = x[["batch"]],
+      covariates = x[["tss_enrichment"]]
+    )
+  )
+  list(median_peak_length = median_peak_length(peaks), counts = counts)
+}
+
 #' @title generate PCA plots
 #'
 #' @description plot PCA of the read counts
@@ -163,47 +189,32 @@ explore <- function(
   n_pc = NULL,
   cores = 1
 ) {
-  x <- parse_json(json_file_path)
-  peaks <- filter_peaks(
-    consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
-  )
+  preprocessed_data <- preprocess(json_file_path)
   cat(
     "median peak length: ",
-    median_peak_length(peaks),
+    preprocessed_data[["median_peak_length"]],
     "\n",
     sep = "",
     file = paste(output_prefix, ".txt", sep = "")
   )
-  counts <- most_variable_peaks(
-    transform_counts(
-      count_dgelist(
-        peaks,
-        x[["reads_file_paths"]],
-        x[["group"]],
-        cores = cores
-      ),
-      batch = x[["batch"]],
-      covariates = x[["tss_enrichment"]]
-    )
-  )
   write.table(
-    counts,
+    preprocessed_data[["counts"]],
     file = paste(output_prefix, ".tsv", sep = ""),
     quote = FALSE,
     sep = "\t",
     row.names = FALSE
   )
-  treatment <- extract_treatment_vector(counts)
+  treatment <- extract_treatment_vector(preprocessed_data[["counts"]])
   generate_pca_plots(
-    counts,
+    preprocessed_data[["counts"]],
     output_prefix,
     treatment,
     treatment_groups = treatment_groups
   )
   generate_umap_plots(
-    counts,
+    preprocessed_data[["counts"]],
     output_prefix,
-    extract_sample_vector(counts),
+    extract_sample_vector(preprocessed_data[["counts"]]),
     treatment,
     treatment_groups = treatment_groups,
     n_neighbors = n_neighbors,
