@@ -126,7 +126,8 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
         labels = sapply(
           strsplit(rownames(coord), split = ".", fixed = TRUE),
           function(x) x[[1]]
-        )
+        ),
+        pos = 1
       )
     }
   }

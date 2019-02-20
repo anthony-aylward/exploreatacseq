@@ -96,7 +96,8 @@ plot_umap <- function(umap_matrix, draw_lines = list(), labels = FALSE) {
         labels = sapply(
           strsplit(rownames(coord), split = ".", fixed = TRUE),
           function(x) x[[1]]
-        )
+        ),
+        pos = 1
       )
     }
   }
