@@ -83,7 +83,7 @@ generate_pca_plots <- function(
       ),
       height = 960
     )
-    plot_pca(pca, draw_lines = list(group))
+    plot_pca(pca, draw_lines = list(group), labels = labels)
     dev.off()
   }
 }
@@ -133,10 +133,10 @@ generate_umap_plots <- function(
   }
   rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
-  plot_umap(u)
+  plot_umap(u, labels = labels)
   dev.off()
   png(paste(output_prefix, "-umap.png", sep = ""), height = 960)
-  plot_umap(u)
+  plot_umap(u, labels = labels)
   dev.off()
   for (group in treatment_groups) {
     u <- umap(
@@ -155,7 +155,7 @@ generate_umap_plots <- function(
       ),
       height = 14
     )
-    plot_umap(u, draw_lines = list(group))
+    plot_umap(u, draw_lines = list(group), labels = labels)
     dev.off()
     png(
       paste(
@@ -167,7 +167,7 @@ generate_umap_plots <- function(
       ),
       height = 960
     )
-    plot_umap(u, draw_lines = list(group))
+    plot_umap(u, draw_lines = list(group), labels = labels)
     dev.off()
   }
 }
