@@ -5,7 +5,7 @@
 \title{Explore ATAC-seq data}
 \usage{
 explore(json_file_path, output_prefix, treatment_groups = list(),
-  cores = 1)
+  n_neighbors = 15, metric = "euclidean", n_pc = NULL, cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
@@ -13,6 +13,12 @@ explore(json_file_path, output_prefix, treatment_groups = list(),
 \item{output_prefix}{character, a prefix for output files}
 
 \item{treatment_groups}{list providing groups of treatments to be compared}
+
+\item{n_neighbors}{size of local neighborhood for umap, see ?uwot::umap}
+
+\item{metric}{distance metric for umap, see ?uwot::umap}
+
+\item{n_pc}{number of principal components to pass to umap}
 
 \item{cores}{integer, max number of cores to use}
 }

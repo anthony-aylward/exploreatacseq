@@ -11,17 +11,6 @@
 
 # Functions ====================================================================
 
-#' @title two principal components
-#'
-#' @description compute two principal components for the count matrix
-#'
-#' @param count_matrix matrix of read counts
-#' @return matrix with two columns giving the principal component coordinates
-#' @export
-two_principal_components <- function(count_matrix) {
-  prcomp(count_matrix, rank = 2)
-}
-
 #' @title coordinates by treatment
 #'
 #' @description organize PCA coordinates by treatment
@@ -47,6 +36,7 @@ coordinates_by_treatment <- function(coord) {
 #'
 #' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
+#' @param labels if TRUE, text labels will be added to the points
 #' @export
 plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])

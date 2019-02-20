@@ -13,6 +13,7 @@
 #'
 #' @param umap_matrix matrix of umap coordinates with appropriate rownames
 #' @param draw_lines list of treatment groups to draw lines through
+#' @param labels if TRUE, text labels will be added to the points
 #' @export
 plot_umap <- function(umap_matrix, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(umap_matrix)

@@ -9,6 +9,32 @@
 
 # Functions ====================================================================
 
+#' @title preprocess ATAC-seq data
+#'
+#' @description preprocess multiple ATAC-seq datasets into a read count matrix
+#' @param json_file_path path to a JSON file providing data details
+#' @return list giving the median peak length and the matrix of read counts
+#' @export
+preprocess <- function(json_file_path) {
+  x <- parse_json(json_file_path)
+  peaks <- filter_peaks(
+    consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
+  )
+  counts <- most_variable_peaks(
+    transform_counts(
+      count_dgelist(
+        peaks,
+        x[["reads_file_paths"]],
+        x[["group"]],
+        cores = cores
+      ),
+      batch = x[["batch"]],
+      covariates = x[["tss_enrichment"]]
+    )
+  )
+  list(median_peak_length = median_peak_length(peaks), counts = counts)
+}
+
 #' @title generate PCA plots
 #'
 #' @description plot PCA of the read counts
@@ -25,7 +51,7 @@ generate_pca_plots <- function(
   treatment_groups = list(),
   labels = FALSE
 ) {
-  pca <- two_principal_components(counts)
+  pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
   plot_pca(pca, labels = labels)
   dev.off()
@@ -33,7 +59,7 @@ generate_pca_plots <- function(
   plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
-    pca <- two_principal_components(counts[,treatment %in% group])
+    pca <- prcomp(counts[,treatment %in% group], rank = 2)
     pdf(
       paste(
         output_prefix,
@@ -70,6 +96,9 @@ generate_pca_plots <- function(
 #' @param sample character vector indicating sample
 #' @param treatment character vector indicating treatment
 #' @param treatment_groups list of treatment groups
+#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
+#' @param metric distance metric for umap, see ?uwot::umap
+#' @param n_pc pass the first n principal components to UMAP
 #' @param cores number of cores to use
 #' @export
 generate_umap_plots <- function(
@@ -78,13 +107,27 @@ generate_umap_plots <- function(
   sample,
   treatment,
   treatment_groups = list(),
+  n_neighbors = 15,
+  metric = "euclidean",
+  n_pc = NULL,
   cores = 1
 ) {
-  u <- umap(
-    t(counts),
-    n_threads = cores,
-    n_neighbors = min(15, ncol(counts) - 1)
-  )
+  if (is.null(n_pc)) {
+    u <- umap(
+      t(counts),
+      n_neighbors = min(n_neighbors, ncol(counts) - 1),
+      metric = metric,
+      n_threads = cores
+    )
+  } else {
+    pca <- prcomp(counts, rank = n_pc)
+    u <- umap(
+      pca[["rotation"]],
+      n_neighbors = min(n_neighbors, ncol(counts) - 1),
+      metric = metric,
+      n_threads = cores
+    )
+  }
   rownames(u) <- paste(sample, treatment, sep = ".")
   pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
   plot_umap(u)
@@ -133,57 +176,51 @@ generate_umap_plots <- function(
 #' @param json_file_path path to a JSON file providing data details
 #' @param output_prefix character, a prefix for output files
 #' @param treatment_groups list providing groups of treatments to be compared
+#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
+#' @param metric distance metric for umap, see ?uwot::umap
+#' @param n_pc number of principal components to pass to umap
 #' @param cores integer, max number of cores to use
 #' @export
 explore <- function(
   json_file_path,
   output_prefix,
   treatment_groups = list(),
+  n_neighbors = 15,
+  metric = "euclidean",
+  n_pc = NULL,
   cores = 1
 ) {
-  x <- parse_json(json_file_path)
-  peaks <- filter_peaks(
-    consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
-  )
+  preprocessed_data <- preprocess(json_file_path)
   cat(
     "median peak length: ",
-    median_peak_length(peaks),
+    preprocessed_data[["median_peak_length"]],
     "\n",
     sep = "",
     file = paste(output_prefix, ".txt", sep = "")
   )
-  counts <- most_variable_peaks(
-    transform_counts(
-      count_dgelist(
-        peaks,
-        x[["reads_file_paths"]],
-        x[["group"]],
-        cores = cores
-      ),
-      batch = x[["batch"]],
-      covariates = x[["tss_enrichment"]]
-    )
-  )
   write.table(
-    counts,
+    preprocessed_data[["counts"]],
     file = paste(output_prefix, ".tsv", sep = ""),
     quote = FALSE,
     sep = "\t",
     row.names = FALSE
   )
-  treatment <- extract_treatment_vector(counts)
+  treatment <- extract_treatment_vector(preprocessed_data[["counts"]])
   generate_pca_plots(
-    counts,
+    preprocessed_data[["counts"]],
     output_prefix,
     treatment,
     treatment_groups = treatment_groups
   )
   generate_umap_plots(
-    counts,
+    preprocessed_data[["counts"]],
     output_prefix,
-    extract_sample_vector(counts),
+    extract_sample_vector(preprocessed_data[["counts"]]),
     treatment,
     treatment_groups = treatment_groups,
+    n_neighbors = n_neighbors,
+    metric = metric,
+    n_pc = n_pc,
     cores = cores
   )
 }
