@@ -5,8 +5,8 @@
 \title{generate UMAP plots}
 \usage{
 generate_umap_plots(counts, output_prefix, sample, treatment,
-  treatment_groups = list(), n_neighbors = 15, metric = "euclidean",
-  n_pc = NULL, cores = 1)
+  treatment_groups = list(), labels = FALSE, n_neighbors = 15,
+  metric = "euclidean", n_pc = NULL, cores = 1)
 }
 \arguments{
 \item{counts}{matrix of read counts}
@@ -18,6 +18,8 @@ generate_umap_plots(counts, output_prefix, sample, treatment,
 \item{treatment}{character vector indicating treatment}
 
 \item{treatment_groups}{list of treatment groups}
+
+\item{labels}{if TRUE, text labels will be added to points in all plots}
 
 \item{n_neighbors}{size of local neighborhood for umap, see ?uwot::umap}
 

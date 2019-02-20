@@ -4,12 +4,14 @@
 \alias{plot_pca}
 \title{plot principal components}
 \usage{
-plot_pca(pca, draw_lines = list())
+plot_pca(pca, draw_lines = list(), labels = FALSE)
 }
 \arguments{
 \item{pca}{list with class "prcomp"}
 
 \item{draw_lines}{list of treatment groups to draw lines through}
+
+\item{labels}{if TRUE, text labels will be added to the points}
 }
 \description{
 generate a PCA plot

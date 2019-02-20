@@ -5,7 +5,7 @@
 \title{generate PCA plots}
 \usage{
 generate_pca_plots(counts, output_prefix, treatment,
-  treatment_groups = list())
+  treatment_groups = list(), labels = FALSE)
 }
 \arguments{
 \item{counts}{matrix of read counts}
@@ -15,6 +15,8 @@ generate_pca_plots(counts, output_prefix, treatment,
 \item{treatment}{character vector indicating treatment}
 
 \item{treatment_groups}{list of treatment groups}
+
+\item{labels}{if TRUE, text labels will be added to points in all plots}
 }
 \description{
 plot PCA of the read counts

@@ -5,7 +5,8 @@
 \title{Explore ATAC-seq data}
 \usage{
 explore(json_file_path, output_prefix, treatment_groups = list(),
-  n_neighbors = 15, metric = "euclidean", n_pc = NULL, cores = 1)
+  labels = FALSE, n_neighbors = 15, metric = "euclidean",
+  n_pc = NULL, cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
@@ -13,6 +14,8 @@ explore(json_file_path, output_prefix, treatment_groups = list(),
 \item{output_prefix}{character, a prefix for output files}
 
 \item{treatment_groups}{list providing groups of treatments to be compared}
+
+\item{labels}{if TRUE, text labels will be added to points in all plots}
 
 \item{n_neighbors}{size of local neighborhood for umap, see ?uwot::umap}
 

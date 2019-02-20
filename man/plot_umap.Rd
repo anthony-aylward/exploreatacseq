@@ -4,12 +4,14 @@
 \alias{plot_umap}
 \title{plot umap coordinates}
 \usage{
-plot_umap(umap_matrix, draw_lines = list())
+plot_umap(umap_matrix, draw_lines = list(), labels = FALSE)
 }
 \arguments{
 \item{umap_matrix}{matrix of umap coordinates with appropriate rownames}
 
 \item{draw_lines}{list of treatment groups to draw lines through}
+
+\item{labels}{if TRUE, text labels will be added to the points}
 }
 \description{
 generate a UMAP plot

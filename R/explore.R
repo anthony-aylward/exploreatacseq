@@ -43,6 +43,7 @@ preprocess <- function(json_file_path) {
 #' @param output_prefix prefix for output files
 #' @param treatment character vector indicating treatment
 #' @param treatment_groups list of treatment groups
+#' @param labels if TRUE, text labels will be added to points in all plots
 #' @export
 generate_pca_plots <- function(
   counts,
@@ -96,6 +97,7 @@ generate_pca_plots <- function(
 #' @param sample character vector indicating sample
 #' @param treatment character vector indicating treatment
 #' @param treatment_groups list of treatment groups
+#' @param labels if TRUE, text labels will be added to points in all plots
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
 #' @param metric distance metric for umap, see ?uwot::umap
 #' @param n_pc pass the first n principal components to UMAP
@@ -107,6 +109,7 @@ generate_umap_plots <- function(
   sample,
   treatment,
   treatment_groups = list(),
+  labels = FALSE,
   n_neighbors = 15,
   metric = "euclidean",
   n_pc = NULL,
@@ -176,6 +179,7 @@ generate_umap_plots <- function(
 #' @param json_file_path path to a JSON file providing data details
 #' @param output_prefix character, a prefix for output files
 #' @param treatment_groups list providing groups of treatments to be compared
+#' @param labels if TRUE, text labels will be added to points in all plots
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
 #' @param metric distance metric for umap, see ?uwot::umap
 #' @param n_pc number of principal components to pass to umap
@@ -185,6 +189,7 @@ explore <- function(
   json_file_path,
   output_prefix,
   treatment_groups = list(),
+  labels = FALSE,
   n_neighbors = 15,
   metric = "euclidean",
   n_pc = NULL,
