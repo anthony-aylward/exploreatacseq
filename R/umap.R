@@ -14,7 +14,7 @@
 #' @param umap_matrix matrix of umap coordinates with appropriate rownames
 #' @param draw_lines list of treatment groups to draw lines through
 #' @export
-plot_umap <- function(umap_matrix, draw_lines = list()) {
+plot_umap <- function(umap_matrix, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(umap_matrix)
 
   draw_line <- function(sample, start_treatment, end_treatment) {
@@ -88,7 +88,16 @@ plot_umap <- function(umap_matrix, draw_lines = list()) {
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
-    text(coord[,1], coord[,2], labels = sapply(strsplit(rownames(coord), split = ".", fixed = TRUE), function(x) x[[1]]))
+    if (labels) {
+      text(
+        coord[,1],
+        coord[,2],
+        labels = sapply(
+          strsplit(rownames(coord), split = ".", fixed = TRUE),
+          function(x) x[[1]]
+        )
+      )
+    }
   }
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(

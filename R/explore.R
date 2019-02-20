@@ -22,14 +22,15 @@ generate_pca_plots <- function(
   counts,
   output_prefix,
   treatment,
-  treatment_groups = list()
+  treatment_groups = list(),
+  labels = FALSE
 ) {
   pca <- two_principal_components(counts)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14)
-  plot_pca(pca)
+  plot_pca(pca, labels = labels)
   dev.off()
   png(paste(output_prefix, "-pca.png", sep = ""), height = 960)
-  plot_pca(pca)
+  plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
     pca <- two_principal_components(counts[,treatment %in% group])
@@ -43,7 +44,7 @@ generate_pca_plots <- function(
       ),
       height = 14
     )
-    plot_pca(pca, draw_lines = list(group))
+    plot_pca(pca, draw_lines = list(group), labels = labels)
     dev.off()
     png(
       paste(

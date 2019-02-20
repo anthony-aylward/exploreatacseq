@@ -48,7 +48,7 @@ coordinates_by_treatment <- function(coord) {
 #' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
 #' @export
-plot_pca <- function(pca, draw_lines = list()) {
+plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
 
@@ -129,7 +129,16 @@ plot_pca <- function(pca, draw_lines = list()) {
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
-    text(coord[,1], coord[,2], labels = sapply(strsplit(rownames(coord), split = ".", fixed = TRUE), function(x) x[[1]]))
+    if (labels) {
+      text(
+        coord[,1],
+        coord[,2],
+        labels = sapply(
+          strsplit(rownames(coord), split = ".", fixed = TRUE),
+          function(x) x[[1]]
+        )
+      )
+    }
   }
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
