@@ -13,9 +13,10 @@
 #'
 #' @description preprocess multiple ATAC-seq datasets into a read count matrix
 #' @param json_file_path path to a JSON file providing data details
+#' @param cores integer, max number of cores to use
 #' @return list giving the median peak length and the matrix of read counts
 #' @export
-preprocess <- function(json_file_path) {
+preprocess <- function(json_file_path, cores = 1) {
   x <- parse_json(json_file_path)
   peaks <- filter_peaks(
     consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
@@ -204,7 +205,7 @@ explore <- function(
   write_counts = FALSE,
   cores = 1
 ) {
-  preprocessed_data <- preprocess(json_file_path)
+  preprocessed_data <- preprocess(json_file_path, cores = cores)
   cat(
     "median peak length: ",
     preprocessed_data[["median_peak_length"]],
