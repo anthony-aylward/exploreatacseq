@@ -65,6 +65,7 @@ explore(
   "atacseq.json",
   "output_prefix",
   treatment_groups = list(c("untreated", "dex")),
+  write_counts = TRUE,
   cores = 2
 )
 ```
