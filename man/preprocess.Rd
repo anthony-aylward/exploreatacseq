@@ -4,10 +4,12 @@
 \alias{preprocess}
 \title{preprocess ATAC-seq data}
 \usage{
-preprocess(json_file_path)
+preprocess(json_file_path, cores = 1)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
+
+\item{cores}{integer, max number of cores to use}
 }
 \value{
 list giving the median peak length and the matrix of read counts
