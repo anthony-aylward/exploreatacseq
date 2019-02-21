@@ -56,7 +56,7 @@ SAMN09767462, AFA3256) and two treatment conditions (untreated, dexamethasone):
 }
 ```
 
-Assuming the above file is at `atacseq.json`, here is a simple example
+Assuming the above file is saved as `atacseq.json`, here is a simple example
 application of `exploreatacseq` in R:
 ```r
 library(exploreatacseq)
