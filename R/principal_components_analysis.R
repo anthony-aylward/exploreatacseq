@@ -138,8 +138,9 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     c(1, 2),
     function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y])))
   )
-  boxplot(pc[[1]] ~ grp, horizontal = TRUE, at = order(order(sapply(coord_by_treat, median))))
-  boxplot(pc[[2]] ~ grp)
+  by_median <- reorder(grp, pc[[1]], median)
+  boxplot(pc[[1]] ~ by_median, horizontal = TRUE)
+  boxplot(pc[[2]] ~ by_median)
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
     0,
