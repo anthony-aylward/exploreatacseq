@@ -66,7 +66,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   }
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
-  par(mfcol = c(2, 1))
+  par(mfcol = c(2, 2))
   plot(
     pca[["rotation"]][,1],
     pca[["rotation"]][,2],
@@ -131,6 +131,12 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
       )
     }
   }
+  boxplot(
+    unlist(lapply(coord_by_treat, function(x) as.numeric(x[,1]))) ~ unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
+  )
+  boxplot(
+    unlist(lapply(coord_by_treat, function(x) as.numeric(x[,2]))) ~ unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
+  )
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
     0,
