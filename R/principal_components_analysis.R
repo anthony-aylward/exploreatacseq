@@ -42,7 +42,9 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
 
-  if (length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)) {
+  if (
+    length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)
+  ) {
     coord_by_treat <- coord_by_treat[draw_lines[[1]]]
   }
 
@@ -70,7 +72,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   }
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
-  par(mfcol = c(2, 2))
+  par(mfcol = c(2, 2), oma=c(3,6,3,3))
   plot(
     pca[["rotation"]][,1],
     pca[["rotation"]][,2],
@@ -142,11 +144,11 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     c(1, 2),
     function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y])))
   )
-  box_colors <- palette[1:n_treatments][order(sapply(coord_by_treat, function(x) median(x[,1])))]
+  box_colors <- palette[1:n_treatments][
+    order(sapply(coord_by_treat, function(x) median(x[,1])))
+  ]
   by_median <- reorder(grp, pc[[1]], median)
-  boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col =  box_colors, axes = FALSE)
-  axis(1)
-  axis(4)
+  boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col =  box_colors)
   boxplot(pc[[2]] ~ by_median, las = 2, col =  box_colors)
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
