@@ -116,6 +116,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     }
   }
   n_treatments <- length(coord_by_treat)
+  print(names(coord_by_treat))
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
