@@ -139,10 +139,10 @@ generate_umap_plots <- function(
     )
   }
   rownames(u) <- paste(sample, treatment, sep = ".")
-  pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14)
+  pdf(paste(output_prefix, "-umap.pdf", sep = ""), height = 14, width = 14)
   plot_umap(u, labels = labels)
   dev.off()
-  png(paste(output_prefix, "-umap.png", sep = ""), height = 960)
+  png(paste(output_prefix, "-umap.png", sep = ""), height = 960, width = 960)
   plot_umap(u, labels = labels)
   dev.off()
   for (group in treatment_groups) {
