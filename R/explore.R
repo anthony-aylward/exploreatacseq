@@ -63,7 +63,7 @@ generate_pca_plots <- function(
   plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
-    pca <- prcomp(counts[,treatment %in% group], rank = 2)
+    pca <- prcomp(counts[,treatment %in% group][,group], rank = 2)
     pdf(
       paste(
         output_prefix,
