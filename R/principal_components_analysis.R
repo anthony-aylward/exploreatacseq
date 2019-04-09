@@ -148,7 +148,6 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     1,
     legend = names(coord_by_treat),
     col = palette[1:n_treatments],
-    pch = 19,
-    cex = 2
+    pch = 19
   )
 }
