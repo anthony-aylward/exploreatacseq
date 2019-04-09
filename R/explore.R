@@ -71,8 +71,7 @@ generate_pca_plots <- function(
         paste(group, sep = "-", collapse = "-"),
         "-pca.pdf",
         sep = ""
-      ),
-      height = 14
+      )
     )
     plot_pca(pca, draw_lines = list(group), labels = labels)
     dev.off()
@@ -83,8 +82,7 @@ generate_pca_plots <- function(
         paste(group, sep = "-", collapse = "-"),
         "-pca.png",
         sep = ""
-      ),
-      height = 960
+      )
     )
     plot_pca(pca, draw_lines = list(group), labels = labels)
     dev.off()
