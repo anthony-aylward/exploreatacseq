@@ -149,7 +149,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   ]
   by_median <- reorder(grp, pc[[1]], median)
   bp <- boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col =  box_colors, xaxt="n")
-  axis(3, at = 1:n_treatments, labels = bp[["names"]])
+  axis(4, at = 1:n_treatments, labels = bp[["names"]])
   boxplot(pc[[2]] ~ by_median, las = 2, col =  box_colors)
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
