@@ -131,12 +131,16 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
       )
     }
   }
-  boxplot(
-    unlist(lapply(coord_by_treat, function(x) as.numeric(x[,1]))) ~ unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
+  coord_by_treat <- coord_by_treat[order(sapply(coord_by_treat, mean))]
+  grp <- unlist(
+    lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]])))
   )
-  boxplot(
-    unlist(lapply(coord_by_treat, function(x) as.numeric(x[,2]))) ~ unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
+  pc <- lapply(
+    c(1, 2),
+    function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y])))
   )
+  boxplot(pc[[1]] ~ grp, horizontal = TRUE)
+  boxplot(pc[[2]] ~ grp)
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
     0,
