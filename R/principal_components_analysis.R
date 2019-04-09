@@ -42,6 +42,10 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
 
+  if (length(draw_lines) == length(coord_by_treat)) {
+    coord_by_treat <- coord_by_treat[unlist(draw_lines)]
+  }
+
   draw_line <- function(sample, start_treatment, end_treatment) {
     lines(
       c(
@@ -116,6 +120,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     }
   }
   n_treatments <- length(coord_by_treat)
+  if length(draw_lines) == length(coord_by_treat)
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
