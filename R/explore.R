@@ -56,10 +56,10 @@ generate_pca_plots <- function(
 ) {
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   pca <- prcomp(counts, rank = 2)
-  pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14, height = 14)
+  pdf(paste(output_prefix, "-pca.pdf", sep = ""), height = 14, width = 14)
   plot_pca(pca, labels = labels)
   dev.off()
-  png(paste(output_prefix, "-pca.png", sep = ""), height = 960, height = 960)
+  png(paste(output_prefix, "-pca.png", sep = ""), height = 960, width = 960)
   plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
