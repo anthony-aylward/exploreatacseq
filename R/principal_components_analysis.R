@@ -131,7 +131,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
       )
     }
   }
-  coord_by_treat <- coord_by_treat[order(sapply(coord_by_treat, mean))]
+  coord_by_treat <- coord_by_treat[order(lapply(coord_by_treat, mean))]
   grp <- unlist(
     lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]])))
   )
