@@ -72,7 +72,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
   }
 
   palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
-  par(mfcol = c(2, 2), oma=c(3,6,3,3))
+  par(mfcol = c(2, 2))
   plot(
     pca[["rotation"]][,1],
     pca[["rotation"]][,2],
@@ -148,7 +148,8 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     order(sapply(coord_by_treat, function(x) median(x[,1])))
   ]
   by_median <- reorder(grp, pc[[1]], median)
-  boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col =  box_colors)
+  bp <- boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col =  box_colors, xaxt="n")
+  axis(3, at = 1:n_treatments, labels = bp[["names"]])
   boxplot(pc[[2]] ~ by_median, las = 2, col =  box_colors)
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
