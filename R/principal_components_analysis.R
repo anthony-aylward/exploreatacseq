@@ -71,7 +71,7 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     )
   }
 
-  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
+  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
   par(mfcol = c(2, 2))
   plot(
     pca[["rotation"]][,1],
