@@ -41,7 +41,7 @@ plot_umap <- function(umap_matrix, draw_lines = list(), labels = FALSE) {
     )
   }
 
-  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9)]
+  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
   par(mfcol = c(2, 1))
   plot(umap_matrix[,1], umap_matrix[,2], col = "white", ann = FALSE)
   for (group in draw_lines) {
