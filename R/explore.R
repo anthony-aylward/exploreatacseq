@@ -63,12 +63,7 @@ generate_pca_plots <- function(
   plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
-    palette = exploreatacseq_color_palette()[
-      c(
-        treatment %in% group,
-        rep(FALSE, length(exploreatacseq_color_palette()) - length(treatment))
-      )
-    ]
+    palette = exploreatacseq_color_palette()[1:length(treatment)][treatment %in% group]
     pca <- prcomp(counts[,treatment %in% group], rank = 2)
     pdf(
       paste(
