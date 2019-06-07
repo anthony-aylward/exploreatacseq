@@ -11,6 +11,16 @@
 
 # Functions ====================================================================
 
+#' @title tailored color palette
+#'
+#' @description a color palette for PCA plots
+#'
+#' @return character vector defining color palette
+#' @export
+exploreatacseq_color_palette <- function() {
+  brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
+}
+
 #' @title coordinates by treatment
 #'
 #' @description organize PCA coordinates by treatment
@@ -38,7 +48,12 @@ coordinates_by_treatment <- function(coord) {
 #' @param draw_lines list of treatment groups to draw lines through
 #' @param labels if TRUE, text labels will be added to the points
 #' @export
-plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
+plot_pca <- function(
+  pca,
+  draw_lines = list(),
+  labels = FALSE,
+  palette = brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
+) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
 
@@ -71,7 +86,6 @@ plot_pca <- function(pca, draw_lines = list(), labels = FALSE) {
     )
   }
 
-  palette <- brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
   par(mfcol = c(2, 2))
   plot(
     pca[["rotation"]][,1],
