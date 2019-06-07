@@ -70,7 +70,8 @@ generate_pca_plots <- function(
         "-",
         paste(group, sep = "-", collapse = "-"),
         "-pca.pdf",
-        sep = ""
+        sep = "",
+        palette = exploreatacseq_color_palette()[treatment %in% group]
       )
     )
     plot_pca(pca, draw_lines = list(group), labels = labels)
@@ -81,7 +82,8 @@ generate_pca_plots <- function(
         "-",
         paste(group, sep = "-", collapse = "-"),
         "-pca.png",
-        sep = ""
+        sep = "",
+        palette = exploreatacseq_color_palette()[treatment %in% group]
       )
     )
     plot_pca(pca, draw_lines = list(group), labels = labels)
