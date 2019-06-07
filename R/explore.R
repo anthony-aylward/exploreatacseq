@@ -63,6 +63,12 @@ generate_pca_plots <- function(
   plot_pca(pca, labels = labels)
   dev.off()
   for (group in treatment_groups) {
+    palette = exploreatacseq_color_palette()[
+      c(
+        treatment %in% group,
+        rep(FALSE, length(exploreatacseq_color_palette()) - length(treatment)
+      )
+    ]
     pca <- prcomp(counts[,treatment %in% group], rank = 2)
     pdf(
       paste(
@@ -77,7 +83,7 @@ generate_pca_plots <- function(
       pca,
       draw_lines = list(group),
       labels = labels,
-      palette = exploreatacseq_color_palette()[treatment %in% group]
+      palette = palette
     )
     dev.off()
     png(
@@ -93,7 +99,7 @@ generate_pca_plots <- function(
       pca,
       draw_lines = list(group),
       labels = labels,
-      palette = exploreatacseq_color_palette()[treatment %in% group]
+      palette = palette
     )
     dev.off()
   }
