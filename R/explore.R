@@ -66,7 +66,7 @@ generate_pca_plots <- function(
     palette = exploreatacseq_color_palette()[
       c(
         treatment %in% group,
-        rep(FALSE, length(exploreatacseq_color_palette()) - length(treatment)
+        rep(FALSE, length(exploreatacseq_color_palette()) - length(treatment))
       )
     ]
     pca <- prcomp(counts[,treatment %in% group], rank = 2)
@@ -251,4 +251,3 @@ explore <- function(
     cores = cores
   )
 }
-
