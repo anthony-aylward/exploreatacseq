@@ -4,7 +4,8 @@
 \alias{plot_pca}
 \title{plot principal components}
 \usage{
-plot_pca(pca, draw_lines = list(), labels = FALSE)
+plot_pca(pca, draw_lines = list(), labels = FALSE,
+  palette = brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)])
 }
 \arguments{
 \item{pca}{list with class "prcomp"}
