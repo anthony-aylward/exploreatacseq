@@ -70,11 +70,15 @@ generate_pca_plots <- function(
         "-",
         paste(group, sep = "-", collapse = "-"),
         "-pca.pdf",
-        sep = "",
-        palette = exploreatacseq_color_palette()[treatment %in% group]
+        sep = ""
       )
     )
-    plot_pca(pca, draw_lines = list(group), labels = labels)
+    plot_pca(
+      pca,
+      draw_lines = list(group),
+      labels = labels,
+      palette = exploreatacseq_color_palette()[treatment %in% group]
+    )
     dev.off()
     png(
       paste(
@@ -82,11 +86,15 @@ generate_pca_plots <- function(
         "-",
         paste(group, sep = "-", collapse = "-"),
         "-pca.png",
-        sep = "",
-        palette = exploreatacseq_color_palette()[treatment %in% group]
+        sep = ""
       )
     )
-    plot_pca(pca, draw_lines = list(group), labels = labels)
+    plot_pca(
+      pca,
+      draw_lines = list(group),
+      labels = labels,
+      palette = exploreatacseq_color_palette()[treatment %in% group]
+    )
     dev.off()
   }
 }
