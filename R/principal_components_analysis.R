@@ -58,7 +58,7 @@ plot_pca <- function(
   pca,
   draw_lines = list(),
   labels = FALSE,
-  palette = brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
+  palette = exploreatacseq_color_palette()
 ) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
