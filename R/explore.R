@@ -46,17 +46,20 @@ preprocess <- function(json_file_path, cores = 1) {
 #'   inferred from the read count matrix
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
+#' @param palette_order ordering of color palette, eithier "categorical" or
+#'   "sequential"
 #' @export
 generate_pca_plots <- function(
   counts,
   output_prefix,
   treatment = NULL,
   treatment_groups = list(),
-  labels = FALSE
+  labels = FALSE,
+  palette_order = "categorical"
 ) {
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   palette_vector = setNames(
-    exploreatacseq_color_palette()[1:length(treatment)],
+    exploreatacseq_color_palette(order = palette_order)[1:length(treatment)],
     treatment
   )
   pca <- prcomp(counts, rank = 2)
@@ -206,6 +209,8 @@ generate_umap_plots <- function(
 #' @param write_counts logical, if TRUE the read count matrix will be written
 #'   to disk as a TSV file
 #' @param cores integer, max number of cores to use
+#' @param palette_order ordering of color palette, eithier "categorical" or
+#'   "sequential"
 #' @export
 explore <- function(
   json_file_path,
@@ -218,7 +223,8 @@ explore <- function(
   write_counts = FALSE,
   cores = 1,
   pca = TRUE,
-  umap = FALSE
+  umap = FALSE,
+  palette_order = "categorical"
 ) {
   preprocessed_data <- preprocess(json_file_path, cores = cores)
   cat(
@@ -241,7 +247,8 @@ explore <- function(
     generate_pca_plots(
       preprocessed_data[["counts"]],
       output_prefix,
-      treatment_groups = treatment_groups
+      treatment_groups = treatment_groups,
+      palette_order = palette_order
     )
   }
   if (umap) {

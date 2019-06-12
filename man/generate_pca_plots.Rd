@@ -5,7 +5,8 @@
 \title{generate PCA plots}
 \usage{
 generate_pca_plots(counts, output_prefix, treatment = NULL,
-  treatment_groups = list(), labels = FALSE)
+  treatment_groups = list(), labels = FALSE,
+  palette_order = "categorical")
 }
 \arguments{
 \item{counts}{matrix of read counts}
@@ -18,6 +19,9 @@ inferred from the read count matrix}
 \item{treatment_groups}{list of treatment groups}
 
 \item{labels}{if TRUE, text labels will be added to points in all plots}
+
+\item{palette_order}{ordering of color palette, eithier "categorical" or
+"sequential"}
 }
 \description{
 plot PCA of the read counts
