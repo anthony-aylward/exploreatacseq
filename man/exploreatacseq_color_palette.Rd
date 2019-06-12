@@ -4,7 +4,11 @@
 \alias{exploreatacseq_color_palette}
 \title{tailored color palette}
 \usage{
-exploreatacseq_color_palette()
+exploreatacseq_color_palette(order = "categorical")
+}
+\arguments{
+\item{order}{set to either "categorical" or "sequential", determines
+ordering of the palette}
 }
 \value{
 character vector defining color palette

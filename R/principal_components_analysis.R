@@ -15,10 +15,16 @@
 #'
 #' @description a color palette for PCA plots
 #'
+#' @param order set to either "categorical" or "sequential", determines
+#'   ordering of the palette
 #' @return character vector defining color palette
 #' @export
-exploreatacseq_color_palette <- function() {
-  brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
+exploreatacseq_color_palette <- function(order = "categorical") {
+  if (order == "categorical") {
+    brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
+  } else if (order == "sequential") {
+    brewer.pal(8, "Set1")[c(8, 4, 2, 3, 5, 1)]
+  }
 }
 
 #' @title coordinates by treatment
