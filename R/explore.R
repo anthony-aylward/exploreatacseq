@@ -216,7 +216,9 @@ explore <- function(
   metric = "euclidean",
   n_pc = NULL,
   write_counts = FALSE,
-  cores = 1
+  cores = 1,
+  pca = TRUE,
+  umap = FALSE
 ) {
   preprocessed_data <- preprocess(json_file_path, cores = cores)
   cat(
@@ -235,18 +237,22 @@ explore <- function(
       row.names = FALSE
     )
   }
-  generate_pca_plots(
-    preprocessed_data[["counts"]],
-    output_prefix,
-    treatment_groups = treatment_groups
-  )
-  generate_umap_plots(
-    preprocessed_data[["counts"]],
-    output_prefix,
-    treatment_groups = treatment_groups,
-    n_neighbors = n_neighbors,
-    metric = metric,
-    n_pc = n_pc,
-    cores = cores
-  )
+  if (pca) {
+    generate_pca_plots(
+      preprocessed_data[["counts"]],
+      output_prefix,
+      treatment_groups = treatment_groups
+    )
+  }
+  if (umap) {
+    generate_umap_plots(
+      preprocessed_data[["counts"]],
+      output_prefix,
+      treatment_groups = treatment_groups,
+      n_neighbors = n_neighbors,
+      metric = metric,
+      n_pc = n_pc,
+      cores = cores
+    )
+  }
 }

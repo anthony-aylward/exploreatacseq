@@ -6,7 +6,8 @@
 \usage{
 explore(json_file_path, output_prefix, treatment_groups = list(),
   labels = FALSE, n_neighbors = 15, metric = "euclidean",
-  n_pc = NULL, write_counts = FALSE, cores = 1)
+  n_pc = NULL, write_counts = FALSE, cores = 1, pca = TRUE,
+  umap = FALSE)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
