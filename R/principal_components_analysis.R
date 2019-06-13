@@ -37,7 +37,7 @@ exploreatacseq_color_palette <- function(order = "categorical") {
 coordinates_by_treatment <- function(coord) {
   treatment <- sapply(
     strsplit(rownames(coord), split = ".", fixed = TRUE),
-    function(x) x[[1]]
+    function(x) x[[2]]
   )
   treat_uniq <- unique(treatment)
   setNames(

@@ -62,7 +62,7 @@ generate_pca_plots <- function(
     exploreatacseq_color_palette(order = palette_order)[1:length(treatment)],
     treatment
   )
-  pca <- prcomp(counts, rank = 2, palette = palette_vector[treatment])
+  pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""))
   plot_pca(pca, labels = labels, palette = palette_vector)
   dev.off()
