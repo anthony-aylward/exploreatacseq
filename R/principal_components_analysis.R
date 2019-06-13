@@ -60,6 +60,7 @@ plot_pca <- function(
   labels = FALSE,
   palette = exploreatacseq_color_palette()
 ) {
+  print(pca[["rotation"]])
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
 
