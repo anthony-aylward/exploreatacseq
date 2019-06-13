@@ -44,7 +44,6 @@ preprocess <- function(json_file_path, cores = 1) {
 #' @param output_prefix prefix for output files
 #' @param treatment character vector indicating treatment, if NULL, it will be
 #'   inferred from the read count matrix
-
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param palette_order ordering of color palette, eithier "categorical" or
