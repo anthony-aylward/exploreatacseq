@@ -44,6 +44,7 @@ preprocess <- function(json_file_path, cores = 1) {
 #' @param output_prefix prefix for output files
 #' @param treatment character vector indicating treatment, if NULL, it will be
 #'   inferred from the read count matrix
+
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param palette_order ordering of color palette, eithier "categorical" or
@@ -53,14 +54,17 @@ generate_pca_plots <- function(
   counts,
   output_prefix,
   treatment = NULL,
+  treatment_order = NULL,
   treatment_groups = list(),
   labels = FALSE,
   palette_order = "categorical"
 ) {
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   palette_vector = setNames(
-    exploreatacseq_color_palette(order = palette_order)[1:length(treatment)],
-    treatment
+    exploreatacseq_color_palette(order = palette_order)[
+      1:length(treatment_order)
+    ],
+    treatment_order
   )
   pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""))
@@ -201,7 +205,6 @@ generate_umap_plots <- function(
 #'
 #' @param json_file_path path to a JSON file providing data details
 #' @param output_prefix character, a prefix for output files
-#' @param treatment optional vector of treatments
 #' @param treatment_groups list providing groups of treatments to be compared
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
@@ -216,7 +219,6 @@ generate_umap_plots <- function(
 explore <- function(
   json_file_path,
   output_prefix,
-  treatment = NULL,
   treatment_groups = list(),
   labels = FALSE,
   n_neighbors = 15,
@@ -249,7 +251,6 @@ explore <- function(
     generate_pca_plots(
       preprocessed_data[["counts"]],
       output_prefix,
-      treatment = treatment,
       treatment_groups = treatment_groups,
       palette_order = palette_order
     )
