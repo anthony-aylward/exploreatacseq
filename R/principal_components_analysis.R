@@ -23,7 +23,7 @@ exploreatacseq_color_palette <- function(order = "categorical") {
   if (order == "categorical") {
     brewer.pal(9, "Set1")[c(2, 1, 3:5, 7:9, 6)]
   } else if (order == "sequential") {
-    brewer.pal(8, "Set1")[c(8, 4, 2, 3, 5, 1)]
+    rev(brewer.pal(6, "RdYlBu"))
   }
 }
 
