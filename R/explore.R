@@ -64,10 +64,10 @@ generate_pca_plots <- function(
   )
   pca <- prcomp(counts, rank = 2)
   pdf(paste(output_prefix, "-pca.pdf", sep = ""))
-  plot_pca(pca, labels = labels)
+  plot_pca(pca, labels = labels, palette = palette_vector)
   dev.off()
   png(paste(output_prefix, "-pca.png", sep = ""))
-  plot_pca(pca, labels = labels)
+  plot_pca(pca, labels = labels, palette = palette_vector)
   dev.off()
   for (group in treatment_groups) {
     palette = palette_vector[group]
