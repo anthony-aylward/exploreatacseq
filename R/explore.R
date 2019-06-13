@@ -57,13 +57,14 @@ generate_pca_plots <- function(
   labels = FALSE,
   palette_order = "categorical"
 ) {
-  t <- extract_treatment_vector(counts)
-  colnames(counts) <- t
-  if (is.null(treatment)) {
-    treatment <- t
-  } else {
-    counts <- counts[,treatment]
-  }
+  # t <- extract_treatment_vector(counts)
+  # colnames(counts) <- t
+  # if (is.null(treatment)) {
+  #   treatment <- t
+  # } else {
+  #   counts <- counts[,treatment]
+  # }
+  treatment <- extract_treatment_vector(counts)
   palette_vector = setNames(
     exploreatacseq_color_palette(order = palette_order)[1:length(treatment)],
     treatment
