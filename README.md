@@ -74,5 +74,5 @@ explore(
 
 Here are a couple examples of the visualizations that can be achieved:
 
-![all no labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca-nolabel.png)
+![all no labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca.png)
 ![dex with labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca-untreated-dex.png)
