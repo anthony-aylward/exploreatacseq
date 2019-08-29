@@ -3,7 +3,29 @@ Exploratory analysis of multiple ATAC-seq datasets
 
 ## Installation
 
+Install bioconductor if you haven't yet
 ```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+```
+
+Then:
+```r
+BiocManager::install(
+  c(
+    "BiocGenerics",
+    "BiocParallel",
+    "GenomicAlignments",
+    "GenomicRanges",
+    "IRanges",
+    "Rsamtools",
+    "S4Vectors",
+    "SummarizedExperiment",
+    "edgeR",
+    "limma"
+  )
+)
 library(devtools)
 install_github("anthony-aylward/exploreatacseq")
 ```
