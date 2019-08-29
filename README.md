@@ -26,6 +26,7 @@ BiocManager::install(
     "limma"
   )
 )
+install.packages(c("RColorBrewer", "jsonlite", "uwot"))
 library(devtools)
 install_github("anthony-aylward/exploreatacseq")
 ```
