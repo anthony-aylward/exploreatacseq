@@ -96,9 +96,9 @@ plot_pca <- function(
   layout(
     matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE),
     widths = c(1, 2),
-    heights = c(1, 2)
+    heights = c(2, 1)
   )
-  par(mai=c(0.5, 0.5, 0.5, 0.5))
+  par(mai=c(1, 1, 0.1, 0.1))
   
   plot(
     pca[["rotation"]][,1],
