@@ -104,7 +104,8 @@ plot_pca <- function(
     pca[["rotation"]][,2],
     col = "white",
     xaxt="n",
-    yaxt="n"
+    yaxt="n",
+    ann=FALSE
   )
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
@@ -181,11 +182,12 @@ plot_pca <- function(
     horizontal = TRUE,
     las = 1,
     col = box_colors,
-    yaxt="n"
+    yaxt="n",
+    ann=FALSE
   )
   title(xlab = paste("PC1 [", percent_of_variance[["PC1"]], "%]", sep = ""))
   
-  boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", yaxt="n")
+  boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", yaxt="n", ann=FALSE)
   axis(4, at = c(-0.2, 0, 0.2), labels = c(-0.2, 0, 0.2), las = 1)
   title(ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = ""))
 
