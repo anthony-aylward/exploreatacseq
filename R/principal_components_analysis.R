@@ -94,7 +94,7 @@ plot_pca <- function(
   }
 
   layout(
-    matrix(c(1, 2, 3, 4, 2, 2), byrow = FALSE),
+    matrix(c(1, 2, 3, 4), 2, 2, byrow = FALSE),
     widths = c(2, 1),
     heights = c(2, 1)
   )
