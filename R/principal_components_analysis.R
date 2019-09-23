@@ -94,11 +94,11 @@ plot_pca <- function(
   }
 
   layout(
-    matrix(c(1, 2, 3, 4), 2, 2, byrow = FALSE),
-    widths = c(2, 1),
-    heights = c(2, 1)
+    matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE),
+    widths = c(1, 2),
+    heights = c(1, 2)
   )
-  par(mai=c(0.1, 0.1, 0.1, 0.1))
+  par(mai=c(0.5, 0.5, 0.5, 0.5))
   
   plot(
     pca[["rotation"]][,1],
@@ -188,8 +188,7 @@ plot_pca <- function(
   )
   title(xlab = paste("PC1 [", percent_of_variance[["PC1"]], "%]", sep = ""))
   
-  boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", yaxt="n", ann=FALSE)
-  axis(4, at = c(-0.2, 0, 0.2), labels = c(-0.2, 0, 0.2), las = 1)
+  boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", ann=FALSE)
   title(ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = ""))
 
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
