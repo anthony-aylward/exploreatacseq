@@ -3,6 +3,7 @@
 #===============================================================================
 
 #' @import uwot
+#' @import svglite
 
 
 
@@ -66,6 +67,9 @@ generate_pca_plots <- function(
     treatment_order
   )
   pca <- prcomp(counts, rank = 2)
+  svglite(paste(output_prefix, "-pca.svg", sep = ""), height = 7, width = 7)
+  plot_pca(pca, labels = labels, palette = palette_vector)
+  dev.off()
   pdf(paste(output_prefix, "-pca.pdf", sep = ""))
   plot_pca(pca, labels = labels, palette = palette_vector)
   dev.off()
@@ -75,6 +79,24 @@ generate_pca_plots <- function(
   for (group in treatment_groups) {
     palette = palette_vector[group]
     pca <- prcomp(counts[,treatment %in% group], rank = 2)
+    svglite(
+      paste(
+        output_prefix,
+        "-",
+        paste(group, sep = "-", collapse = "-"),
+        "-pca.svg",
+        sep = ""
+      ),
+      height = 7,
+      width = 7
+    )
+    plot_pca(
+      pca,
+      draw_lines = list(group),
+      labels = labels,
+      palette = palette
+    )
+    dev.off()
     pdf(
       paste(
         output_prefix,
