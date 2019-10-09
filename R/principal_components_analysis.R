@@ -59,10 +59,13 @@ plot_pca <- function(
   draw_lines = list(),
   labels = FALSE,
   palette = exploreatacseq_color_palette()
+  percent_of_variance = NULL
 ) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   if (!is.null(names(palette))) coord_by_treat <- coord_by_treat[names(palette)]
-  percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
+  if (is.null(percent_of_variance)) {
+    percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
+  }
 
   if (
     length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)
