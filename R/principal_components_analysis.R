@@ -58,7 +58,7 @@ plot_pca <- function(
   pca,
   draw_lines = list(),
   labels = FALSE,
-  palette = exploreatacseq_color_palette()
+  palette = exploreatacseq_color_palette(),
   percent_of_variance = NULL
 ) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
