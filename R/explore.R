@@ -57,16 +57,24 @@ generate_pca_plots <- function(
   treatment_order = NULL,
   treatment_groups = list(),
   labels = FALSE,
-  palette_order = "categorical"
+  palette_order = "categorical",
+  palette = NULL
 ) {
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   if (is.null(treatment_order)) treatment_order <- unique(treatment)
-  palette_vector = setNames(
-    exploreatacseq_color_palette(order = palette_order)[
-      1:length(treatment_order)
-    ],
-    treatment_order
-  )
+  if (is.null(palette)) {
+    palette_vector = setNames(
+      exploreatacseq_color_palette(order = palette_order)[
+        1:length(treatment_order)
+      ],
+      treatment_order
+    )
+  } else {
+    palette_vector = setNames(
+      palette[1:length(treatment_order)],
+      treatment_order
+    )
+  }
   pca <- prcomp(counts, rank = 2)
   svglite(paste(output_prefix, "-pca.svg", sep = ""), height = 7, width = 7)
   plot_pca(pca, labels = labels, palette = palette_vector)
@@ -250,7 +258,8 @@ explore <- function(
   cores = 1,
   pca = TRUE,
   umap = FALSE,
-  palette_order = "categorical"
+  palette_order = "categorical",
+  palette = NULL
 ) {
   preprocessed_data <- preprocess(json_file_path, cores = cores)
   cat(
@@ -274,7 +283,8 @@ explore <- function(
       preprocessed_data[["counts"]],
       output_prefix,
       treatment_groups = treatment_groups,
-      palette_order = palette_order
+      palette_order = palette_order,
+      palette = palette
     )
   }
   if (umap) {
