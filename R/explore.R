@@ -62,7 +62,7 @@ generate_pca_plots <- function(
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
   palette_vector = setNames(
     exploreatacseq_color_palette(order = palette_order)[
-      1:length(treatment_order)
+      1:length(treatment)
     ],
     treatment_order
   )
