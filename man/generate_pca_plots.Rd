@@ -6,7 +6,7 @@
 \usage{
 generate_pca_plots(counts, output_prefix, treatment = NULL,
   treatment_order = NULL, treatment_groups = list(), labels = FALSE,
-  palette_order = "categorical")
+  palette_order = "categorical", palette = NULL)
 }
 \arguments{
 \item{counts}{matrix of read counts}

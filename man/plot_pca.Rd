@@ -5,7 +5,7 @@
 \title{plot principal components}
 \usage{
 plot_pca(pca, draw_lines = list(), labels = FALSE,
-  palette = exploreatacseq_color_palette())
+  palette = exploreatacseq_color_palette(), percent_of_variance = NULL)
 }
 \arguments{
 \item{pca}{list with class "prcomp"}
