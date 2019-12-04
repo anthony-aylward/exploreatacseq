@@ -49,6 +49,7 @@ preprocess <- function(json_file_path, cores = 1) {
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'   "sequential"
+#' @param palette the color palette
 #' @export
 generate_pca_plots <- function(
   counts,
