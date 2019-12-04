@@ -22,6 +22,8 @@ inferred from the read count matrix}
 
 \item{palette_order}{ordering of color palette, eithier "categorical" or
 "sequential"}
+
+\item{palette}{the color palette}
 }
 \description{
 plot PCA of the read counts
