@@ -243,8 +243,11 @@ generate_umap_plots <- function(
 #' @param write_counts logical, if TRUE the read count matrix will be written
 #'   to disk as a TSV file
 #' @param cores integer, max number of cores to use
+#' @param pca logical, if true perform PCA analysis
+#' @param umap logical, if true perform UMAP analysis
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'   "sequential"
+#' @param palette the color palette
 #' @export
 explore <- function(
   json_file_path,
