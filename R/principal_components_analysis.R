@@ -64,7 +64,7 @@ plot_pca <- function(
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   if (!is.null(names(palette))) coord_by_treat <- coord_by_treat[names(palette)]
   if (is.null(percent_of_variance)) {
-    percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
+    percent_of_variance <- signif(summary(pca)[["importance"]][2, 1:2] * 100, digits=3)
   }
 
   if (
