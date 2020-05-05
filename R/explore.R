@@ -13,10 +13,12 @@
 #'
 #' @description preprocess multiple ATAC-seq datasets into a read count matrix
 #' @param json_file_path path to a JSON file providing data details
+#' @param n_peaks integer, number of the top most variable peaks to include in
+#'   the analysis
 #' @param cores integer, max number of cores to use
 #' @return list giving the median peak length and the matrix of read counts
 #' @export
-preprocess <- function(json_file_path, cores = 1) {
+preprocess <- function(json_file_path, n_peaks = 1e5, cores = 1) {
   x <- parse_json(json_file_path)
   peaks <- filter_peaks(
     consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
@@ -30,8 +32,9 @@ preprocess <- function(json_file_path, cores = 1) {
         cores = cores
       ),
       batch = x[["batch"]],
-      covariates = x[["tss_enrichment"]]
-    )
+      covariates = x[["tss_enrichment"]],
+    ),
+    n = n_peaks
   )
   list(median_peak_length = median_peak_length(peaks), counts = counts)
 }
@@ -204,6 +207,8 @@ generate_umap_plots <- function(
 #'
 #' @param json_file_path path to a JSON file providing data details
 #' @param output_prefix character, a prefix for output files
+#' @param n_peaks integer, number of the top most variable peaks to include in
+#'   the analysis
 #' @param treatment_groups list providing groups of treatments to be compared
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
@@ -220,6 +225,7 @@ explore <- function(
   output_prefix,
   treatment_groups = list(),
   labels = FALSE,
+  n_peaks = 1e5,
   n_neighbors = 15,
   metric = "euclidean",
   n_pc = NULL,
@@ -229,7 +235,11 @@ explore <- function(
   umap = FALSE,
   palette_order = "categorical"
 ) {
-  preprocessed_data <- preprocess(json_file_path, cores = cores)
+  preprocessed_data <- preprocess(
+    json_file_path,
+    n_peaks = n_peaks,
+    cores = cores
+  )
   cat(
     "median peak length: ",
     preprocessed_data[["median_peak_length"]],
