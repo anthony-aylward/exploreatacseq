@@ -38,7 +38,7 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
   calcNormFactors(
     DGEList(
       assays(summarized_experiment)[["counts"]],
-      group = group
+      group = rep(1, times = length(group))
     )
   )
 }

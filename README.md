@@ -3,7 +3,30 @@ Exploratory analysis of multiple ATAC-seq datasets
 
 ## Installation
 
+Install bioconductor if you haven't yet
 ```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+```
+
+Then:
+```r
+BiocManager::install(
+  c(
+    "BiocGenerics",
+    "BiocParallel",
+    "GenomicAlignments",
+    "GenomicRanges",
+    "IRanges",
+    "Rsamtools",
+    "S4Vectors",
+    "SummarizedExperiment",
+    "edgeR",
+    "limma"
+  )
+)
+install.packages(c("RColorBrewer", "jsonlite", "svglite", "uwot"))
 library(devtools)
 install_github("anthony-aylward/exploreatacseq")
 ```
@@ -74,5 +97,5 @@ explore(
 
 Here are a couple examples of the visualizations that can be achieved:
 
-![all no labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca-nolabel.png)
+![all no labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca.png)
 ![dex with labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca-untreated-dex.png)

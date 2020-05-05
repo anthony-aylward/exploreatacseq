@@ -8,7 +8,7 @@ explore(json_file_path, output_prefix, treatment_groups = list(),
   labels = FALSE, n_peaks = 1e+05, n_neighbors = 15,
   metric = "euclidean", n_pc = NULL, write_counts = FALSE,
   cores = 1, pca = TRUE, umap = FALSE,
-  palette_order = "categorical")
+  palette_order = "categorical", palette = NULL)
 }
 \arguments{
 \item{json_file_path}{path to a JSON file providing data details}
@@ -33,8 +33,14 @@ to disk as a TSV file}
 
 \item{cores}{integer, max number of cores to use}
 
+\item{pca}{logical, if true perform PCA analysis}
+
+\item{umap}{logical, if true perform UMAP analysis}
+
 \item{palette_order}{ordering of color palette, eithier "categorical" or
 "sequential"}
+
+\item{palette}{the color palette}
 }
 \description{
 perform an exploratory analysis

@@ -3,6 +3,7 @@
 #===============================================================================
 
 #' @import uwot
+#' @import svglite
 
 
 
@@ -51,6 +52,7 @@ preprocess <- function(json_file_path, n_peaks = 1e5, cores = 1) {
 #' @param labels if TRUE, text labels will be added to points in all plots
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'   "sequential"
+#' @param palette the color palette
 #' @export
 generate_pca_plots <- function(
   counts,
@@ -59,16 +61,28 @@ generate_pca_plots <- function(
   treatment_order = NULL,
   treatment_groups = list(),
   labels = FALSE,
-  palette_order = "categorical"
+  palette_order = "categorical",
+  palette = NULL
 ) {
   if (is.null(treatment)) treatment <- extract_treatment_vector(counts)
-  palette_vector = setNames(
-    exploreatacseq_color_palette(order = palette_order)[
-      1:length(treatment_order)
-    ],
-    treatment_order
-  )
+  if (is.null(treatment_order)) treatment_order <- unique(treatment)
+  if (is.null(palette)) {
+    palette_vector = setNames(
+      exploreatacseq_color_palette(order = palette_order)[
+        1:length(treatment_order)
+      ],
+      treatment_order
+    )
+  } else {
+    palette_vector = setNames(
+      palette[1:length(treatment_order)],
+      treatment_order
+    )
+  }
   pca <- prcomp(counts, rank = 2)
+  svglite(paste(output_prefix, "-pca.svg", sep = ""), height = 7, width = 7)
+  plot_pca(pca, labels = labels, palette = palette_vector)
+  dev.off()
   pdf(paste(output_prefix, "-pca.pdf", sep = ""))
   plot_pca(pca, labels = labels, palette = palette_vector)
   dev.off()
@@ -78,6 +92,24 @@ generate_pca_plots <- function(
   for (group in treatment_groups) {
     palette = palette_vector[group]
     pca <- prcomp(counts[,treatment %in% group], rank = 2)
+    svglite(
+      paste(
+        output_prefix,
+        "-",
+        paste(group, sep = "-", collapse = "-"),
+        "-pca.svg",
+        sep = ""
+      ),
+      height = 7,
+      width = 7
+    )
+    plot_pca(
+      pca,
+      draw_lines = list(group),
+      labels = labels,
+      palette = palette
+    )
+    dev.off()
     pdf(
       paste(
         output_prefix,
@@ -217,8 +249,11 @@ generate_umap_plots <- function(
 #' @param write_counts logical, if TRUE the read count matrix will be written
 #'   to disk as a TSV file
 #' @param cores integer, max number of cores to use
+#' @param pca logical, if true perform PCA analysis
+#' @param umap logical, if true perform UMAP analysis
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'   "sequential"
+#' @param palette the color palette
 #' @export
 explore <- function(
   json_file_path,
@@ -233,7 +268,8 @@ explore <- function(
   cores = 1,
   pca = TRUE,
   umap = FALSE,
-  palette_order = "categorical"
+  palette_order = "categorical",
+  palette = NULL
 ) {
   preprocessed_data <- preprocess(
     json_file_path,
@@ -261,7 +297,8 @@ explore <- function(
       preprocessed_data[["counts"]],
       output_prefix,
       treatment_groups = treatment_groups,
-      palette_order = palette_order
+      palette_order = palette_order,
+      palette = palette
     )
   }
   if (umap) {

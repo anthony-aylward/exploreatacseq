@@ -58,11 +58,14 @@ plot_pca <- function(
   pca,
   draw_lines = list(),
   labels = FALSE,
-  palette = exploreatacseq_color_palette()
+  palette = exploreatacseq_color_palette(),
+  percent_of_variance = NULL
 ) {
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   if (!is.null(names(palette))) coord_by_treat <- coord_by_treat[names(palette)]
-  percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100)
+  if (is.null(percent_of_variance)) {
+    percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100, digits=1)
+  }
 
   if (
     length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)
@@ -93,13 +96,20 @@ plot_pca <- function(
     )
   }
 
-  par(mfcol = c(2, 2))
+  layout(
+    matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE),
+    widths = c(1, 2),
+    heights = c(2, 1)
+  )
+  par(mai = c(0.65, 0.65, 0.1, 0.1), omi = c(0.1, 0.1, 0.1, 0.1))
+  
   plot(
     pca[["rotation"]][,1],
     pca[["rotation"]][,2],
     col = "white",
-    xlab = paste("PC1 [", percent_of_variance[["PC1"]], "%]", sep = ""),
-    ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = "")
+    xaxt="n",
+    yaxt="n",
+    ann=FALSE
   )
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
@@ -142,6 +152,7 @@ plot_pca <- function(
       }
     }
   }
+
   n_treatments <- length(coord_by_treat)
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
@@ -169,14 +180,20 @@ plot_pca <- function(
     order(sapply(coord_by_treat, function(x) median(x[,1])))
   ]
   by_median <- reorder(grp, pc[[1]], median)
-  bp <- boxplot(
-    pc[[1]] ~ by_median, horizontal = TRUE,
+  
+  boxplot(
+    pc[[1]] ~ by_median,
+    horizontal = TRUE,
     las = 1,
     col = box_colors,
-    yaxt="n"
+    yaxt="n",
+    ann=FALSE
   )
-  axis(4, at = 1:n_treatments, labels = bp[["names"]], las = 1)
-  boxplot(pc[[2]] ~ by_median, las = 2, col =  box_colors)
+  title(xlab = paste("PC1 [", percent_of_variance[["PC1"]], "%]", sep = ""))
+  
+  boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", ann=FALSE)
+  title(ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = ""))
+
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
   legend(
     0,
