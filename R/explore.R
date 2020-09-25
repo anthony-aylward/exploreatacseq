@@ -33,7 +33,7 @@ preprocess <- function(json_file_path, n_peaks = 1e5, cores = 1) {
         cores = cores
       ),
       batch = x[["batch"]],
-      covariates = x[["tss_enrichment"]],
+      covariates = x[["tss_enrichment"]]
     ),
     n = n_peaks
   )
