@@ -55,7 +55,8 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
 transform_counts <- function(
   count_dgelist,
   batch = NULL,
-  covariates = NULL
+  covariates = NULL,
+  ...
 ) {
   count_elist <- voom(count_dgelist)
   removeBatchEffect(
