@@ -296,6 +296,7 @@ explore <- function(
     generate_pca_plots(
       preprocessed_data[["counts"]],
       output_prefix,
+      labels = labels,
       treatment_groups = treatment_groups,
       palette_order = palette_order,
       palette = palette
