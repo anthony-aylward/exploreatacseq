@@ -3,12 +3,23 @@ Exploratory analysis of multiple ATAC-seq datasets
 
 ## Installation
 
+>If you are using Anaconda, you will need to install `cairo` and `pkgconfig`:
+>```sh
+>conda install -c anaconda cairo  
+>conda install -c anaconda pkgconfig
+>```
+
 Install bioconductor if you haven't yet
 ```r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install()
 ```
+
+>If you are using an older version of R, you may need to switch to an older Bioconductor:
+>```r
+>BiocManager::install(version="3.10")
+>```
 
 Then:
 ```r
