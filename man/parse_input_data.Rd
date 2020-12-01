@@ -15,3 +15,7 @@ list of useful vectors
 \description{
 parse input data into useful vectors
 }
+\details{
+The list returned by fromJSON has an awkward structure. This function
+re-organizes the input data into a list of useful vectors.
+}

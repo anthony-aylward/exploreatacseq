@@ -13,5 +13,5 @@ parse_json(json_file_path)
 list of useful vectors
 }
 \description{
-parse input JSON into useful vectors
+parse input JSON into useful vectors using `parse_input_data()`.
 }

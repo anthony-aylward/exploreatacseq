@@ -244,6 +244,9 @@ generate_umap_plots <- function(
 #'
 #' @description perform an exploratory analysis
 #'
+#' @details
+#' The analysis consists of the following steps:
+#'
 #' @param input_data list contatining data details or character path to a JSON
 #'   file
 #' @param output_prefix character, a prefix for output files

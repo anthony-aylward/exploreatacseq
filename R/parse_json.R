@@ -84,6 +84,10 @@ extract_tss_enrichments <- function(input_list) {
 #'
 #' @description parse input data into useful vectors
 #'
+#' @details
+#' The list returned by fromJSON has an awkward structure. This function
+#' re-organizes the input data into a list of useful vectors.
+#'
 #' @param input_list list derived from input JSON
 #' @return list of useful vectors
 #' @export
@@ -99,7 +103,7 @@ parse_input_data <- function(input_list) {
 
 #' @title parse input JSON
 #'
-#' @description parse input JSON into useful vectors
+#' @description parse input JSON into useful vectors using `parse_input_data()`.
 #'
 #' @param input_list path to input JSON file
 #' @return list of useful vectors

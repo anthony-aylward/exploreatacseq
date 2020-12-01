@@ -46,3 +46,6 @@ to disk as a TSV file}
 \description{
 perform an exploratory analysis
 }
+\details{
+The analysis consists of the following steps:
+}
