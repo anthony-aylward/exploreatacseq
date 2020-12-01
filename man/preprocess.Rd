@@ -4,10 +4,11 @@
 \alias{preprocess}
 \title{preprocess ATAC-seq data}
 \usage{
-preprocess(json_file_path, n_peaks = 1e+05, cores = 1)
+preprocess(input_data, n_peaks = 1e+05, cores = 1)
 }
 \arguments{
-\item{json_file_path}{path to a JSON file providing data details}
+\item{input_data}{list contatining data details or character path to a JSON
+file}
 
 \item{n_peaks}{integer, number of the top most variable peaks to include in
 the analysis}

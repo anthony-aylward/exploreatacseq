@@ -13,14 +13,21 @@
 #' @title preprocess ATAC-seq data
 #'
 #' @description preprocess multiple ATAC-seq datasets into a read count matrix
-#' @param json_file_path path to a JSON file providing data details
+#' @param input_data list contatining data details or character path to a JSON
+#'   file
 #' @param n_peaks integer, number of the top most variable peaks to include in
 #'   the analysis
 #' @param cores integer, max number of cores to use
 #' @return list giving the median peak length and the matrix of read counts
 #' @export
-preprocess <- function(json_file_path, n_peaks = 1e5, cores = 1) {
-  x <- parse_json(json_file_path)
+preprocess <- function(input_data, n_peaks = 1e5, cores = 1) {
+  if (typeof(input_data) == "list") {
+    x <- input_data
+  } else if (typeof(input_data) == "character") {
+    x <- parse_json(input_data)
+  } else {
+    stop("input data must be either list or character")
+  }
   peaks <- filter_peaks(
     consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
   )
@@ -237,7 +244,8 @@ generate_umap_plots <- function(
 #'
 #' @description perform an exploratory analysis
 #'
-#' @param json_file_path path to a JSON file providing data details
+#' @param input_data list contatining data details or character path to a JSON
+#'   file
 #' @param output_prefix character, a prefix for output files
 #' @param n_peaks integer, number of the top most variable peaks to include in
 #'   the analysis
@@ -256,7 +264,7 @@ generate_umap_plots <- function(
 #' @param palette the color palette
 #' @export
 explore <- function(
-  json_file_path,
+  input_data,
   output_prefix,
   treatment_groups = list(),
   labels = FALSE,
@@ -272,7 +280,7 @@ explore <- function(
   palette = NULL
 ) {
   preprocessed_data <- preprocess(
-    json_file_path,
+    input_data,
     n_peaks = n_peaks,
     cores = cores
   )

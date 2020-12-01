@@ -4,14 +4,15 @@
 \alias{explore}
 \title{Explore ATAC-seq data}
 \usage{
-explore(json_file_path, output_prefix, treatment_groups = list(),
+explore(input_data, output_prefix, treatment_groups = list(),
   labels = FALSE, n_peaks = 1e+05, n_neighbors = 15,
   metric = "euclidean", n_pc = NULL, write_counts = FALSE,
   cores = 1, pca = TRUE, umap = FALSE,
   palette_order = "categorical", palette = NULL)
 }
 \arguments{
-\item{json_file_path}{path to a JSON file providing data details}
+\item{input_data}{list contatining data details or character path to a JSON
+file}
 
 \item{output_prefix}{character, a prefix for output files}
 
