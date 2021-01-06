@@ -19,7 +19,14 @@
 extract_peaks_paths_by_sample <- function(input_list) {
   lapply(
     input_list,
-    function(treatment_list) sapply(treatment_list, function(x) x[["peaks"]])
+    function(treatment_list) sapply(
+      treatment_list,
+      function(treatment) {
+        if ("peaks" %in% names(treatment)) { treatment[["peaks"]] } else {
+          sapply(treatment, function(rep) rep[["peaks"]])
+        }
+      }
+    )
   )
 }
 
