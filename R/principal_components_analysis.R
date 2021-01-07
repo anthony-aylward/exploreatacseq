@@ -74,7 +74,7 @@ plot_pca <- function(
   }
 
   draw_line <- function(sample, start_treatment, end_treatment, rep = NULL) {
-    if is.null(rep) {
+    if (is.null(rep)) {
       lines(
         c(
           coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 1],
