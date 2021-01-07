@@ -42,7 +42,7 @@ extract_reads_file_paths <- function(input_list) {
   unlist(
     lapply(
       input_list,
-      function(treatment_list) sapply(
+      function(treatment_list) lapply(
         treatment_list,
         function(treatment) {
           if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) {
@@ -66,7 +66,7 @@ extract_tss_enrichments <- function(input_list) {
   unlist(
     lapply(
       input_list,
-      function(treatment_list) sapply(
+      function(treatment_list) lapply(
         treatment_list,
         function(treatment) {
           if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) {
@@ -92,7 +92,7 @@ extract_group_vector <- function(input_list) {
       input_list,
       function(treatment_list) sapply(
         names(treatment_list),
-        function(name) rep(name, length(treatment_list[[name]]))
+        function(name) rep(name, length(unlist(treatment_list[[name]]))/3)
       )
     )
   )
