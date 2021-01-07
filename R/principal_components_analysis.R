@@ -73,82 +73,65 @@ plot_pca <- function(
     coord_by_treat <- coord_by_treat[draw_lines[[1]]]
   }
 
-  draw_line <- function(sample, start_treatment, end_treatment) {
-    lines(
-      c(
-        coord_by_treat[[start_treatment]][
-          paste(sample, start_treatment, sep = "."), 1
-        ],
-        coord_by_treat[[end_treatment]][
-          paste(sample, end_treatment, sep = "."), 1
-        ]
-      ),
-      c(
-        coord_by_treat[[start_treatment]][
-          paste(sample, start_treatment, sep = "."), 2
-        ],
-        coord_by_treat[[end_treatment]][
-          paste(sample, end_treatment, sep = "."), 2
-        ]
-      ),
-      lwd = 4,
-      col = "lightgray"
-    )
+  draw_line <- function(sample, start_treatment, end_treatment, rep = NULL) {
+    if is.null(rep) {
+      lines(
+        c(
+          coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 1],
+          coord_by_treat[[end_treatment]][paste(sample, end_treatment, sep = "."), 1]
+        ),
+        c(
+          coord_by_treat[[start_treatment]][paste(sample, start_treatment, sep = "."), 2],
+          coord_by_treat[[end_treatment]][paste(sample, end_treatment, sep = "."), 2]
+        ),
+        lwd = 4,
+        col = "lightgray"
+      )
+    } else {
+      lines(
+        c(
+          coord_by_treat[[start_treatment]][paste(sample, start_treatment, rep, sep = "."), 1],
+          coord_by_treat[[end_treatment]][paste(sample, end_treatment, rep, sep = "."), 1]
+        ),
+        c(
+          coord_by_treat[[start_treatment]][paste(sample, start_treatment, rep, sep = "."), 2],
+          coord_by_treat[[end_treatment]][paste(sample, end_treatment, rep, sep = "."), 2]
+        ),
+        lwd = 4,
+        col = "lightgray"
+      )
+    }
   }
 
-  layout(
-    matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE),
-    widths = c(1, 2),
-    heights = c(2, 1)
-  )
+  layout(matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE), widths = c(1, 2), heights = c(2, 1))
   par(mai = c(0.65, 0.65, 0.1, 0.1), omi = c(0.1, 0.1, 0.1, 0.1))
   
   plot(
-    pca[["rotation"]][,1],
-    pca[["rotation"]][,2],
-    col = "white",
-    xaxt="n",
-    yaxt="n",
-    ann=FALSE
+    pca[["rotation"]][,1], pca[["rotation"]][,2], col = "white", xaxt = "n",
+    yaxt = "n", ann = FALSE
   )
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
       start_treatment = group[i]
       end_treatment = group[i + 1]
       start_samples = sapply(
-        strsplit(
-          rownames(coord_by_treat[[start_treatment]]),
-          split = ".",
-          fixed = TRUE
-        ),
+        strsplit(rownames(coord_by_treat[[start_treatment]]), split = ".", fixed = TRUE),
         function(x) x[[1]]
       )
       end_samples = sapply(
-        strsplit(
-          rownames(coord_by_treat[[end_treatment]]),
-          split = ".",
-          fixed = TRUE
-        ),
+        strsplit(rownames(coord_by_treat[[end_treatment]]), split = ".", fixed = TRUE),
         function(x) x[[1]]
       )
       samples = intersect(start_samples, end_samples)
-      for (sample in samples) {
-        draw_line(sample, start_treatment, end_treatment)
-      }
+      for (sample in samples) draw_line(sample, start_treatment, end_treatment)
       if (length(group) > i + 1) {
         bridge_treatment = group[i + 2]
         bridge_samples = sapply(
-          strsplit(
-            rownames(coord_by_treat[[bridge_treatment]]),
-            split = ".",
-            fixed = TRUE
-          ),
+          strsplit(rownames(coord_by_treat[[bridge_treatment]]), split = ".", fixed = TRUE),
           function(x) x[[1]]
         )
         samples = setdiff(intersect(start_samples, bridge_samples), samples)
-        for (sample in samples) {
-          draw_line(sample, start_treatment, bridge_treatment)
-        }
+        for (sample in samples) draw_line(sample, start_treatment, bridge_treatment)
       }
     }
   }
