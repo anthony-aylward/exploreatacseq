@@ -22,7 +22,9 @@ extract_peaks_paths_by_sample <- function(input_list) {
     function(treatment_list) sapply(
       treatment_list,
       function(treatment) {
-        if ("peaks" %in% names(treatment)) { treatment[["peaks"]] } else {
+        if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) { 
+          treatment[["peaks"]] 
+        } else {
           sapply(treatment, function(rep) rep[["peaks"]])
         }
       }
@@ -40,32 +42,16 @@ extract_reads_file_paths <- function(input_list) {
   unlist(
     lapply(
       input_list,
-      function(treatment_list) sapply(treatment_list, function(x) x[["reads"]])
-    )
-  )
-}
-
-#' @title extract group
-#'
-#' @description extract group vector from input
-#'
-#' @param input_list list derived from input JSON
-#' @return character vector of groups
-extract_group_vector <- function(input_list) {
-  unlist(lapply(input_list, names))
-}
-
-#' @title extract batch
-#'
-#' @description extract batch vector from input
-#'
-#' @param input_list list derived from input JSON
-#' @return character vector of batch
-extract_batch_vector <- function(input_list) {
-  unlist(
-    lapply(
-      names(input_list),
-      function(name) rep(name, length(input_list[[name]]))
+      function(treatment_list) sapply(
+        treatment_list,
+        function(treatment) {
+          if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) {
+            treatment[["reads"]]
+          } else {
+            sapply(treatment, function(rep) rep[["reads"]])
+          }
+        }
+      )
     )
   )
 }
@@ -80,9 +66,49 @@ extract_tss_enrichments <- function(input_list) {
   unlist(
     lapply(
       input_list,
-      function(treatment_list) {
-        sapply(treatment_list, function(x) x[["tssenrich"]])
-      }
+      function(treatment_list) sapply(
+        treatment_list,
+        function(treatment) {
+          if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) {
+            treatment[["tssenrich"]]
+          } else {
+            sapply(treatment, function(rep) rep[["tssenrich"]])
+          }
+        }
+      )
+    )
+  )
+}
+
+#' @title extract group
+#'
+#' @description extract group vector from input
+#'
+#' @param input_list list derived from input JSON
+#' @return character vector of groups
+extract_group_vector <- function(input_list) {
+  unlist(
+    lapply(
+      input_list,
+      function(treatment_list) sapply(
+        names(treatment_list),
+        function(name) rep(name, length(treatment_list[[name]]))
+      )
+    )
+  )
+}
+
+#' @title extract batch
+#'
+#' @description extract batch vector from input
+#'
+#' @param input_list list derived from input JSON
+#' @return character vector of batch
+extract_batch_vector <- function(input_list) {
+  unlist(
+    lapply(
+      names(input_list),
+      function(name) rep(name, length(input_list[[name]]))
     )
   )
 }
