@@ -157,17 +157,7 @@ plot_pca <- function(
   for (i in 1:n_treatments) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
-    if (labels) {
-      text(
-        coord[,1],
-        coord[,2],
-        labels = sapply(
-          strsplit(rownames(coord), split = ".", fixed = TRUE),
-          function(x) x[[1]]
-        ),
-        pos = 1
-      )
-    }
+    if (labels) text(coord[,1], coord[,2], labels = rownames(coord), pos = 1)
   }
   grp <- unlist(
     lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]])))
