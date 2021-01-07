@@ -108,7 +108,7 @@ extract_batch_vector <- function(input_list) {
   unlist(
     lapply(
       names(input_list),
-      function(name) rep(name, length(input_list[[name]]))
+      function(name) rep(name, length(unlist(input_list[[name]]))/3)
     )
   )
 }
