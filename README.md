@@ -37,18 +37,18 @@ install_github("anthony-aylward/exploreatacseq")
 
 ### Anaconda
 
->If you are using Anaconda, you will need to install `cairo` and `pkgconfig`:
->```sh
->conda install -c anaconda cairo  
->conda install -c anaconda pkgconfig
->```
+If you are using Anaconda, you will need to install `cairo` and `pkgconfig`:
+```sh
+conda install -c anaconda cairo  
+conda install -c anaconda pkgconfig
+```
 
 ### Older versions of R
 
->If you are using an older version of R, you may need to switch to an older Bioconductor:
->```r
->BiocManager::install(version="3.10")
->```
+If you are using an older version of R, you may need to switch to an older Bioconductor:
+```r
+BiocManager::install(version="3.10")
+```
 
 ## Example usage
 
