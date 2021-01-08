@@ -66,6 +66,7 @@ plot_pca <- function(
   if (is.null(percent_of_variance)) {
     percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100, digits=1)
   }
+  print(coord_by_treat)
 
   if (
     length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)
