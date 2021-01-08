@@ -66,7 +66,6 @@ plot_pca <- function(
   if (is.null(percent_of_variance)) {
     percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100, digits=1)
   }
-  print(coord_by_treat)
 
   if (
     length(draw_lines) == 1 && length(draw_lines[[1]]) == length(coord_by_treat)
@@ -115,24 +114,36 @@ plot_pca <- function(
     for (i in 1:(length(group) - 1)) {
       start_treatment = group[i]
       end_treatment = group[i + 1]
-      start_samples = sapply(
+      start_samples = lapply(
         strsplit(rownames(coord_by_treat[[start_treatment]]), split = ".", fixed = TRUE),
-        function(x) x[[1]]
+        function(x) if (length(x) == 3) x[c(1,3)] else x[[1]]
       )
-      end_samples = sapply(
+      end_samples = lapply(
         strsplit(rownames(coord_by_treat[[end_treatment]]), split = ".", fixed = TRUE),
-        function(x) x[[1]]
+        function(x) if (length(x) == 3) x[c(1,3)] else x[[1]]
       )
       samples = intersect(start_samples, end_samples)
-      for (sample in samples) draw_line(sample, start_treatment, end_treatment)
+      for (sample in samples) {
+        if (length(sample) == 2) {
+          draw_line(sample[[1]], start_treatment, end_treatment, rep = sample[[2]])
+        } else {
+          draw_line(sample, start_treatment, end_treatment)
+        }
+      }
       if (length(group) > i + 1) {
         bridge_treatment = group[i + 2]
-        bridge_samples = sapply(
+        bridge_samples = lapply(
           strsplit(rownames(coord_by_treat[[bridge_treatment]]), split = ".", fixed = TRUE),
-          function(x) x[[1]]
+          function(x) if (length(x) == 3) x[c(1,3)] else x[[1]]
         )
         samples = setdiff(intersect(start_samples, bridge_samples), samples)
-        for (sample in samples) draw_line(sample, start_treatment, bridge_treatment)
+        for (sample in samples) {
+          if (length(sample) == 2) {
+            draw_line(sample[[1]], start_treatment, bridge_treatment, rep = sample[[2]])
+          } else {
+            draw_line(sample, start_treatment, bridge_treatment)
+          }
+        }
       }
     }
   }
