@@ -33,11 +33,9 @@ exploreatacseq_color_palette <- function(order = "categorical") {
 #'
 #' @param coord two-column matrix of principal component coordinates
 #' @return list of two-column matrices, one per treatment
-#' @export
 coordinates_by_treatment <- function(coord) {
   treatment <- sapply(
-    strsplit(rownames(coord), split = ".", fixed = TRUE),
-    function(x) x[[2]]
+    strsplit(rownames(coord), split = ".", fixed = TRUE),  function(x) x[[2]]
   )
   treat_uniq <- unique(treatment)
   setNames(
@@ -53,6 +51,7 @@ coordinates_by_treatment <- function(coord) {
 #' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
 #' @param labels if TRUE, text labels will be added to the points
+#' @param percent_of_variance percentage values to display on axes
 #' @export
 plot_pca <- function(
   pca,

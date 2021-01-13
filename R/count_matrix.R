@@ -18,13 +18,12 @@
 
 #' @title DGEList of read counts
 #'
-#' @description read counts for input into edgeR
+#' @description generate a DGEList from input peaks and BAM files
 #'
 #' @param peaks Granges object representing consensus peaks
 #' @param reads_file_paths list or named character vector giving paths to BAM
 #'   files
 #' @return DGEList object representing read counts
-#' @export
 count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
   summarized_experiment <- summarizeOverlaps(
     peaks,
@@ -45,11 +44,12 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
 
 #' @title apply transformations to read counts
 #'
-#' @description apply voom and remove batch effects
+#' @description apply voom to input read counts (DGEList) and remove batch
+#'   effects
 #'
 #' @param count_dgelist DGEList representing read counts
 #' @param batch factor or vector indicating batches
-#' @param covariates matrix or vector of numeric covariates to be adjusted for
+#' @param covariates matrix or vector of numeric covariates
 #' @return numeric matrix representing transformed counts
 #' @export
 transform_counts <- function(
@@ -73,7 +73,6 @@ transform_counts <- function(
 #' @param count_matrix numeric matrix representing transformed counts
 #' @param n max number of peaks to keep
 #' @return numeric matrix representing counts for most variable peaks
-#' @export
 most_variable_peaks <- function(count_matrix, n = 1e5) {
   count_matrix[
     rev(order(apply(count_matrix, 1, var)))[1:min(n, nrow(count_matrix))],
@@ -86,7 +85,6 @@ most_variable_peaks <- function(count_matrix, n = 1e5) {
 #'
 #' @param count_matrix matrix of read counts
 #' @return character vector indicating sample
-#' @export
 extract_sample_vector <- function(count_matrix) {
   sapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
@@ -100,7 +98,6 @@ extract_sample_vector <- function(count_matrix) {
 #'
 #' @param count_matrix matrix of read counts
 #' @return character vector indicating treatment
-#' @export
 extract_treatment_vector <- function(count_matrix) {
   sapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),

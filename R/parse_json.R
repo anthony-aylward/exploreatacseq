@@ -123,7 +123,6 @@ extract_batch_vector <- function(input_list) {
 #'
 #' @param input_list list derived from input JSON
 #' @return list of useful vectors
-#' @export
 parse_input_data <- function(input_list) {
   list(
     peaks_paths_by_sample = extract_peaks_paths_by_sample(input_list),
@@ -140,7 +139,6 @@ parse_input_data <- function(input_list) {
 #'
 #' @param input_list path to input JSON file
 #' @return list of useful vectors
-#' @export
 parse_json <- function(json_file_path) {
   parse_input_data(fromJSON(json_file_path))
 }

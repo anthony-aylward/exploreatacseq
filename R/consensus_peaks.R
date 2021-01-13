@@ -16,11 +16,11 @@
 
 #' @title Read peaks from a file
 #'
-#' @description Read peaks from a BED or similar file into a GRanges object
+#' @description Read peaks from a BED, narrowPeak, or similar file into a
+#'   GRanges object
 #'
 #' @param peaks_file_path character, path to the peaks file
 #' @return GRanges object representing the peaks
-#' @export
 read_peaks <- function(peaks_file_path) {
   peaks_df <- read.table(peaks_file_path, stringsAsFactors = FALSE)
   GRanges(
@@ -36,7 +36,6 @@ read_peaks <- function(peaks_file_path) {
 #' @param x list of GRanges objects
 #' @param ignore_strand logical, if TRUE strand information will be ignored
 #' @return GRanges, the union of the GRanges in x
-#' @export
 unify_granges <- function(x, ignore_strand = FALSE) {
   if (length(x) > 1) {
     Reduce(function(x, y) union(x, y, ignore.strand = ignore_strand), x)
@@ -52,7 +51,6 @@ unify_granges <- function(x, ignore_strand = FALSE) {
 #'
 #' @param peaks_file_paths character, paths to the files containing the peaks
 #' @return GRanges, the union of peaks from the input files
-#' @export
 unify_peaks <- function(peaks_file_paths) {
   unify_granges(lapply(peaks_file_paths, read_peaks))
 }
@@ -65,7 +63,6 @@ unify_peaks <- function(peaks_file_paths) {
 #' @param peaks_paths_by_sample a list of character vectors containing paths of
 #'   peaks files for each sample
 #' @return list of GRanges objects representing the peaks for each sample
-#' @export
 peaks_by_sample <- function(peaks_paths_by_sample) {
   lapply(peaks_paths_by_sample, unify_peaks)
 }
@@ -79,7 +76,6 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
 #'
 #' @param peaks list of GRanges objects representing the peaks for each sample
 #' @return GRanges, the consensus peak set
-#' @export
 consensus_peaks <- function(peaks) {
   unify_granges(
     lapply(
@@ -102,7 +98,6 @@ consensus_peaks <- function(peaks) {
 #'
 #' @param peaks GRanges object representing peaks
 #' @return GRanges, the filtered peaks
-#' @export
 filter_peaks <- function(peaks) {
   peaks[
     (width(peaks) <= 3000)
@@ -116,7 +111,6 @@ filter_peaks <- function(peaks) {
 #'
 #' @param peaks Granges object representing peaks
 #' @return integer, the median peak length
-#' @export
 median_peak_length <- function(peaks) {
   median(width(peaks))
 }
