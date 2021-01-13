@@ -105,10 +105,7 @@ plot_pca <- function(
   layout(matrix(c(3, 4, 1, 2), 2, 2, byrow = FALSE), widths = c(1, 2), heights = c(2, 1))
   par(mai = c(0.65, 0.65, 0.1, 0.1), omi = c(0.1, 0.1, 0.1, 0.1))
   
-  plot(
-    pca[["rotation"]][,1], pca[["rotation"]][,2], col = "white", xaxt = "n",
-    yaxt = "n", ann = FALSE
-  )
+  plot(pca[["rotation"]][,1], pca[["rotation"]][,2], col = "white", xaxt = "n", yaxt = "n", ann = FALSE)
   for (group in draw_lines) {
     for (i in 1:(length(group) - 1)) {
       start_treatment = group[i]
@@ -153,37 +150,17 @@ plot_pca <- function(
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
     if (labels) text(coord[,1], coord[,2], labels = rownames(coord), pos = 1)
   }
-  grp <- unlist(
-    lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]])))
-  )
-  pc <- lapply(
-    c(1, 2),
-    function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y])))
-  )
-  box_colors <- palette[1:n_treatments][
-    order(sapply(coord_by_treat, function(x) median(x[,1])))
-  ]
+  grp <- unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
+  pc <- lapply(c(1, 2), function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y]))))
+  box_colors <- palette[1:n_treatments][order(sapply(coord_by_treat, function(x) median(x[,1])))]
   by_median <- reorder(grp, pc[[1]], median)
   
-  boxplot(
-    pc[[1]] ~ by_median,
-    horizontal = TRUE,
-    las = 1,
-    col = box_colors,
-    yaxt="n",
-    ann=FALSE
-  )
+  boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col = box_colors, yaxt="n", ann=FALSE)
   title(xlab = paste("PC1 [", percent_of_variance[["PC1"]], "%]", sep = ""))
   
   boxplot(pc[[2]] ~ by_median, col =  box_colors, xaxt="n", ann=FALSE)
   title(ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = ""))
 
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
-  legend(
-    0,
-    1,
-    legend = names(coord_by_treat),
-    col = palette[1:n_treatments],
-    pch = 19
-  )
+  legend(0, 1, legend = names(coord_by_treat), col = palette[1:n_treatments], pch = 19)
 }
