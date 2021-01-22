@@ -46,7 +46,7 @@ coordinates_by_treatment <- function(coord) {
 
 #' @title plot principal components
 #'
-#' @description generate a PCA plot
+#' @description generate a PCA plot from a list with class "prcomp"
 #'
 #' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
