@@ -11,11 +11,12 @@ transform_counts(count_dgelist, batch = NULL, covariates = NULL)
 
 \item{batch}{factor or vector indicating batches}
 
-\item{covariates}{matrix or vector of numeric covariates to be adjusted for}
+\item{covariates}{matrix or vector of numeric covariates}
 }
 \value{
 numeric matrix representing transformed counts
 }
 \description{
-apply voom and remove batch effects
+apply voom to input read counts (DGEList) and remove batch
+  effects
 }

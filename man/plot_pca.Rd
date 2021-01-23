@@ -4,8 +4,13 @@
 \alias{plot_pca}
 \title{plot principal components}
 \usage{
-plot_pca(pca, draw_lines = list(), labels = FALSE,
-  palette = exploreatacseq_color_palette(), percent_of_variance = NULL)
+plot_pca(
+  pca,
+  draw_lines = list(),
+  labels = FALSE,
+  palette = exploreatacseq_color_palette(),
+  percent_of_variance = NULL
+)
 }
 \arguments{
 \item{pca}{list with class "prcomp"}
@@ -13,7 +18,11 @@ plot_pca(pca, draw_lines = list(), labels = FALSE,
 \item{draw_lines}{list of treatment groups to draw lines through}
 
 \item{labels}{if TRUE, text labels will be added to the points}
+
+\item{palette}{color palette for points}
+
+\item{percent_of_variance}{percentage values to display on axes}
 }
 \description{
-generate a PCA plot
+generate a PCA plot from a list with class "prcomp"
 }

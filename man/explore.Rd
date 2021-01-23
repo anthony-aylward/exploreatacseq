@@ -4,11 +4,22 @@
 \alias{explore}
 \title{Explore ATAC-seq data}
 \usage{
-explore(input_data, output_prefix, treatment_groups = list(),
-  labels = FALSE, n_peaks = 1e+05, n_neighbors = 15,
-  metric = "euclidean", n_pc = NULL, write_counts = FALSE,
-  cores = 1, pca = TRUE, umap = FALSE,
-  palette_order = "categorical", palette = NULL)
+explore(
+  input_data,
+  output_prefix,
+  treatment_groups = list(),
+  labels = FALSE,
+  n_peaks = 1e+05,
+  n_neighbors = 15,
+  metric = "euclidean",
+  n_pc = NULL,
+  write_counts = FALSE,
+  cores = 1,
+  pca = TRUE,
+  umap = FALSE,
+  palette_order = "categorical",
+  palette = NULL
+)
 }
 \arguments{
 \item{input_data}{list contatining data details or character path to a JSON
@@ -22,12 +33,6 @@ file}
 
 \item{n_peaks}{integer, number of the top most variable peaks to include in
 the analysis}
-
-\item{n_neighbors}{size of local neighborhood for umap, see ?uwot::umap}
-
-\item{metric}{distance metric for umap, see ?uwot::umap}
-
-\item{n_pc}{number of principal components to pass to umap}
 
 \item{write_counts}{logical, if TRUE the read count matrix will be written
 to disk as a TSV file}

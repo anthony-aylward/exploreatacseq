@@ -16,5 +16,5 @@ files}
 DGEList object representing read counts
 }
 \description{
-read counts for input into edgeR
+generate a DGEList from input peaks and BAM files
 }

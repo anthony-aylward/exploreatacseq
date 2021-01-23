@@ -2,7 +2,6 @@
 # explore.R
 #===============================================================================
 
-#' @import uwot
 #' @import svglite
 
 
@@ -164,9 +163,6 @@ generate_pca_plots <- function(
 #'   inferred from the read count matrix
 #' @param treatment_groups list of treatment groups
 #' @param labels if TRUE, text labels will be added to points in all plots
-#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
-#' @param metric distance metric for umap, see ?uwot::umap
-#' @param n_pc pass the first n principal components to UMAP
 #' @param cores number of cores to use
 #' @export
 generate_umap_plots <- function(
@@ -254,9 +250,6 @@ generate_umap_plots <- function(
 #'   the analysis
 #' @param treatment_groups list providing groups of treatments to be compared
 #' @param labels if TRUE, text labels will be added to points in all plots
-#' @param n_neighbors size of local neighborhood for umap, see ?uwot::umap
-#' @param metric distance metric for umap, see ?uwot::umap
-#' @param n_pc number of principal components to pass to umap
 #' @param write_counts logical, if TRUE the read count matrix will be written
 #'   to disk as a TSV file
 #' @param cores integer, max number of cores to use

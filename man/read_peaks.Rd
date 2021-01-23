@@ -13,5 +13,6 @@ read_peaks(peaks_file_path)
 GRanges object representing the peaks
 }
 \description{
-Read peaks from a BED or similar file into a GRanges object
+Read peaks from a BED, narrowPeak, or similar file into a
+  GRanges object
 }
