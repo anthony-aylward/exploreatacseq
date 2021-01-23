@@ -16,15 +16,15 @@ biocViews: CellBiology, Epigenetics, DimensionReduction, PrincipalComponent, ATA
 Depends:
     R (>= 3.6)
 Imports:
-    BiocGenerics
-    BiocParallel
-    edgeR
-    GenomicAlignments
-    GenomicRanges
-    IRanges
-    jsonlite
-    limma
-    RSamtools
-    S4Vectors
-    SummarizedExperiment
+    BiocGenerics,
+    BiocParallel,
+    edgeR,
+    GenomicAlignments,
+    GenomicRanges,
+    IRanges,
+    jsonlite,
+    limma,
+    RSamtools,
+    S4Vectors,
+    SummarizedExperiment,
     svglite
