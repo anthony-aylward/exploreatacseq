@@ -34,7 +34,7 @@ exploreatacseq_color_palette <- function(order = "categorical") {
 #' @param coord two-column matrix of principal component coordinates
 #' @return list of two-column matrices, one per treatment
 coordinates_by_treatment <- function(coord) {
-  treatment <- sapply(
+  treatment <- vapply(
     strsplit(rownames(coord), split = ".", fixed = TRUE),  function(x) x[[2]]
   )
   treat_uniq <- unique(treatment)
@@ -153,7 +153,7 @@ plot_pca <- function(
   }
   grp <- unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
   pc <- lapply(c(1, 2), function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y]))))
-  box_colors <- palette[1:n_treatments][order(sapply(coord_by_treat, function(x) median(x[,1])))]
+  box_colors <- palette[1:n_treatments][order(vapply(coord_by_treat, function(x) median(x[,1])))]
   by_median <- reorder(grp, pc[[1]], median)
   
   boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col = box_colors, yaxt="n", ann=FALSE)

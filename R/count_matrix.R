@@ -86,7 +86,7 @@ most_variable_peaks <- function(count_matrix, n = 1e5) {
 #' @param count_matrix matrix of read counts
 #' @return character vector indicating sample
 extract_sample_vector <- function(count_matrix) {
-  sapply(
+  vapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
     function(x) x[[1]]
   )
@@ -99,7 +99,7 @@ extract_sample_vector <- function(count_matrix) {
 #' @param count_matrix matrix of read counts
 #' @return character vector indicating treatment
 extract_treatment_vector <- function(count_matrix) {
-  sapply(
+  vapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
     function(x) x[[2]]
   )
