@@ -13,3 +13,18 @@ LazyData: true
 RoxygenNote: 7.1.1
 URL: https://github.com/anthony-aylward/exploreatacseq
 biocViews: CellBiology, Epigenetics, DimensionReduction, PrincipalComponent, ATACSeq, SingleCell
+Depends:
+    R (>= 3.6)
+Imports:
+    BiocGenerics
+    BiocParallel
+    edgeR
+    GenomicAlignments
+    GenomicRanges
+    IRanges
+    jsonlite
+    limma
+    RSamtools
+    S4Vectors
+    SummarizedExperiment
+    svglite
