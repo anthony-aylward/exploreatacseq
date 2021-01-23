@@ -51,6 +51,7 @@ coordinates_by_treatment <- function(coord) {
 #' @param pca list with class "prcomp"
 #' @param draw_lines list of treatment groups to draw lines through
 #' @param labels if TRUE, text labels will be added to the points
+#' @param palette color palette for points
 #' @param percent_of_variance percentage values to display on axes
 #' @export
 plot_pca <- function(

@@ -1,6 +1,6 @@
 Package: exploreatacseq
 Title: Exploratory Analysis of ATAC-seq data
-Version: 1.4.1
+Version: 1.5.0
 Authors@R: 
     person(given = "Anthony",
            family = "Aylward",
