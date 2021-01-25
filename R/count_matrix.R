@@ -6,9 +6,10 @@
 
 #' @importFrom BiocParallel MulticoreParam multicoreWorkers
 #' @importFrom edgeR DGEList calcNormFactors
-#' @importFrom GenomicAlignments summarizeOverlaps assays
+#' @importFrom GenomicAlignments summarizeOverlaps
 #' @importFrom limma voom removeBatchEffect
 #' @importFrom Rsamtools BamFileList
+#' @importFrom SummarizedExperiment assays
 
 
 # Functions ====================================================================
