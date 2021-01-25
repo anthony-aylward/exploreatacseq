@@ -11,8 +11,6 @@
 #' @importFrom Rsamtools BamFileList
 
 
-
-
 # Functions ====================================================================
 
 #' @title DGEList of read counts

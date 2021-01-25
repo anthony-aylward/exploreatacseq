@@ -4,11 +4,9 @@
 
 # Imports ======================================================================
 
-#' @importFrom GenomicRanges GRanges union
+#' @importFrom GenomicRanges GRanges union width seqnames
 #' @importFrom IRanges IRanges subsetByOverlaps
 #' @importFrom S4Vectors Rle
-
-
 
 
 # Functions ====================================================================
