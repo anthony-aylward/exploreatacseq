@@ -76,7 +76,7 @@ transform_counts <- function(
 #' @return numeric matrix representing counts for most variable peaks
 most_variable_peaks <- function(count_matrix, n = 1e5) {
   count_matrix[
-    rev(order(apply(count_matrix, 1, var)))[1:min(n, nrow(count_matrix))],
+    rev(order(apply(count_matrix, 1, var)))[seq_len(min(n, nrow(count_matrix)))],
   ]
 }
 

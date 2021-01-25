@@ -78,12 +78,12 @@ generate_pca_plots <- function(
   if (is.null(treatment_order)) treatment_order <- unique(treatment)
   if (is.null(palette)) {
     palette_vector = setNames(
-      exploreatacseq_color_palette(order = palette_order)[1:length(treatment_order)],
+      exploreatacseq_color_palette(order = palette_order)[seq_len(length(treatment_order))],
       treatment_order
     )
   } else {
     palette_vector = setNames(
-      palette[1:length(treatment_order)],
+      palette[seq_len(length(treatment_order))],
       treatment_order
     )
   }

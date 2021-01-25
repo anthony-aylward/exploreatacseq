@@ -68,7 +68,7 @@ plot_pca <- function(
   coord_by_treat <- coordinates_by_treatment(pca[["rotation"]])
   if (!is.null(names(palette))) coord_by_treat <- coord_by_treat[names(palette)]
   if (is.null(percent_of_variance)) {
-    percent_of_variance <- round(summary(pca)[["importance"]][2, 1:2] * 100, digits=1)
+    percent_of_variance <- round(summary(pca)[["importance"]][2, c(1, 2)] * 100, digits=1)
   }
 
   if (
@@ -112,7 +112,7 @@ plot_pca <- function(
   
   plot(pca[["rotation"]][,1], pca[["rotation"]][,2], col = "white", xaxt = "n", yaxt = "n", ann = FALSE)
   for (group in draw_lines) {
-    for (i in 1:(length(group) - 1)) {
+    for (i in seq_len((length(group) - 1))) {
       start_treatment = group[i]
       end_treatment = group[i + 1]
       start_samples = lapply(
@@ -150,14 +150,14 @@ plot_pca <- function(
   }
 
   n_treatments <- length(coord_by_treat)
-  for (i in 1:n_treatments) {
+  for (i in seq_len(n_treatments)) {
     coord <- coord_by_treat[[i]]
     points(coord[,1], coord[,2], col = palette[[i]], pch = 19, cex = 2)
     if (labels) text(coord[,1], coord[,2], labels = rownames(coord), pos = 1)
   }
   grp <- unlist(lapply(names(coord_by_treat), function(x) rep(x, nrow(coord_by_treat[[x]]))))
   pc <- lapply(c(1, 2), function(y) unlist(lapply(coord_by_treat, function(x) as.numeric(x[,y]))))
-  box_colors <- palette[1:n_treatments][order(vapply(coord_by_treat, function(x) median(x[,1]), double(length = 1)))]
+  box_colors <- palette[seq_len(n_treatments)][order(vapply(coord_by_treat, function(x) median(x[,1]), double(length = 1)))]
   by_median <- reorder(grp, pc[[1]], median)
   
   boxplot(pc[[1]] ~ by_median, horizontal = TRUE, las = 1, col = box_colors, yaxt="n", ann=FALSE)
@@ -167,5 +167,5 @@ plot_pca <- function(
   title(ylab = paste("PC2 [", percent_of_variance[["PC2"]], "%]", sep = ""))
 
   plot(0:1, 0:1, col = "white", xaxt = "n", yaxt = "n", bty = "n", ann = FALSE)
-  legend(0, 1, legend = names(coord_by_treat), col = palette[1:n_treatments], pch = 19)
+  legend(0, 1, legend = names(coord_by_treat), col = palette[seq_len(n_treatments)], pch = 19)
 }

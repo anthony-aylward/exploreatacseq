@@ -101,7 +101,7 @@ consensus_peaks <- function(peaks) {
 filter_peaks <- function(peaks) {
   peaks[
     (width(peaks) <= 3000)
-    & (seqnames(peaks) %in% paste("chr", as.character(1:22), sep = ""))
+    & (seqnames(peaks) %in% paste("chr", as.character(seq_len(22)), sep = ""))
   ]
 }
 
