@@ -27,8 +27,8 @@ extract_peaks_paths_by_sample <- function(input_list) {
           vapply(treatment, function(rep) rep[["peaks"]], character(length = 1))
         }
       }
-    )
-  ))
+    ))
+  )
 }
 
 #' @title extract reads file paths
