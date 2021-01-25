@@ -10,13 +10,8 @@ explore(
   treatment_groups = list(),
   labels = FALSE,
   n_peaks = 1e+05,
-  n_neighbors = 15,
-  metric = "euclidean",
-  n_pc = NULL,
   write_counts = FALSE,
   cores = 1,
-  pca = TRUE,
-  umap = FALSE,
   palette_order = "categorical",
   palette = NULL
 )
@@ -38,10 +33,6 @@ the analysis}
 to disk as a TSV file}
 
 \item{cores}{integer, max number of cores to use}
-
-\item{pca}{logical, if true perform PCA analysis}
-
-\item{umap}{logical, if true perform UMAP analysis}
 
 \item{palette_order}{ordering of color palette, eithier "categorical" or
 "sequential"}

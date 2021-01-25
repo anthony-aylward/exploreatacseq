@@ -4,7 +4,9 @@
 
 # Imports ======================================================================
 
+#' @importFrom graphics boxplot layout legend lines par points text title
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom stats median reorder setNames
 
 
 

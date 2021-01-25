@@ -7,7 +7,7 @@
 parse_json(json_file_path)
 }
 \arguments{
-\item{input_list}{path to input JSON file}
+\item{json_file_path}{path to input JSON file}
 }
 \value{
 list of useful vectors

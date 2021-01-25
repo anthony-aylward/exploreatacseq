@@ -23,6 +23,8 @@ generate_pca_plots(
 \item{treatment}{character vector indicating treatment, if NULL, it will be
 inferred from the read count matrix}
 
+\item{treatment_order}{order of treatments WRT the palette}
+
 \item{treatment_groups}{list of treatment groups}
 
 \item{labels}{if TRUE, text labels will be added to points in all plots}

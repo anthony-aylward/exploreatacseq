@@ -136,7 +136,7 @@ parse_input_data <- function(input_list) {
 #'
 #' @description parse input JSON into useful vectors using `parse_input_data()`.
 #'
-#' @param input_list path to input JSON file
+#' @param json_file_path path to input JSON file
 #' @return list of useful vectors
 parse_json <- function(json_file_path) {
   parse_input_data(fromJSON(json_file_path))

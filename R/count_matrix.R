@@ -9,6 +9,7 @@
 #' @importFrom GenomicAlignments summarizeOverlaps
 #' @importFrom limma voom removeBatchEffect
 #' @importFrom Rsamtools BamFileList
+#' @importFrom stats var
 #' @importFrom SummarizedExperiment assays
 
 

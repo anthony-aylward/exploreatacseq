@@ -11,6 +11,10 @@ count_dgelist(peaks, reads_file_paths, group, cores = 1)
 
 \item{reads_file_paths}{list or named character vector giving paths to BAM
 files}
+
+\item{group}{group vector}
+
+\item{cores}{number of cores to use}
 }
 \value{
 DGEList object representing read counts

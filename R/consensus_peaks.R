@@ -8,6 +8,8 @@
 #' @importFrom GenomicRanges GRanges union width seqnames
 #' @importFrom IRanges IRanges subsetByOverlaps
 #' @importFrom S4Vectors Rle
+#' @importFrom stats median
+#' @importFrom utils combn read.table
 
 
 # Functions ====================================================================
