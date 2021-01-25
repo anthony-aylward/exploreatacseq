@@ -12,7 +12,13 @@ Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.1.1
 URL: https://github.com/anthony-aylward/exploreatacseq
-biocViews: CellBiology, Epigenetics, DimensionReduction, PrincipalComponent, ATACSeq, SingleCell
+biocViews:
+    ATACSeq,
+    CellBiology,
+    DimensionReduction,
+    Epigenetics,
+    PrincipalComponent,
+    SingleCell
 Depends:
     R (>= 3.6)
 Imports:
