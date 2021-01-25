@@ -35,7 +35,9 @@ exploreatacseq_color_palette <- function(order = "categorical") {
 #' @return list of two-column matrices, one per treatment
 coordinates_by_treatment <- function(coord) {
   treatment <- vapply(
-    strsplit(rownames(coord), split = ".", fixed = TRUE),  function(x) x[[2]]
+    strsplit(rownames(coord), split = ".", fixed = TRUE),
+    function(x) x[[2]],
+    character(length = 1)
   )
   treat_uniq <- unique(treatment)
   setNames(

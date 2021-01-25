@@ -88,7 +88,8 @@ most_variable_peaks <- function(count_matrix, n = 1e5) {
 extract_sample_vector <- function(count_matrix) {
   vapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
-    function(x) x[[1]]
+    function(x) x[[1]],
+    character(length = 1)
   )
 }
 
@@ -101,6 +102,7 @@ extract_sample_vector <- function(count_matrix) {
 extract_treatment_vector <- function(count_matrix) {
   vapply(
     strsplit(colnames(count_matrix), split = ".", fixed = TRUE),
-    function(x) x[[2]]
+    function(x) x[[2]],
+    character(length = 1)
   )
 }
