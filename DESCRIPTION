@@ -6,7 +6,9 @@ Authors@R:
            family = "Aylward",
            role = c("aut", "cre"),
            email = "aaylward@eng.ucsd.edu")
-Description: Exploratory analysis of multiple ATAC-seq datasets, which might represent multiple cell types or treatment conditions.
+Description:
+    Exploratory analysis of multiple ATAC-seq datasets, which might represent
+    multiple cell types or treatment conditions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
@@ -15,19 +17,23 @@ URL: https://github.com/anthony-aylward/exploreatacseq
 Depends:
     R (>= 3.6)
 Imports:
-    RColorBrewer,
-    jsonlite,
-    svglite,
     BiocGenerics,
     BiocParallel,
+    edgeR,
     GenomicAlignments,
     GenomicRanges,
+    grDevices,
+    graphics,
     IRanges,
+    jsonlite,
+    limma,
+    RColorBrewer,
     Rsamtools,
     S4Vectors,
     SummarizedExperiment,
-    edgeR,
-    limma
+    stats,
+    svglite,
+    utils
 biocViews:
     ATACSeq,
     CellBiology,

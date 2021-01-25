@@ -18,7 +18,7 @@
 extract_peaks_paths_by_sample <- function(input_list) {
   lapply(
     input_list,
-    function(treatment_list) sapply(
+    function(treatment_list) lapply(
       treatment_list,
       function(treatment) {
         if (sort(names(treatment)) == c("peaks", "reads", "tssenrich")) { 
