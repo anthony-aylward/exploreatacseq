@@ -6,9 +6,9 @@
 
 #' @importFrom BiocParallel MulticoreParam
 #' @importFrom edgeR DGEList
+#' @importFrom GenomicAlignments summarizeOverlaps
 #' @importFrom limma voom removeBatchEffect
 #' @importFrom Rsamtools BamFileList
-#' @importFrom SummarizedExperiment summarizeOverlaps
 
 
 
