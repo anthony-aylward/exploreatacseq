@@ -253,8 +253,6 @@ generate_umap_plots <- function(
 #' @param write_counts logical, if TRUE the read count matrix will be written
 #'   to disk as a TSV file
 #' @param cores integer, max number of cores to use
-#' @param pca logical, if true perform PCA analysis
-#' @param umap logical, if true perform UMAP analysis
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'   "sequential"
 #' @param palette the color palette
@@ -265,13 +263,8 @@ explore <- function(
   treatment_groups = list(),
   labels = FALSE,
   n_peaks = 1e5,
-  n_neighbors = 15,
-  metric = "euclidean",
-  n_pc = NULL,
   write_counts = FALSE,
   cores = 1,
-  pca = TRUE,
-  umap = FALSE,
   palette_order = "categorical",
   palette = NULL
 ) {
@@ -296,25 +289,12 @@ explore <- function(
       row.names = FALSE
     )
   }
-  if (pca) {
-    generate_pca_plots(
-      preprocessed_data[["counts"]],
-      output_prefix,
-      labels = labels,
-      treatment_groups = treatment_groups,
-      palette_order = palette_order,
-      palette = palette
-    )
-  }
-  if (umap) {
-    generate_umap_plots(
-      preprocessed_data[["counts"]],
-      output_prefix,
-      treatment_groups = treatment_groups,
-      n_neighbors = n_neighbors,
-      metric = metric,
-      n_pc = n_pc,
-      cores = cores
-    )
-  }
+  generate_pca_plots(
+    preprocessed_data[["counts"]],
+    output_prefix,
+    labels = labels,
+    treatment_groups = treatment_groups,
+    palette_order = palette_order,
+    palette = palette
+  )
 }

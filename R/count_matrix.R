@@ -21,6 +21,8 @@
 #' @param peaks Granges object representing consensus peaks
 #' @param reads_file_paths list or named character vector giving paths to BAM
 #'   files
+#' @param group group vector
+#' @param cores number of cores to use
 #' @return DGEList object representing read counts
 count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
   summarized_experiment <- summarizeOverlaps(

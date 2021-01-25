@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aaylward@eng.ucsd.edu")
 Description: Exploratory analysis of multiple ATAC-seq datasets, which might represent multiple cell types or treatment conditions.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.1.1
