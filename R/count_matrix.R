@@ -4,8 +4,8 @@
 
 # Imports ======================================================================
 
-#' @import BiocParallel
-#' @importFrom edgeR DGEList
+#' @importFrom BiocParallel MulticoreParam multicoreWorkers
+#' @importFrom edgeR DGEList calcNormFactors
 #' @importFrom GenomicAlignments summarizeOverlaps
 #' @importFrom limma voom removeBatchEffect
 #' @importFrom Rsamtools BamFileList
