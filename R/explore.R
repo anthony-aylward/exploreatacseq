@@ -2,7 +2,7 @@
 # explore.R
 #===============================================================================
 
-#' @import svglite
+#' @importFrom svglite svglite
 
 
 
