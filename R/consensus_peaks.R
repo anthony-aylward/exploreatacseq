@@ -4,10 +4,10 @@
 
 # Imports ======================================================================
 
-#' @import BiocGenerics
-#' @import GenomicRanges
-#' @import IRanges
-#' @import S4Vectors
+##' @import BiocGenerics
+#' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges subsetByOverlaps
+#' @importFrom S4Vectors Rle
 
 
 

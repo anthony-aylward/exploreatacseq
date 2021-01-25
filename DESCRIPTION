@@ -18,4 +18,14 @@ Depends:
 Imports:
     RColorBrewer,
     jsonlite,
-    svglite
+    svglite,
+    BiocGenerics,
+    BiocParallel,
+    GenomicAlignments,
+    GenomicRanges,
+    IRanges,
+    Rsamtools,
+    S4Vectors,
+    SummarizedExperiment,
+    edgeR,
+    limma
