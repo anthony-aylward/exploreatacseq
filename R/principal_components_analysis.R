@@ -4,7 +4,7 @@
 
 # Imports ======================================================================
 
-#' @import RColorBrewer
+#' @importFrom RColorBrewer brewer.pal
 
 
 

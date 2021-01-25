@@ -1,6 +1,6 @@
 Package: exploreatacseq
 Title: Exploratory Analysis of ATAC-seq data
-Version: 1.5.6
+Version: 1.5.7
 Authors@R: 
     person(given = "Anthony",
            family = "Aylward",
@@ -14,7 +14,8 @@ RoxygenNote: 7.1.1
 URL: https://github.com/anthony-aylward/exploreatacseq
 biocViews: CellBiology, Epigenetics, DimensionReduction, PrincipalComponent, ATACSeq, SingleCell
 Depends:
-    R (>= 3.6)
+    R (>= 3.6),
+    GenomicRanges
 Imports:
     RColorBrewer,
     jsonlite,
@@ -22,7 +23,6 @@ Imports:
     BiocGenerics,
     BiocParallel,
     GenomicAlignments,
-    GenomicRanges,
     IRanges,
     Rsamtools,
     S4Vectors,
