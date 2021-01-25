@@ -15,14 +15,14 @@ URL: https://github.com/anthony-aylward/exploreatacseq
 biocViews: CellBiology, Epigenetics, DimensionReduction, PrincipalComponent, ATACSeq, SingleCell
 Depends:
     R (>= 3.6),
-    GenomicRanges
+    BiocParallel
 Imports:
     RColorBrewer,
     jsonlite,
     svglite,
     BiocGenerics,
-    BiocParallel,
     GenomicAlignments,
+    GenomicRanges,
     IRanges,
     Rsamtools,
     S4Vectors,

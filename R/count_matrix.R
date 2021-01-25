@@ -4,7 +4,7 @@
 
 # Imports ======================================================================
 
-#' @importFrom BiocParallel MulticoreParam
+#' @import BiocParallel
 #' @importFrom edgeR DGEList
 #' @importFrom GenomicAlignments summarizeOverlaps
 #' @importFrom limma voom removeBatchEffect
