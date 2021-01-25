@@ -4,7 +4,7 @@
 
 # Imports ======================================================================
 
-#' @importFrom GenomicRanges GRanges
+#' @importFrom GenomicRanges GRanges union
 #' @importFrom IRanges IRanges subsetByOverlaps
 #' @importFrom S4Vectors Rle
 
