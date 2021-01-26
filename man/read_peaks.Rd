@@ -14,5 +14,5 @@ GRanges object representing the peaks
 }
 \description{
 Read peaks from a BED, narrowPeak, or similar file into a
-  GRanges object
+    GRanges object
 }

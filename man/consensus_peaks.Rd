@@ -17,5 +17,5 @@ generate a set of consensus peaks from per-sample peaks
 }
 \details{
 The consensus set is the union of all peaks identified in any
-  sample that overlap a peak in another sample.
+    sample that overlap a peak in another sample.
 }

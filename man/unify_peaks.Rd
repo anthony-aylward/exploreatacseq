@@ -14,5 +14,5 @@ GRanges, the union of peaks from the input files
 }
 \description{
 Create a GRanges object representing the union of peaks from
- one or more input files
+   one or more input files
 }

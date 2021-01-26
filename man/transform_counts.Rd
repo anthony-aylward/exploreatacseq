@@ -18,5 +18,5 @@ numeric matrix representing transformed counts
 }
 \description{
 apply voom to input read counts (DGEList) and remove batch
-  effects
+    effects
 }

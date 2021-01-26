@@ -15,5 +15,5 @@ list of GRanges objects representing the peaks for each sample
 }
 \description{
 Get a GRanges object containing a set of peaks for each input
-  sample
+    sample
 }

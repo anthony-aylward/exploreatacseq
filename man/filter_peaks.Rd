@@ -14,5 +14,5 @@ GRanges, the filtered peaks
 }
 \description{
 filter out peaks that are greater than 3kb in length or are
-  non-autosomal
+    non-autosomal
 }
