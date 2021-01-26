@@ -17,16 +17,16 @@
 #' @title Read peaks from a file
 #'
 #' @description Read peaks from a BED, narrowPeak, or similar file into a
-#'   GRanges object
+#'     GRanges object
 #'
 #' @param peaks_file_path character, path to the peaks file
 #' @return GRanges object representing the peaks
 read_peaks <- function(peaks_file_path) {
-  peaks_df <- read.table(peaks_file_path, stringsAsFactors = FALSE)
-  GRanges(
-    seqnames = Rle(peaks_df[[1]]),
-    ranges = IRanges(start = peaks_df[[2]], end = peaks_df[[3]])
-  )
+    peaks_df <- read.table(peaks_file_path, stringsAsFactors = FALSE)
+    GRanges(
+        seqnames = Rle(peaks_df[[1]]),
+        ranges = IRanges(start = peaks_df[[2]], end = peaks_df[[3]])
+    )
 }
 
 #' @title Unify GRanges
@@ -37,34 +37,34 @@ read_peaks <- function(peaks_file_path) {
 #' @param ignore_strand logical, if TRUE strand information will be ignored
 #' @return GRanges, the union of the GRanges in x
 unify_granges <- function(x, ignore_strand = FALSE) {
-  if (length(x) > 1) {
-    Reduce(function(x, y) union(x, y, ignore.strand = ignore_strand), x)
-  } else {
-    x[[1]]
-  }
+    if (length(x) > 1) {
+        Reduce(function(x, y) union(x, y, ignore.strand = ignore_strand), x)
+    } else {
+        x[[1]]
+    }
 }
 
 #' @title Unify peaks
 #'
 #' @description Create a GRanges object representing the union of peaks from
-#'  one or more input files
+#'    one or more input files
 #'
 #' @param peaks_file_paths character, paths to the files containing the peaks
 #' @return GRanges, the union of peaks from the input files
 unify_peaks <- function(peaks_file_paths) {
-  unify_granges(lapply(peaks_file_paths, read_peaks))
+    unify_granges(lapply(peaks_file_paths, read_peaks))
 }
 
 #' @title Peaks by sample
 #'
 #' @description Get a GRanges object containing a set of peaks for each input
-#'   sample
+#'     sample
 #'
 #' @param peaks_paths_by_sample a list of character vectors containing paths of
-#'   peaks files for each sample
+#'     peaks files for each sample
 #' @return list of GRanges objects representing the peaks for each sample
 peaks_by_sample <- function(peaks_paths_by_sample) {
-  lapply(peaks_paths_by_sample, unify_peaks)
+    lapply(peaks_paths_by_sample, unify_peaks)
 }
 
 #' @title Consensus peaks
@@ -72,37 +72,37 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
 #' @description generate a set of consensus peaks from per-sample peaks
 #'
 #' @details The consensus set is the union of all peaks identified in any
-#'   sample that overlap a peak in another sample.
+#'     sample that overlap a peak in another sample.
 #'
 #' @param peaks list of GRanges objects representing the peaks for each sample
 #' @return GRanges, the consensus peak set
 consensus_peaks <- function(peaks) {
-  unify_granges(
-    lapply(
-      combn(peaks, 2, simplify = FALSE),
-      function(pair) {
-        union(
-          subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
-          subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
-          ignore.strand = TRUE
+    unify_granges(
+        lapply(
+            combn(peaks, 2, simplify = FALSE),
+            function(pair) {
+                union(
+                    subsetByOverlaps(pair[[1]], pair[[2]], ignore.strand = TRUE),
+                    subsetByOverlaps(pair[[2]], pair[[1]], ignore.strand = TRUE),
+                    ignore.strand = TRUE
+                )
+            }
         )
-      }
     )
-  )
 }
 
 #' @title Filter peaks
 #'
 #' @description filter out peaks that are greater than 3kb in length or are
-#'   non-autosomal
+#'     non-autosomal
 #'
 #' @param peaks GRanges object representing peaks
 #' @return GRanges, the filtered peaks
 filter_peaks <- function(peaks) {
-  peaks[
-    (width(peaks) <= 3000)
-    & (seqnames(peaks) %in% paste("chr", as.character(seq_len(22)), sep = ""))
-  ]
+    peaks[
+        (width(peaks) <= 3000)
+        & (seqnames(peaks) %in% paste("chr", as.character(seq_len(22)), sep = ""))
+    ]
 }
 
 #' @title Median Peak Length
@@ -112,5 +112,5 @@ filter_peaks <- function(peaks) {
 #' @param peaks Granges object representing peaks
 #' @return integer, the median peak length
 median_peak_length <- function(peaks) {
-  median(width(peaks))
+    median(width(peaks))
 }
