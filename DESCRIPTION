@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "aaylward@eng.ucsd.edu")
 Description:
-    exploreatacseq provides methods for exploratory analysis of multiple
+    `exploreatacseq` provides methods for exploratory analysis of multiple
     ATAC-seq datasets, which might represent multiple cell types or
     treatment conditions. The primary function is `explore()`, which takes as
     input a set of BAM files containing data from bulk or single-cell ATAC-seq
