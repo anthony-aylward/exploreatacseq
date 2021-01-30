@@ -6,7 +6,15 @@ Authors@R:
            family = "Aylward",
            role = c("aut", "cre"),
            email = "aaylward@eng.ucsd.edu")
-Description: Exploratory analysis of multiple ATAC-seq datasets, which might represent multiple cell types or treatment conditions.
+Description:
+    exploreatacseq provides methods for exploratory analysis of multiple
+    ATAC-seq datasets, which might represent multiple cell types or
+    treatment conditions. The primary function is `explore()`, which takes as
+    input a set of BAM files containing data from bulk or single-cell ATAC-seq
+    experiments, along with some metadata for each file. Each ATAC-seq dataset
+    is pre-processed and normalized, and then a principal component analysis
+    is performed. The output of `explore()` is a table of PC coordinates for
+    each input file along with a customizable PCA plot.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
