@@ -47,3 +47,8 @@ biocViews:
     Epigenetics,
     PrincipalComponent,
     SingleCell
+Suggests: 
+    knitr,
+    rmarkdown,
+    SCATEData
+VignetteBuilder: knitr
