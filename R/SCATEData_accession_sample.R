@@ -13,7 +13,8 @@
 #'
 #' @keywords datasets
 #'
-#' @references Zhicheng Ji, Weiqiang Zhou, Wenpin Hou, Hongkai Ji (2020) Genome Biol 21, 161
-#' (\href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02075-3}{Genome Biol})
+#' @references Zhicheng Ji, Weiqiang Zhou, Wenpin Hou, Hongkai Ji 
+#' \href{https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02075-3}{Single-cell ATAC-seq Signal Extraction and Enhancement with SCATE},
+#' (2020) Genome Biol 21, 161
 #'
 #' @source \href{https://www.ncbi.nlm.nih.gov/sra/}{NCBI Sequence Read Archive}
