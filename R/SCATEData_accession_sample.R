@@ -11,8 +11,8 @@
 #'
 #' @format A data frame with 20 rows and 2 variables:
 #' \describe{
-#'     \item{accession} SRA accession number
-#'     \item{sample} Sample type
+#'     \item{accession}{SRA accession number}
+#'     \item{sample}{Sample type}
 #' }
 #'
 #' @keywords datasets
