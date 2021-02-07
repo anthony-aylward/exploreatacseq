@@ -9,7 +9,11 @@
 #'
 #' @usage data(SCATEData_accession_sample)
 #'
-#' @format A data frame with two columns: "accession" and "sample".
+#' @format A data frame with 20 rows and 2 variables:
+#' \describe{
+#'     \item{accession} SRA accession number
+#'     \item{sample} Sample type
+#' }
 #'
 #' @keywords datasets
 #'
@@ -18,3 +22,4 @@
 #' Genome Biol 21, 161 (2020)
 #'
 #' @source \href{https://www.ncbi.nlm.nih.gov/sra/}{NCBI Sequence Read Archive}
+"SCATEData_accession_sample"
