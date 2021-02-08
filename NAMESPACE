@@ -3,6 +3,7 @@
 export(explore)
 export(exploreatacseq_color_palette)
 export(generate_pca_plots)
+export(locate_SCATEData_files)
 export(plot_pca)
 export(preprocess)
 export(transform_counts)
