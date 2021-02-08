@@ -10,6 +10,6 @@ locate_SCATEData_files <- function() {
         full.names = TRUE,
         pattern = '.bam$'
     )
-    bam_list <- bamlist[grepl('.bam$', bamlist)]
+    bam_list <- bam_list[grepl('.bam$', bam_list)]
     bam_list
 }
