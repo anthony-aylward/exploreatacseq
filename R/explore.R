@@ -130,8 +130,12 @@ generate_pca_plots <- function(
 #'     the analysis
 #' @param treatment_groups list providing groups of treatments to be compared
 #' @param labels if TRUE, text labels will be added to points in all plots
-#' @param write_counts logical, if TRUE the read count matrix will be written
-#'     to disk as a TSV file
+#' @param write_raw_counts logical, if TRUE the raw read count matrix will be
+#'     written to disk as a TSV file
+#' @param write_transformed_counts logical, if TRUE the transformed read count
+#'     matrix will be written to disk as a TSV file
+#' @param write_counts equivalent to `write_transformed_counts`, included to
+#'     preserve compatibility
 #' @param cores integer, max number of cores to use
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'     "sequential"
@@ -143,6 +147,8 @@ explore <- function(
     treatment_groups = list(),
     labels = FALSE,
     n_peaks = 1e5,
+    write_raw_counts = FALSE,
+    write_transformed_counts = FALSE,
     write_counts = FALSE,
     cores = 1,
     palette_order = "categorical",
@@ -156,20 +162,22 @@ explore <- function(
         sep = "",
         file = paste(output_prefix, ".txt", sep = "")
     )
-    if (write_counts) {
+    if (write_raw_counts) {
         write.table(
             preprocessed_data[["raw_counts"]],
             file = paste(output_prefix, ".raw.tsv", sep = ""),
             quote = FALSE,
-            sep = "\t",
-            row.names = FALSE
+            sep = "\t"
+            # row.names = FALSE
         )
+    }
+    if (write_counts || write_transformed_counts) {
         write.table(
             preprocessed_data[["transformed_counts"]],
             file = paste(output_prefix, ".transformed.tsv", sep = ""),
             quote = FALSE,
-            sep = "\t",
-            row.names = FALSE
+            sep = "\t"
+            # row.names = FALSE
         )
     }
     generate_pca_plots(
