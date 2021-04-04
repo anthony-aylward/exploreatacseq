@@ -46,6 +46,7 @@ get_raw_counts <- function(peaks, reads_file_paths, cores = 1) {
 #' @param group group vector
 #' @return DGEList object representing read counts
 count_dgelist <- function(raw_counts, group) {
+    print(raw_counts[1:10,])
     calcNormFactors(
         DGEList(
             raw_counts,
