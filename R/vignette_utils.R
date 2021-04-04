@@ -34,3 +34,5 @@ map_paths_to_samples <- function() {
     )
     sort(setNames(samples, unname(SCATEData_path)))
 }
+
+

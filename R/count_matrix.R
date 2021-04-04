@@ -15,17 +15,16 @@
 
 # Functions ====================================================================
 
-#' @title DGEList of read counts
+#' @title Matrix of raw read counts
 #'
-#' @description generate a DGEList from input peaks and BAM files
+#' @description produce a matrix of raw read counts per peak
 #'
 #' @param peaks Granges object representing consensus peaks
 #' @param reads_file_paths list or named character vector giving paths to BAM
 #'     files
-#' @param group group vector
 #' @param cores number of cores to use
-#' @return DGEList object representing read counts
-count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
+#' @return matrix of read counts
+get_raw_counts <- function(peaks, reads_file_paths, cores = 1) {
     summarized_experiment <- summarizeOverlaps(
         peaks,
         BamFileList(reads_file_paths),
@@ -35,9 +34,19 @@ count_dgelist <- function(peaks, reads_file_paths, group, cores = 1) {
             workers = min(length(reads_file_paths), multicoreWorkers(), cores)
         )
     )
+    assays(summarized_experiment)[["counts"]]
+}
+
+#' @title DGEList of read counts
+#'
+#' @description generate a DGEList from raw read counts
+#'
+#' @param raw_counts matrix of raw counts
+#' @return DGEList object representing read counts
+count_dgelist <- function(raw_counts, group) {
     calcNormFactors(
         DGEList(
-            assays(summarized_experiment)[["counts"]],
+            raw_counts,
             group = rep(1, times = length(group))
         )
     )

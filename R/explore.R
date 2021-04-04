@@ -33,20 +33,20 @@ preprocess <- function(input_data, n_peaks = 1e5, cores = 1) {
     peaks <- filter_peaks(
         consensus_peaks(peaks_by_sample(x[["peaks_paths_by_sample"]]))
     )
-    counts <- most_variable_peaks(
+    raw_counts <- get_raw_counts(peaks, x[["reads_file_paths"]], cores = cores)
+    transformed_counts <- most_variable_peaks(
         transform_counts(
-            count_dgelist(
-                peaks,
-                x[["reads_file_paths"]],
-                x[["group"]],
-                cores = cores
-            ),
+            count_dgelist(raw_counts, x[["group"]]),
             batch = x[["batch"]],
             covariates = x[["tss_enrichment"]]
         ),
         n = n_peaks
     )
-    list(median_peak_length = median_peak_length(peaks), counts = counts)
+    list(
+        median_peak_length = median_peak_length(peaks),
+        raw_counts = raw_counts
+        transformed_counts = transformed_counts
+    )
 }
 
 #' @title generate PCA plots
@@ -158,15 +158,22 @@ explore <- function(
     )
     if (write_counts) {
         write.table(
-            preprocessed_data[["counts"]],
-            file = paste(output_prefix, ".tsv", sep = ""),
+            preprocessed_data[["raw_counts"]],
+            file = paste(output_prefix, ".raw.tsv", sep = ""),
+            quote = FALSE,
+            sep = "\t",
+            row.names = FALSE
+        )
+        write.table(
+            preprocessed_data[["transformed_counts"]],
+            file = paste(output_prefix, ".transformed.tsv", sep = ""),
             quote = FALSE,
             sep = "\t",
             row.names = FALSE
         )
     }
     generate_pca_plots(
-        preprocessed_data[["counts"]],
+        preprocessed_data[["transformed_counts"]],
         output_prefix,
         labels = labels,
         treatment_groups = treatment_groups,
