@@ -44,7 +44,7 @@ preprocess <- function(input_data, n_peaks = 1e5, cores = 1) {
     )
     list(
         median_peak_length = median_peak_length(peaks),
-        raw_counts = raw_counts
+        raw_counts = raw_counts,
         transformed_counts = transformed_counts
     )
 }
