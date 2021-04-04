@@ -10,6 +10,8 @@ explore(
   treatment_groups = list(),
   labels = FALSE,
   n_peaks = 1e+05,
+  write_raw_counts = FALSE,
+  write_transformed_counts = FALSE,
   write_counts = FALSE,
   cores = 1,
   palette_order = "categorical",
@@ -29,8 +31,14 @@ file}
 \item{n_peaks}{integer, number of the top most variable peaks to include in
 the analysis}
 
-\item{write_counts}{logical, if TRUE the read count matrix will be written
-to disk as a TSV file}
+\item{write_raw_counts}{logical, if TRUE the raw read count matrix will be
+written to disk as a TSV file}
+
+\item{write_transformed_counts}{logical, if TRUE the transformed read count
+matrix will be written to disk as a TSV file}
+
+\item{write_counts}{equivalent to `write_transformed_counts`, included to
+preserve compatibility}
 
 \item{cores}{integer, max number of cores to use}
 

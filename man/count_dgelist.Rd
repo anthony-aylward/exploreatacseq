@@ -4,21 +4,16 @@
 \alias{count_dgelist}
 \title{DGEList of read counts}
 \usage{
-count_dgelist(peaks, reads_file_paths, group, cores = 1)
+count_dgelist(raw_counts, group)
 }
 \arguments{
-\item{peaks}{Granges object representing consensus peaks}
-
-\item{reads_file_paths}{list or named character vector giving paths to BAM
-files}
+\item{raw_counts}{matrix of raw counts}
 
 \item{group}{group vector}
-
-\item{cores}{number of cores to use}
 }
 \value{
 DGEList object representing read counts
 }
 \description{
-generate a DGEList from input peaks and BAM files
+generate a DGEList from raw read counts
 }
