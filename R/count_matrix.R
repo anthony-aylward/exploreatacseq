@@ -36,7 +36,6 @@ get_raw_counts <- function(peaks, reads_file_paths, cores = 1) {
     )
     raw_counts <- assays(summarized_experiment)[["counts"]]
     rownames(raw_counts) <- names(peaks)
-    print(head(raw_counts))
     raw_counts
 }
 
