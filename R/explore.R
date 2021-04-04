@@ -168,7 +168,6 @@ explore <- function(
             file = paste(output_prefix, ".raw.tsv", sep = ""),
             quote = FALSE,
             sep = "\t"
-            # row.names = FALSE
         )
     }
     if (write_counts || write_transformed_counts) {
@@ -177,7 +176,6 @@ explore <- function(
             file = paste(output_prefix, ".transformed.tsv", sep = ""),
             quote = FALSE,
             sep = "\t"
-            # row.names = FALSE
         )
     }
     generate_pca_plots(
