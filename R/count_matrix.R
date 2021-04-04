@@ -34,7 +34,8 @@ get_raw_counts <- function(peaks, reads_file_paths, cores = 1) {
             workers = min(length(reads_file_paths), multicoreWorkers(), cores)
         )
     )
-    assays(summarized_experiment)[["counts"]]
+    raw_counts <- assays(summarized_experiment)[["counts"]]
+    row.names(raw_counts) <- names(peaks)
 }
 
 #' @title DGEList of read counts

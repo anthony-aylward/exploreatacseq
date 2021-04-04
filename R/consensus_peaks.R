@@ -5,7 +5,7 @@
 # Imports ======================================================================
 
 #' @importFrom BiocGenerics %in%
-#' @importFrom GenomicRanges GRanges union width seqnames
+#' @importFrom GenomicRanges GRanges union width seqnames ranges
 #' @importFrom IRanges IRanges subsetByOverlaps
 #' @importFrom S4Vectors Rle
 #' @importFrom stats median
@@ -77,7 +77,7 @@ peaks_by_sample <- function(peaks_paths_by_sample) {
 #' @param peaks list of GRanges objects representing the peaks for each sample
 #' @return GRanges, the consensus peak set
 consensus_peaks <- function(peaks) {
-    unify_granges(
+    cp <- unify_granges(
         lapply(
             combn(peaks, 2, simplify = FALSE),
             function(pair) {
@@ -89,6 +89,12 @@ consensus_peaks <- function(peaks) {
             }
         )
     )
+    names(cp) <- paste(
+        seqnames(cp),
+        as.character(ranges(cp)),
+        sep = ":"
+    )
+    cp
 }
 
 #' @title Filter peaks
