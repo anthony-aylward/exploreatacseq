@@ -37,8 +37,8 @@ written to disk as a TSV file}
 \item{write_transformed_counts}{logical, if TRUE the transformed read count
 matrix will be written to disk as a TSV file}
 
-\item{write_counts}{equivalent to `write_transformed_counts`, included to
-preserve compatibility}
+\item{write_counts}{logical, if TRUE both raw and transformed read count
+matrices will be written to disk as TSV files}
 
 \item{cores}{integer, max number of cores to use}
 

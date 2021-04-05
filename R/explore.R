@@ -134,8 +134,8 @@ generate_pca_plots <- function(
 #'     written to disk as a TSV file
 #' @param write_transformed_counts logical, if TRUE the transformed read count
 #'     matrix will be written to disk as a TSV file
-#' @param write_counts equivalent to `write_transformed_counts`, included to
-#'     preserve compatibility
+#' @param write_counts logical, if TRUE both raw and transformed read count
+#'     matrices will be written to disk as TSV files
 #' @param cores integer, max number of cores to use
 #' @param palette_order ordering of color palette, eithier "categorical" or
 #'     "sequential"
@@ -162,7 +162,7 @@ explore <- function(
         sep = "",
         file = paste(output_prefix, ".txt", sep = "")
     )
-    if (write_raw_counts) {
+    if (write_counts || write_raw_counts) {
         write.table(
             preprocessed_data[["raw_counts"]],
             file = paste(output_prefix, ".raw.tsv", sep = ""),
