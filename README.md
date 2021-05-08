@@ -114,7 +114,6 @@ explore(
 
 ## Example results
 
-Here are a couple examples of the visualizations that can be achieved:
+Here is an example of the visualization that can be achieved:
 
-![all no labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca.png)
-![dex with labels](https://github.com/anthony-aylward/islet-cytokines-outline/raw/master/figure/pca-untreated-dex.png)
+![pca plot example](https://github.com/anthony-aylward/exploreatacseq/raw/master/example/pca-untreated-dex_6h_4ug-dex_24h_100ug-pca.png)
